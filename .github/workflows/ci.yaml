@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Node ${{ matrix.node }}
+    name: Build (Node ${{ matrix.node }})
 
     concurrency:
       group: ${{ github.ref }}
@@ -46,3 +46,12 @@ jobs:
 
       - name: Deploy
         run: echo deploy-this-now
+
+  notify:
+    needs: [build]
+    name: Notify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Slack Notification
+        run: echo todo
