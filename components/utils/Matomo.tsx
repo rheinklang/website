@@ -40,12 +40,6 @@ export const Matomo: FC = memo(() => {
 	console.log('Render Matomo');
 	matomoIntegrationStatus = 'initializing';
 
-	// Initial event before injection Matomo
-	tagManagerPush({
-		'mtm.startTime': new Date().getTime(),
-		event: 'mtm.Start',
-	});
-
 	// Inject the main embed script for the container
 	injectMatomoContainerScript();
 

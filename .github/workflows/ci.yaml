@@ -41,6 +41,9 @@ jobs:
         env:
           NEXT_PUBLIC_CMS_GRAPHQL_API_URL: ${{ secrets.CMS_GRAPHQL_API_URL }}
           NEXT_PUBLIC_CMS_REST_API_URL: ${{ secrets.CMS_REST_API_URL }}
+          NEXT_PUBLIC_CMS_API_TOKEN: ${{ secrets.CMS_API_TOKEN }}
+          NEXT_PUBLIC_MATOMO_URL: ${{ secrets.MATOMO_URL }}
+          NEXT_PUBLIC_MATOMO_CONTAINER_ID: ${{ secrets.MATOMO_CONTAINER_ID }}
           BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
 
