@@ -1,12 +1,13 @@
-# workflow triggers
+name: CI
+
 on:
   push:
-    branches: [source]
+    branches: [main]
   pull_request:
-    branches: [source]
+    branches: [main]
+
   workflow_dispatch:
 
-  # Allows external webhook trigger
   repository_dispatch:
     types:
       - webhook
@@ -30,3 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: echo deploy-this-now
