@@ -14,6 +14,10 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	// module settings
+	images: {
+		loader: 'custom',
+	},
 	// build settings
 	distDir: 'build',
 	generateBuildId: async () => {

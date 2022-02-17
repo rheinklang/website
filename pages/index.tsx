@@ -3,12 +3,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { Button } from '../components/Button';
-import { TEST_QUERY } from '../graphql/queries/test';
 import styles from '../styles/Home.module.css';
+import { rawImageLoader } from '../utils/image-loader';
 
 const Home: NextPage = () => {
-	const { data, error } = useSWR(TEST_QUERY);
-
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -53,7 +51,7 @@ const Home: NextPage = () => {
 				</div>
 			</main>
 
-			<code>{JSON.stringify(data)}</code>
+			{/* <code>{JSON.stringify(data)}</code> */}
 
 			<footer className={styles.footer}>
 				<a
@@ -63,7 +61,7 @@ const Home: NextPage = () => {
 				>
 					Powered by{' '}
 					<span className={styles.logo}>
-						<Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+						<Image src="/vercel.svg" alt="Vercel Logo" loader={rawImageLoader} width={72} height={16} />
 					</span>
 				</a>
 			</footer>
