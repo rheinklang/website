@@ -14,6 +14,8 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	// build settings
+	distDir: 'build',
 	generateBuildId: async () => {
 		return v5(`${Date.now()}`, BUILD_ID_NAMESPACE);
 	},
