@@ -44,6 +44,11 @@ export const Matomo: FC = memo(() => {
 	injectMatomoContainerScript();
 
 	Router.events.on('routeChangeComplete', () => {
+		// Push custom event to initialize Facebook Pixel and Piwik
+		tagManagerPush({
+			event: 'applicationReady',
+		});
+
 		// In order to ensure that the page title had been updated,
 		// we delayed pushing the tracking to the next tick.
 		const trackerDelayTimeout = setTimeout(() => {
@@ -52,9 +57,10 @@ export const Matomo: FC = memo(() => {
 			});
 			clearTimeout(trackerDelayTimeout);
 		}, 0);
-	});
 
-	matomoIntegrationStatus = 'ready';
+		// Set status to "ready"
+		matomoIntegrationStatus = 'ready';
+	});
 
 	return null;
 });
