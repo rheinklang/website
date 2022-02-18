@@ -37,7 +37,6 @@ export const tagManagerPush = (event: MatomoEvent) => {
 		window._mtm = [];
 	}
 
-	console.log('tagManagerPush', event);
 	window._mtm.push(event);
 };
 
@@ -50,7 +49,6 @@ export const matomoPush = (event: [string] | [string, any]) => {
 		window._paq = [];
 	}
 
-	console.log('matomoPush', event);
 	window._paq.push(event);
 };
 

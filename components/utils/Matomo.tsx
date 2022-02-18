@@ -37,7 +37,6 @@ export const Matomo: FC = memo(() => {
 		return null;
 	}
 
-	console.log('Render Matomo');
 	matomoIntegrationStatus = 'initializing';
 
 	// Inject the main embed script for the container

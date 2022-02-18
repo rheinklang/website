@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'FV Almelo';
+	src: url('/assets/fonts/FV-Almelo.woff') format('woff'), url('/assets/fonts/FV-Almelo.svg#FV-Almelo') format('svg'),
+		url('/assets/fonts/FV-Almelo.eot'), url('/assets/fonts/FV-Almelo.eot?#iefix') format('embedded-opentype');
+	font-weight: normal;
+	font-style: normal;
+}
