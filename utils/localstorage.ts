@@ -66,3 +66,5 @@ export class LocalStorage {
 		return JSON.parse(value) as T;
 	}
 }
+
+export const storage = new LocalStorage();

@@ -1,10 +1,8 @@
 import { TicketIcon } from '@heroicons/react/outline';
 import type { NextPage } from 'next';
 import { ArticleExcerpt } from '../components/ArticleExcerpt';
-import { ArticleExcerptGrid } from '../components/ArticleExcerptGrid';
-import { ContentContainer } from '../components/ContentContainer';
+import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
-import { EventExcerptGrid } from '../components/EventExcerptGrid';
 import { Hero } from '../components/Hero';
 
 const HomePage: NextPage = () => {
@@ -29,16 +27,24 @@ const HomePage: NextPage = () => {
 					},
 				}}
 			/>
-			<ArticleExcerptGrid size="medium">
-				<ArticleExcerpt />
-				<ArticleExcerpt />
-				<ArticleExcerpt />
-			</ArticleExcerptGrid>
-			<EventExcerptGrid>
-				<EventExcerpt />
-				<EventExcerpt />
-				<EventExcerpt />
-			</EventExcerptGrid>
+			<div className="bg-sea-green-200 md:py-16">
+				<ContentConstraint tag="section">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+						<ArticleExcerpt />
+						<ArticleExcerpt />
+						<ArticleExcerpt />
+					</div>
+				</ContentConstraint>
+			</div>
+			<div className="bg-sea-green-400 md:py-16">
+				<ContentConstraint tag="section">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+						<EventExcerpt />
+						<EventExcerpt />
+						<EventExcerpt />
+					</div>
+				</ContentConstraint>
+			</div>
 		</div>
 	);
 };

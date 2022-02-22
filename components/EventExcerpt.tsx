@@ -9,7 +9,7 @@ export interface EventExcerptProps {
 }
 
 export const EventExcerpt: FC<EventExcerptProps> = ({ className }) => (
-	<div className="h-full flex items-start">
+	<article className="h-full flex items-start">
 		<div className="w-12 mt-10 flex-shrink-0 flex flex-col text-center leading-none rounded-xl bg-white">
 			<span className="pt-2 pb-2 mb-2 border-b-2 text-gray-300 border-gray-100">Jul</span>
 			<span className="pb-2 font-medium text-lg title-font leading-none text-gray-500">18</span>
@@ -38,7 +38,7 @@ export const EventExcerpt: FC<EventExcerptProps> = ({ className }) => (
 				/>
 			</div>
 		</div>
-	</div>
+	</article>
 );
 
 EventExcerpt.displayName = 'EventExcerpt';

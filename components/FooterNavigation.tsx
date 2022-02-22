@@ -11,7 +11,7 @@ const defaultItemsForTesting: LinkProps[] = [{ href: '/', children: 'Home' }];
 
 export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = defaultItemsForTesting }) => {
 	return (
-		<div>
+		<div className="w-full pb-8 md:w-auto md:pb-0">
 			<Heading level="3" className="mb-4">
 				{title}
 			</Heading>
