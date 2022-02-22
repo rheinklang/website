@@ -1,0 +1,11 @@
+query AboutPageTeamMembers {
+	teamMembersCollection(filter: { isActive: true }) {
+		fullName
+		primaryActivityArea
+		role
+		image {
+			path
+			title
+		}
+	}
+}

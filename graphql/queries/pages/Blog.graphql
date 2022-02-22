@@ -1,0 +1,13 @@
+query BlogArticles($limit: Int, $skip: Int) {
+	articlesCollection(limit: $limit, skip: $skip) {
+		title
+		excerpt
+		author {
+			fullName
+			primaryActivityArea
+			image {
+				path
+			}
+		}
+	}
+}

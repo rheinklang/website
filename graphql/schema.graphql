@@ -1,0 +1,100 @@
+schema {
+	query: Query
+}
+
+type Query {
+	teamMembersCollection(filter: TeamMembersCollectionFilter): [TeamMember]!
+	eventCategoriesCollection: [EventCategory]!
+	articleCategoriesCollection: [ArticleCategory]!
+	articlesCollection(filter: TeamMembersCollectionFilter, limit: Int, skip: Int): [Article]!
+}
+
+# Cockpit CMS
+
+interface CockpitAssetField {
+	_id: String!
+}
+
+interface CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+}
+
+type CockpitAsset implements CockpitAssetField {
+	_id: String!
+	title: String
+	path: String!
+	mime: String!
+	tags: [String]!
+	colors: [String]!
+}
+
+# Singletons
+
+# Category Collections
+
+type EventCategory {
+	slug: String!
+	title: String!
+	color: String!
+}
+
+type ArticleCategory {
+	slug: String!
+	title: String!
+}
+
+# Collections
+
+enum TeamMemberActivityArea {
+	building
+	technology
+	finance
+	administration
+	support
+	thirdparty
+	legal
+	communication
+}
+
+input TeamMembersCollectionFilter {
+	_id: String
+	fullName: String
+	primaryActivityArea: TeamMemberActivityArea
+	role: String
+	isFounder: Boolean
+	isActive: Boolean
+}
+
+type TeamMember implements CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+	image: CockpitAsset
+	fullName: String!
+	primaryActivityArea: TeamMemberActivityArea!
+	role: String
+	isFounder: Boolean!
+	isActive: Boolean!
+	entryDate: String!
+	exitDate: String
+}
+
+input ArticleFilter {
+	_id: String
+	category: String
+	tags: [String]
+}
+
+type Article implements CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+	slug: String!
+	title: String!
+	excerpt: String!
+	author: TeamMember
+	readingTime: Int
+	content: String
+}
