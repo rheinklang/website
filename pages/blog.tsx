@@ -57,9 +57,11 @@ const BlogPage: NextPage = () => {
 					<ArticleExcerpt />
 					<ArticleExcerpt />
 					<ArticleExcerpt />
-					<div>
-						<Button onClick={() => {}}>Mehr Anzeigen</Button>
-					</div>
+					<ArticleExcerpt />
+					<ArticleExcerpt />
+				</ContentConstraint>
+				<ContentConstraint className="pt-2 pb-0 flex justify-center">
+					<Button onClick={() => {}}>Mehr Anzeigen</Button>
 				</ContentConstraint>
 			</div>
 		</section>
