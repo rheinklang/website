@@ -1,0 +1,11 @@
+DirectorySlash Off
+
+# Ensure that MutliViews is disabled
+Options -MultiViews
+
+# Disable directory listings
+Options -Indexes
+
+# Custom error pages
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
