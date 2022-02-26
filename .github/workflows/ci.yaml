@@ -27,6 +27,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - uses: actions/setup-node@v2
         with:
@@ -42,6 +49,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          NEXT_TELEMETRY_DISABLED: true
           NEXT_PUBLIC_CMS_GRAPHQL_API_URL: ${{ secrets.CMS_GRAPHQL_API_URL }}
           NEXT_PUBLIC_CMS_REST_API_URL: ${{ secrets.CMS_REST_API_URL }}
           NEXT_PUBLIC_CMS_API_TOKEN: ${{ secrets.CMS_API_TOKEN }}
