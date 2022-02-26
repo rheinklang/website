@@ -5,11 +5,7 @@ import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
 import { Hero } from '../components/Hero';
 import { PageLayout } from '../components/layouts/PageLayout';
-import {
-	getContentProviderPropsGetterForPage,
-	ContentProvider,
-	ContentProviderProps,
-} from '../components/utils/ContentProvider';
+import { getContentProviderPropsGetterForPage, ContentProvider } from '../components/utils/ContentProvider';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContentProviderPropsGetterForPage('home');
@@ -23,9 +19,14 @@ export async function getStaticProps() {
 }
 
 const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({ contentProviderProps }) => {
+	console.log('Content Provider Props', contentProviderProps);
+
 	return (
 		<ContentProvider {...contentProviderProps}>
-			<PageLayout marketingBanner={contentProviderProps.marketingBanner}>
+			<PageLayout
+				marketingBanner={contentProviderProps.marketingBanner}
+				cta={contentProviderProps.headerConfiguration.cta}
+			>
 				<Hero
 					title="Rheinklang Festival 2022"
 					text={[
@@ -46,7 +47,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					}}
 				/>
 				<div className="bg-sea-green-200 md:py-16">
-					<ContentConstraint tag="section">
+					<ContentConstraint>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
 							<ArticleExcerpt />
 							<ArticleExcerpt />
@@ -55,7 +56,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					</ContentConstraint>
 				</div>
 				<div className="bg-sea-green-400 md:py-16">
-					<ContentConstraint tag="section">
+					<ContentConstraint>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
 							<EventExcerpt />
 							<EventExcerpt />

@@ -3,6 +3,9 @@ import Head from 'next/head';
 import { FC } from 'react';
 import {
 	client,
+	HeaderConfigurationDocument,
+	HeaderConfigurationQuery,
+	HeaderConfigurationQueryResult,
 	MarketingBannerDocument,
 	MarketingBannerQuery,
 	MarketingBannerQueryResult,
@@ -22,7 +25,8 @@ export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
 	seo: ReturnType<typeof transformMergeSeo>;
 	apolloCache: NormalizedCacheObject;
-	marketingBanner: Required<MarketingBannerQueryResult['data']>;
+	marketingBanner: MarketingBannerQuery['marketingBannerSingleton'];
+	headerConfiguration: HeaderConfigurationQuery['headerConfigurationSingleton'];
 }
 
 export function getContentProviderPropsGetterForPage(pageId: string) {
@@ -46,13 +50,18 @@ export function getContentProviderPropsGetterForPage(pageId: string) {
 			query: MarketingBannerDocument,
 		});
 
+		const headerConfigurationQueryResult = await client.query<HeaderConfigurationQuery>({
+			query: HeaderConfigurationDocument,
+		});
+
 		const translations = transformTranslationsIntoObject(translationsQueryResult);
 		const seo = transformMergeSeo(seoDefaultQueryResult, seoPageQueryResult);
 
 		return {
 			translations,
 			seo,
-			marketingBanner: marketingBannerQueryResult.data,
+			marketingBanner: marketingBannerQueryResult.data.marketingBannerSingleton,
+			headerConfiguration: headerConfigurationQueryResult.data.headerConfigurationSingleton,
 			apolloCache: client.cache.extract(),
 		};
 	};

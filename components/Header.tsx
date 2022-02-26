@@ -1,9 +1,14 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { ContentConstraint } from './ContentConstraint';
 import { MainNavigation } from './MainNavigation';
+import type { ContentProviderProps } from './utils/ContentProvider';
 
-export const Header: FC = () => {
+export interface HeaderProps {
+	cta: ContentProviderProps['headerConfiguration']['cta'];
+}
+
+export const Header: FC<HeaderProps> = ({ cta }) => {
 	return (
 		<header className="relative z-30 w-full bg-black text-white h-28 sm:px-4">
 			<ContentConstraint tag="nav" className="flex justify-between">
@@ -12,7 +17,7 @@ export const Header: FC = () => {
 						RHEINKLANG
 					</a>
 				</Link>
-				<MainNavigation />
+				<MainNavigation cta={cta} />
 			</ContentConstraint>
 		</header>
 	);

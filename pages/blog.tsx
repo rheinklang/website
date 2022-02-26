@@ -18,7 +18,7 @@ const BlogPage: NextPage = () => {
 	return (
 		<section className="bg-gray-50">
 			<div className="py-4 bg-white border-b border-gray-100">
-				<ContentConstraint tag="section" className="flex flex-wrap lg:flex-nowrap">
+				<ContentConstraint className="flex flex-wrap lg:flex-nowrap">
 					<div className="flex flex-col text-center md:text-left">
 						<Heading level="1">Neuste Artikel</Heading>
 						<p className="mt-1 text-xl lg:text-2xl font-light">

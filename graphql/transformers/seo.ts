@@ -17,6 +17,6 @@ export function transformMergeSeo(
 		keywords: [
 			...(defaults && defaults.keywords ? defaults.keywords : []),
 			...(specific && specific.keywords ? specific.keywords : []),
-		],
+		].filter((val, index, self) => self.indexOf(val) === index),
 	};
 }

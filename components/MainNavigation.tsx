@@ -4,7 +4,6 @@ import {
 	BriefcaseIcon,
 	FlagIcon,
 	InboxIcon,
-	LightningBoltIcon,
 	MenuIcon,
 	SunIcon,
 	SupportIcon,
@@ -12,23 +11,11 @@ import {
 	UsersIcon,
 	XIcon,
 } from '@heroicons/react/outline';
+import classNames from 'classnames';
 import { Button } from './Button';
 import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationItem';
-import classNames from 'classnames';
 import { useTranslation } from '../hooks/useTranslation';
-
-// interface MainNavigationItemProps {
-// 	title: string;
-// 	link: string;
-// }
-
-// const MainNavigationItem: FC<MainNavigationItemProps> = () => (
-
-// )
-
-export interface MainNavigationProps {
-	items?: MainNavigationItemProps[];
-}
+import type { ContentProviderProps } from './utils/ContentProvider';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
@@ -101,7 +88,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 ];
 
-export const MainNavigation: FC<MainNavigationProps> = ({}) => {
+export interface MainNavigationProps {
+	cta?: ContentProviderProps['headerConfiguration']['cta'];
+}
+
+export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const translate = useTranslation();
 	const items = getMainNavigationTree(translate);
@@ -137,20 +128,36 @@ export const MainNavigation: FC<MainNavigationProps> = ({}) => {
 						<MainNavigationItem {...item} />
 					</li>
 				))}
-				<li>
-					<div className="px-10 pb-10 mt-10 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0">
-						<Button icon={<ArrowRightIcon className="inline-block align-text-top h-5 mr-2" />}>
-							Festival Tickets
-						</Button>
-					</div>
-				</li>
+				{cta && cta.link && (
+					<li>
+						<div className="px-10 pb-10 mt-10 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0">
+							<Button
+								link={{
+									href: cta.link,
+									iconPositon: 'post',
+									icon: <ArrowRightIcon className="inline-block align-text-top h-5 ml-2" />,
+								}}
+							>
+								{cta.title}
+							</Button>
+						</div>
+					</li>
+				)}
 			</ul>
 			{/* This CTA should be dynamically controllable via CMS eg. "Festival Tickets" or "Rhema Tickets" */}
-			<div className="z-40 invisible hidden sm:inline-flex sm:visible">
-				<Button iconPosition="post" icon={<ArrowRightIcon className="inline-block align-text-top h-5 ml-2" />}>
-					Festival Tickets
-				</Button>
-			</div>
+			{cta && cta.link && (
+				<div className="z-40 invisible hidden sm:inline-flex sm:visible">
+					<Button
+						link={{
+							href: cta.link,
+							iconPositon: 'post',
+							icon: <ArrowRightIcon className="inline-block align-text-top h-5 ml-2" />,
+						}}
+					>
+						{cta.title}
+					</Button>
+				</div>
+			)}
 			<div
 				className={classNames('cursor-pointer transition-colors px-2 ml-4 rounded-xl border lg:hidden', {
 					'bg-black text-white border-gray-500': !isExpanded,

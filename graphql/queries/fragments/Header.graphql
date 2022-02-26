@@ -1,0 +1,8 @@
+query HeaderConfiguration {
+	headerConfigurationSingleton {
+		cta {
+			title
+			link
+		}
+	}
+}
