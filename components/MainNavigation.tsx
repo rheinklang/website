@@ -15,6 +15,7 @@ import {
 import { Button } from './Button';
 import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationItem';
 import classNames from 'classnames';
+import { useTranslation } from '../hooks/useTranslation';
 
 // interface MainNavigationItemProps {
 // 	title: string;
@@ -29,24 +30,24 @@ export interface MainNavigationProps {
 	items?: MainNavigationItemProps[];
 }
 
-const defaultItemsForTesting: MainNavigationItemProps[] = [
+const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
-		title: 'Events',
+		title: translate('navigation.events.title'),
 		href: '/events',
 		expansion: {
 			items: [
 				{
-					title: 'Festival',
+					title: translate('navigation.events.festivals'),
 					href: '/events/festival',
 					icon: FlagIcon,
 				},
 				{
-					title: 'DayDances',
+					title: translate('navigation.events.daydances'),
 					href: '/events/daydances',
 					icon: SunIcon,
 				},
 				{
-					title: 'Kooperationen',
+					title: translate('navigation.events.cooperations'),
 					href: '/events/cooperations',
 					icon: UsersIcon,
 				},
@@ -54,21 +55,21 @@ const defaultItemsForTesting: MainNavigationItemProps[] = [
 		},
 	},
 	{
-		title: 'Blog',
+		title: translate('navigation.blog.title'),
 		href: '/blog',
 	},
 	{
-		title: 'Über Uns',
+		title: translate('navigation.about.title'),
 		href: '/about-us',
 		expansion: {
 			items: [
 				{
-					title: 'Personen',
+					title: translate('navigation.about.team'),
 					href: '/about-us/our-team',
 					icon: UserGroupIcon,
 				},
 				{
-					title: 'Partner & Sponsoren',
+					title: translate('navigation.about.title'),
 					href: '/about-us/partners-and-sponsors',
 					icon: BriefcaseIcon,
 				},
@@ -76,22 +77,22 @@ const defaultItemsForTesting: MainNavigationItemProps[] = [
 		},
 	},
 	{
-		title: 'Kontakt',
+		title: translate('navigation.contact.title'),
 		href: '/contact',
 		expansion: {
 			items: [
 				{
-					title: 'Event Booking',
+					title: translate('navigation.contact.eventBooking'),
 					href: '/contact/forms/event-booking',
 					icon: InboxIcon,
 				},
 				{
-					title: 'Festival Gastauftritt',
+					title: translate('navigation.contact.festivalGuestAppearance'),
 					href: '/contact/forms/festival-guest-appearance',
 					icon: InboxIcon,
 				},
 				{
-					title: 'Allgemeiner Support',
+					title: translate('navigation.contact.support'),
 					href: '/contact/forms/general-support',
 					icon: SupportIcon,
 				},
@@ -100,10 +101,21 @@ const defaultItemsForTesting: MainNavigationItemProps[] = [
 	},
 ];
 
-export const MainNavigation: FC<MainNavigationProps> = ({ items = defaultItemsForTesting }) => {
+export const MainNavigation: FC<MainNavigationProps> = ({}) => {
 	const [isExpanded, setIsExpanded] = useState(false);
+	const translate = useTranslation();
+	const items = getMainNavigationTree(translate);
 
 	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			if (isExpanded === true) {
+				document.body.classList.add('overflow-hidden');
+				document.body.classList.add('h-screen');
+			} else {
+				document.body.classList.remove('overflow-hidden');
+				document.body.classList.remove('h-screen');
+			}
+		}
 		console.log('Navigation state change');
 	}, [isExpanded]);
 

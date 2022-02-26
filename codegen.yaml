@@ -1,4 +1,6 @@
-schema: graphql/schema.graphql
+schema:
+  - graphql/directives.graphql
+  - graphql/schema.graphql
 documents:
   - "./graphql/queries/**/*.graphql"
 generates:

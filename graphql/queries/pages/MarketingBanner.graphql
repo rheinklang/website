@@ -1,0 +1,8 @@
+query MarketingBanner {
+	marketingBannerSingleton {
+		id
+		message
+		link
+		isEnabled
+	}
+}

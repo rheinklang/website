@@ -1,0 +1,1 @@
+directive @cacheControl(maxAge: Int!, scope: String = "PUBLIC") on FIELD

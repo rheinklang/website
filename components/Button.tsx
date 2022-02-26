@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link, LinkProps } from './Link';
 import { RefreshIcon } from '@heroicons/react/outline';
 
-export type ButtonType = 'primary' | 'secondary' | 'black';
+export type ButtonType = 'primary' | 'secondary' | 'black' | 'danger';
 
 export interface ButtonProps {
 	type?: ButtonType;
@@ -20,6 +20,7 @@ export interface ButtonProps {
 const mapButtonTypeToStyle: Record<ButtonType, string> = {
 	primary:
 		'bg-sea-green-300 text-sea-green-900 ring-sea-green-200 active:bg-sea-green-300 hover:bg-sea-green-200 hover:text-sea-green-800',
+	danger: 'bg-slightly-rose-300 text-slightly-rose-900 ring-slightly-rose-200 active:bg-slightly-rose-300 hover:bg-slightly-rose-200 hover:text-slightly-rose-800',
 	secondary: 'bg-gray-100 text-gray-500 ring-sea-green-200 active:bg-gray-300 hover:bg-gray-200 hover:text-gray-800',
 	black: 'bg-black text-white ring-sea-green-200 active:bg-gray-700 hover:bg-gray-800 hover:text-gray-100',
 };
@@ -48,7 +49,8 @@ export const Button: FC<ButtonProps> = ({
 			)}
 			onClick={onClick}
 		>
-			{link && <Link className="block" {...link} />}
+			{/* eslint-disable-next-line react/no-children-prop */}
+			{link && <Link className="block" children={children} {...link} />}
 			{!link && !isLoading && (
 				<span className="whitespace-nowrap">
 					{icon && iconPosition === 'pre' && icon}

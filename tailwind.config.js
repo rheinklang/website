@@ -1,6 +1,11 @@
 module.exports = {
 	darkMode: 'class',
 	content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+	plugins: [
+		require('@tailwindcss/forms')({
+			strategy: 'class',
+		}),
+	],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -72,5 +77,4 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
 };

@@ -1,0 +1,6 @@
+query Translations {
+	translationsCollection {
+		key
+		value
+	}
+}

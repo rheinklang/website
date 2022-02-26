@@ -3,10 +3,18 @@ schema {
 }
 
 type Query {
+	# Singletons
+	maintenanceConfigurationSingleton: MaintenanceConfiguration!
+	headerConfigurationSingleton: HeaderConfiguration!
+	matomoConfigurationSingleton: MatomoConfiguration!
+	marketingBannerSingleton: MarketingBannger!
+	# Collections
 	teamMembersCollection(filter: TeamMembersCollectionFilter): [TeamMember]!
 	eventCategoriesCollection: [EventCategory]!
 	articleCategoriesCollection: [ArticleCategory]!
 	articlesCollection(filter: TeamMembersCollectionFilter, limit: Int, skip: Int): [Article]!
+	translationsCollection(limit: Int, skip: Int): [Translation]!
+	seoCollection(filter: SeoCollectionFilter): [Seo]!
 }
 
 # Cockpit CMS
@@ -32,15 +40,53 @@ type CockpitAsset implements CockpitAssetField {
 
 # Singletons
 
+type MarketingBannger {
+	id: String!
+	isEnabled: Boolean!
+	message: String
+	link: String
+}
+
+type MaintenanceConfiguration {
+	isMaintenanceActive: Boolean!
+	title: String
+	description: String
+}
+
+type LivestreamConfigurationTimeline {
+	date: String
+	time: String
+}
+
+type LivestreamConfiguration {
+	isEnabled: Boolean!
+	twitchAccount: String
+	streamStart: LivestreamConfigurationTimeline
+	streamEnd: LivestreamConfigurationTimeline
+}
+
+type HeaderConfigurationCta {
+	link: String
+	title: String
+}
+
+type HeaderConfiguration @cacheControl(maxAge: 320) {
+	cta: HeaderConfigurationCta
+}
+
+type MatomoConfiguration @cacheControl(maxAge: 2400) {
+	containerId: String!
+}
+
 # Category Collections
 
-type EventCategory {
+type EventCategory @cacheControl(maxAge: 2400) {
 	slug: String!
 	title: String!
 	color: String!
 }
 
-type ArticleCategory {
+type ArticleCategory @cacheControl(maxAge: 2400) {
 	slug: String!
 	title: String!
 }
@@ -97,4 +143,33 @@ type Article implements CockpitField {
 	author: TeamMember
 	readingTime: Int
 	content: String
+}
+
+# Translations
+
+type Translation implements CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+	key: String!
+	value: String
+}
+
+# SEO
+
+input SeoCollectionFilter {
+	id: String
+}
+
+type Seo implements CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+	id: String!
+	title: String
+	description: String
+	keywords: [String]
+	image: CockpitAsset
+	crawler: String
+	author: String
 }

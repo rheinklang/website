@@ -1,0 +1,29 @@
+query SeoDefaultValues {
+	seoCollection(filter: { id: "default" }) {
+		id
+		author
+		title
+		description
+		crawler
+		keywords
+		image {
+			path
+			title
+		}
+	}
+}
+
+query SeoForId($id: String!) {
+	seoCollection(filter: { id: $id }) {
+		id
+		author
+		title
+		description
+		crawler
+		keywords
+		image {
+			path
+			title
+		}
+	}
+}
