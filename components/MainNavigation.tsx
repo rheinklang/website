@@ -5,6 +5,7 @@ import {
 	FlagIcon,
 	InboxIcon,
 	MenuIcon,
+	NewspaperIcon,
 	SunIcon,
 	SupportIcon,
 	UserGroupIcon,
@@ -16,6 +17,7 @@ import { Button } from './Button';
 import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationItem';
 import { useTranslation } from '../hooks/useTranslation';
 import type { ContentProviderProps } from './utils/ContentProvider';
+import { StaticRoutes } from '../utils/routes';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
@@ -43,21 +45,21 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 	{
 		title: translate('navigation.blog.title'),
-		href: '/blog',
+		href: StaticRoutes.BLOG,
 	},
 	{
 		title: translate('navigation.about.title'),
-		href: '/about-us',
+		href: StaticRoutes.ABOUT_US,
 		expansion: {
 			items: [
 				{
 					title: translate('navigation.about.team'),
-					href: '/about-us/our-team',
+					href: StaticRoutes.PORTRAIT,
 					icon: UserGroupIcon,
 				},
 				{
-					title: translate('navigation.about.title'),
-					href: '/about-us/partners-and-sponsors',
+					title: translate('navigation.about.partners'),
+					href: StaticRoutes.PARTNERS,
 					icon: BriefcaseIcon,
 				},
 			],
@@ -65,22 +67,27 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 	{
 		title: translate('navigation.contact.title'),
-		href: '/contact',
+		href: StaticRoutes.CONTACT,
 		expansion: {
 			items: [
 				{
 					title: translate('navigation.contact.eventBooking'),
-					href: '/contact/forms/event-booking',
+					href: StaticRoutes.EVENT_INQUIRY,
 					icon: InboxIcon,
 				},
 				{
 					title: translate('navigation.contact.festivalGuestAppearance'),
-					href: '/contact/forms/festival-guest-appearance',
+					href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
 					icon: InboxIcon,
 				},
 				{
+					title: translate('navigation.contact.press'),
+					href: StaticRoutes.PRESS_INQUIRY,
+					icon: NewspaperIcon,
+				},
+				{
 					title: translate('navigation.contact.support'),
-					href: '/contact/forms/general-support',
+					href: StaticRoutes.SUPPORT_INQUIRY,
 					icon: SupportIcon,
 				},
 			],
