@@ -1,6 +1,7 @@
 import { TagIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, createRef, FC, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Button } from './Button';
 
 interface DropdownOptionProps {
@@ -37,6 +38,8 @@ export interface DropdownProps {
 }
 
 export const Dropdown: FC<DropdownProps> = ({ placeholder, icon }) => {
+	const dropdownOptionsListRef = createRef<HTMLDivElement>();
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const Icon = icon;
 
 	return (
@@ -47,16 +50,28 @@ export const Dropdown: FC<DropdownProps> = ({ placeholder, icon }) => {
 					type="black"
 					iconPosition="pre"
 					icon={Icon && <Icon className="inline-block h-4 mr-2" />}
+					onClick={() => setIsOpen(!isOpen)}
 				>
 					{placeholder}
 				</Button>
-				<div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md bg-white shadow-2xl border border-gray-100">
-					<div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-						<DropdownOption id="stipe" title="Stripe" />
-						<DropdownOption isActive id="mastercard" title="MasterCard" />
-						<DropdownOption id="paypal" title="PayPal" />
+				<CSSTransition timeout={300} nodeRef={dropdownOptionsListRef}>
+					<div
+						className={classNames(
+							'transitions-all origin-top-right absolute right-0 mt-2 w-56 rounded-md bg-white shadow-2xl border border-gray-100',
+							{
+								'invisible opacity-0': !isOpen,
+								'visible opacity-100': isOpen,
+							}
+						)}
+						ref={dropdownOptionsListRef}
+					>
+						<div role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+							<DropdownOption id="stipe" title="XYZ" />
+							<DropdownOption isActive id="mastercard" title="Something Else" />
+							<DropdownOption id="paypal" title="And another one ..." />
+						</div>
 					</div>
-				</div>
+				</CSSTransition>
 			</div>
 		</div>
 	);
