@@ -1,6 +1,6 @@
 import { CogIcon } from '@heroicons/react/outline';
 import Cookies from 'js-cookie';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useCookie } from '../hooks/useCookie';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
@@ -22,12 +22,20 @@ export const Consent: FC = () => {
 	const { value, setCookie } = useCookie<boolean>(CookieConsents.CONSENTED, undefined, {
 		expires: 365,
 	});
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	const handleConsented = useCallback(() => {
 		setCookie(CookieValues.TRUE);
+		setIsVisible(false);
 	}, [setCookie]);
 
-	if (value === CookieValues.TRUE) {
+	useEffect(() => {
+		if (value === undefined) {
+			setIsVisible(true);
+		}
+	}, [value]);
+
+	if (!isVisible) {
 		return null;
 	}
 
