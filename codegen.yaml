@@ -23,6 +23,7 @@ generates:
     config:
       reactApolloVersion: 3
       skipTypename: true
+      skipTypeNameForRoot: true
       immutableTypes: true
       strictScalars: true
       withHooks: true
