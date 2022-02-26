@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren, ReactElement } from 'react';
+import { FC, PropsWithChildren, ReactElement, useMemo } from 'react';
 import NextLink from 'next/link';
 import classNames from 'classnames';
 
@@ -12,9 +12,7 @@ export type LinkProps = PropsWithChildren<{
 }>;
 
 export const Link: FC<LinkProps> = ({ children, href, className, icon, title, prefetch, iconPositon = 'post' }) => {
-	const isInternal = href.startsWith('/') || href.startsWith('http') === false;
-
-	console.log(href, isInternal);
+	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
 
 	if (isInternal) {
 		return (
@@ -36,7 +34,7 @@ export const Link: FC<LinkProps> = ({ children, href, className, icon, title, pr
 	const utmParams = new URLSearchParams();
 	utmParams.append('utm_source', 'rheinklang-website');
 	utmParams.append('utm_medium', 'link');
-	utmParams.append('utm_campaign', 'referal');
+	utmParams.append('utm_campaign', 'referral');
 
 	return (
 		<a

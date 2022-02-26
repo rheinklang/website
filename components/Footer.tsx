@@ -82,6 +82,7 @@ export const Footer: FC = () => {
 						Made with <HeartIcon className="inline align-text-top h-3 text-slightly-rose-700" /> in
 						Switzerland
 					</p>
+					<p>{process.env.CONFIG_BUILD_ID}</p>
 				</ContentConstraint>
 			</div>
 		</footer>

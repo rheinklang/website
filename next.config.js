@@ -23,6 +23,18 @@ const nextConfig = {
 	generateBuildId: async () => {
 		return v5(`${Date.now()}`, BUILD_ID_NAMESPACE);
 	},
+	// customizations on build level
+	webpack: (config, { webpack, buildId }) => {
+		// inject build-id to render inside the app
+		config.plugins.push(
+			new webpack.DefinePlugin({
+				'process.env.CONFIG_BUILD_ID': JSON.stringify(buildId),
+			})
+		);
+
+		// pass back modified config
+		return config;
+	},
 };
 
 module.exports = nextConfig;
