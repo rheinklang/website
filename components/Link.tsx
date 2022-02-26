@@ -12,18 +12,25 @@ export type LinkProps = PropsWithChildren<{
 }>;
 
 export const Link: FC<LinkProps> = ({ children, href, className, icon, title, prefetch, iconPositon = 'post' }) => {
-	const isInternal = href.startsWith('/') || !href.startsWith('http');
+	const isInternal = href.startsWith('/') || href.startsWith('http') === false;
+
+	console.log(href, isInternal);
 
 	if (isInternal) {
-		<NextLink href={href} prefetch={prefetch === false ? false : true}>
-			<a className={classNames('transition inline-flex items-center cursor-pointer', className)} title={title}>
-				<span className="whitespace-nowrap">
-					{icon && iconPositon === 'pre' && icon}
-					{children}
-					{icon && iconPositon === 'post' && icon}
-				</span>
-			</a>
-		</NextLink>;
+		return (
+			<NextLink href={href}>
+				<a
+					className={classNames('transition inline-flex items-center cursor-pointer', className)}
+					title={title}
+				>
+					<span className="whitespace-nowrap">
+						{icon && iconPositon === 'pre' && icon}
+						{children}
+						{icon && iconPositon === 'post' && icon}
+					</span>
+				</a>
+			</NextLink>
+		);
 	}
 
 	const utmParams = new URLSearchParams();

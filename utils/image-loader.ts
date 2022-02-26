@@ -3,7 +3,7 @@ import type { ImageLoader } from 'next/image';
 /**
  * Image loader to return the raw source without optimizations for eg. static assets
  */
-export const rawImageLoader: ImageLoader = ({ src, width }) => `${src}?w=${width}`;
+export const rawImageLoader: ImageLoader = ({ src, width, quality }) => `${src}?w=${width}&q=${quality}`;
 
 /**
  * Next.js image loader for Cockpit CMS image ressources

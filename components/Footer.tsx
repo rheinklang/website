@@ -1,11 +1,16 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { HeartIcon } from '@heroicons/react/solid';
+import { ArrowRightIcon } from '@heroicons/react/outline';
+import { rawImageLoader } from '../utils/image-loader';
 import { FooterNavigation } from './FooterNavigation';
-import { ArrowRightIcon, LinkIcon } from '@heroicons/react/outline';
 import { ContentConstraint } from './ContentConstraint';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const Footer: FC = () => {
+	const translation = useTranslation();
+
 	return (
 		<footer className="z-30">
 			<div className="md:py-20 bg-black text-white">
@@ -13,7 +18,14 @@ export const Footer: FC = () => {
 					<div className="flex flex-col md:flex-row align-top md:justify-between">
 						<Link href="/">
 							<a title="Homepage" className="pb-12 md:pb-0">
-								Rheinklang Brand
+								<Image
+									className="hue-rotate-180"
+									src="https://cockpit.rheinklang-festival.ch/storage/uploads/2020/04/07/5e8c0b6e8a7f4logo-sm.png"
+									loader={rawImageLoader}
+									width={150}
+									height={150}
+									alt="Logo"
+								/>
 							</a>
 						</Link>
 						<FooterNavigation
@@ -75,3 +87,5 @@ export const Footer: FC = () => {
 		</footer>
 	);
 };
+
+Footer.displayName = 'Footer';

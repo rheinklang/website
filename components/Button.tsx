@@ -40,17 +40,18 @@ export const Button: FC<ButtonProps> = ({
 		<button
 			id={id}
 			className={classNames(
-				`group transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto`,
+				`group transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 font-semibold h-12 rounded-lg w-full flex items-center justify-center sm:w-auto`,
 				mapButtonTypeToStyle[type],
 				className,
 				{
+					'px-6': !link,
 					'cursor-not-allowed opacity-70': isLoading,
 				}
 			)}
 			onClick={onClick}
 		>
 			{/* eslint-disable-next-line react/no-children-prop */}
-			{link && <Link className="block" children={children} {...link} />}
+			{link && <Link className="block px-6" children={children} {...link} />}
 			{!link && !isLoading && (
 				<span className="whitespace-nowrap">
 					{icon && iconPosition === 'pre' && icon}
