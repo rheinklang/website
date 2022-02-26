@@ -15,7 +15,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			{/* <ApolloCacheContext.Provider value={inMemoryCache.extract()}> */}
-			<div className="overflow-x-hidden">
+			<div className="bg-white overflow-x-hidden">
 				<Component {...pageProps} />
 			</div>
 			{/* </ApolloCacheContext.Provider> */}

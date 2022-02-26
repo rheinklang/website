@@ -9,3 +9,8 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
+body {
+	/* sea green 300 */
+	background-color: rgb(157 175 177);
+}
