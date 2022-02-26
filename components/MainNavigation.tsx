@@ -97,24 +97,24 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	const translate = useTranslation();
 	const items = getMainNavigationTree(translate);
 
-	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			if (isExpanded === true) {
-				document.body.classList.add('overflow-hidden');
-				document.body.classList.add('h-screen');
-			} else {
-				document.body.classList.remove('overflow-hidden');
-				document.body.classList.remove('h-screen');
-			}
-		}
-		console.log('Navigation state change');
-	}, [isExpanded]);
+	// useEffect(() => {
+	// 	if (typeof window !== 'undefined') {
+	// 		if (isExpanded === true) {
+	// 			document.body.classList.add('overflow-hidden');
+	// 			document.body.classList.add('h-screen');
+	// 		} else {
+	// 			document.body.classList.remove('overflow-hidden');
+	// 			document.body.classList.remove('h-screen');
+	// 		}
+	// 	}
+	// 	console.log('Navigation state change');
+	// }, [isExpanded]);
 
 	return (
-		<nav role="main" className="flex flex-row flex-nowrap overflow-visible">
+		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto">
 			<ul
 				className={classNames(
-					'transition-all absolute left-0 top-28 w-full min-h-max',
+					'transition-all fixed left-0 bototm-0 top-28 w-full overscroll-auto',
 					'bg-black border-gray-500 border-t',
 					'lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
