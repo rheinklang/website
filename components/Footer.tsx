@@ -73,16 +73,16 @@ export const Footer: FC = () => {
 					</div>
 				</ContentConstraint>
 			</div>
-			<div className="text-xs bg-black uppercase text-white border-t border-t-gray-800">
+			<div className="text-xs bg-black uppercase text-gray-100 border-t border-t-gray-800">
 				<ContentConstraint tag="section" className="flex flex-col md:flex-row md:justify-between">
-					<p className="block w-full text-center md:w-auto md:text-left">
+					<p className="block w-full text-center md:w-1/3 md:text-left">
 						&copy; {new Date().getFullYear()} Rheinklang
 					</p>
-					<p className="block w-full text-center md:w-auto md:text-right">
+					<p className="block w-full text-center md:w-1/3 md:text-center">
 						Made with <HeartIcon className="inline align-text-top h-3 text-slightly-rose-700" /> in
 						Switzerland
 					</p>
-					<p>{process.env.CONFIG_BUILD_ID}</p>
+					<p className="block w-full text-center md:w-1/3 md:text-right">{process.env.CONFIG_BUILD_ID}</p>
 				</ContentConstraint>
 			</div>
 		</footer>
