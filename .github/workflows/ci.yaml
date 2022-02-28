@@ -77,11 +77,27 @@ jobs:
             **/.git*/**
             **/.github/**
 
+      - name: Report issue to Slack
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Deployment Robot
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOY_WEBHOOK_URL }}
+
   notify:
     needs: [build]
     name: Notify
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Slack Notification
-        run: echo todo
+      - name: Report to Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: Deployment Robot
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOY_WEBHOOK_URL }}
