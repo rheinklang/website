@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { PageLayout } from '../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../components/utils/ContentProvider';
-import { ErrorBoundary } from '../components/utils/ErrorBoundary';
+import { PageLayout } from '../../components/layouts/PageLayout';
+import { ContentProvider, getContentProviderPropsGetterForPage } from '../../components/utils/ContentProvider';
+import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContentProviderPropsGetterForPage('http500');

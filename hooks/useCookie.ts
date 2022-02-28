@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 export const useCookie = <T extends any | undefined = any>(
 	selector: string,
 	defaultValue: T = undefined as T,
-	defaultAttributes: CookieAttributes = { expires: 180 }
+	defaultAttributes: CookieAttributes = { expires: 180, sameSite: 'strict' }
 ) => {
 	const [value, setValue] = useState(Cookie.get(selector) || defaultValue);
 	const [attributes, setAttributes] = useState<CookieAttributes>(defaultAttributes);

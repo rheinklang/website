@@ -2,14 +2,14 @@ import { SortAscendingIcon, SortDescendingIcon, TagIcon } from '@heroicons/react
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ArticleExcerpt } from '../components/ArticleExcerpt';
-import { Button } from '../components/Button';
-import { ContentConstraint } from '../components/ContentConstraint';
-import { Dropdown } from '../components/Dropdown';
-import { Heading } from '../components/Heading';
-import { PageLayout } from '../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../components/utils/ContentProvider';
-import { ErrorBoundary } from '../components/utils/ErrorBoundary';
+import { ArticleExcerpt } from '../../components/ArticleExcerpt';
+import { Button } from '../../components/Button';
+import { ContentConstraint } from '../../components/ContentConstraint';
+import { Dropdown } from '../../components/Dropdown';
+import { Heading } from '../../components/Heading';
+import { PageLayout } from '../../components/layouts/PageLayout';
+import { ContentProvider, getContentProviderPropsGetterForPage } from '../../components/utils/ContentProvider';
+import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 
 enum BlogSort {
 	ASCENDING = 'asc',

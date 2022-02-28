@@ -27,17 +27,17 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 			items: [
 				{
 					title: translate('navigation.events.festivals'),
-					href: '/events/festival',
+					href: '/events/category/festival',
 					icon: FlagIcon,
 				},
 				{
 					title: translate('navigation.events.daydances'),
-					href: '/events/daydances',
+					href: '/events/category/daydance',
 					icon: SunIcon,
 				},
 				{
 					title: translate('navigation.events.cooperations'),
-					href: '/events/cooperations',
+					href: '/events/category/cooperation',
 					icon: UsersIcon,
 				},
 			],

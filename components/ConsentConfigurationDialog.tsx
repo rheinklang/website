@@ -84,11 +84,13 @@ export const ConsentConfigurationDialog: FC<ConsentConfigurationDialogProps> = (
 							Object.keys(getValues()).forEach((cookieKey) => {
 								Cookies.set(cookieKey, CookieValues.TRUE, {
 									expires: 365,
+									sameSite: 'strict',
 								});
 							});
 
 							Cookies.set(CookieConsents.CONSENTED, CookieValues.TRUE, {
 								expires: 365,
+								sameSite: 'strict',
 							});
 
 							handleConsented();

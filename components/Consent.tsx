@@ -12,7 +12,7 @@ import { Heading } from './Heading';
 const quickAcceptConsents = () => {
 	for (const consentKey of Object.values(CookieConsents)) {
 		if (consentKey) {
-			Cookies.set(consentKey, CookieValues.TRUE, { expires: 365 });
+			Cookies.set(consentKey, CookieValues.TRUE, { expires: 365, sameSite: 'strict' });
 		}
 	}
 };
