@@ -15,14 +15,18 @@ ErrorDocument 500 /500.html
 	# prevent against XSS
 	Header set X-XSS-Protection "1; mode=block"
 
-	# informs browsers that the site should only be accessed using HTTPS - max age is 1 month
-	Header set Strict-Transport-Security "max-age=2592000; includeSubDomains; preload"
+	# informs browsers that the site should only be accessed using HTTPS - max age is 1 year
+	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 	# we always allow our own domains as well as twitch for iframes
 	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src facebook.net *.facebook.net; img-src dummyimage.com; img-src data:"
 
 	# disable all client-side features as long as we don't use it
 	Header set Feature-Policy: "none"
+
+	# cross-site scripting whitelisting
+	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
+    Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
 
 	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js)$">
 		Header append Vary: Accept-Encoding
