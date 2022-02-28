@@ -74,10 +74,24 @@ export const ContentProvider: FC<ContentProviderProps> = ({ children, translatio
 		<ApolloProvider client={client}>
 			{seo && (
 				<Head>
-					{seo.title && <title>Rheinklang - {seo.title}</title>}
-					{seo.description && <meta name="description" content={seo.description} />}
+					<meta property="og:type" content="website" />
+					<meta property="og:locale" content="de_CH" />
+					<meta property="og:site_name" content="Rheinklang" />
+					{seo.title && (
+						<>
+							<title>Rheinklang - {seo.title}</title>
+							<meta property="og:title" content={seo.title} />
+						</>
+					)}
+					{seo.description && (
+						<>
+							<meta name="description" content={seo.description} />
+							<meta property="og:description" content={seo.description} />
+						</>
+					)}
 					{seo.keywords && <meta name="keywords" content={seo.keywords.join(',')} />}
 					{seo.crawler && <meta name="robots" content={seo.crawler} />}
+					{seo.image && seo.image.path && <meta property="og:image" content={seo.image.path} />}
 				</Head>
 			)}
 			<TranslationContext.Provider value={translations}>{children}</TranslationContext.Provider>

@@ -173,4 +173,5 @@ type Seo implements CockpitField {
 	image: CockpitAsset
 	crawler: String
 	author: String
+	previewImage: CockpitAsset
 }

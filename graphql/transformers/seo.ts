@@ -11,7 +11,7 @@ export function transformMergeSeo(
 	return {
 		title: (specific && specific.title) || (defaults && defaults.title) || '',
 		description: (specific && specific.description) || (defaults && defaults.description) || '',
-		image: (specific && specific.image) || (defaults && defaults.image) || '',
+		image: (specific && specific.image) || (defaults && defaults.image) || undefined,
 		author: (specific && specific.author) || (defaults && defaults.author) || '',
 		crawler: (specific && specific.crawler) || (defaults && defaults.crawler) || '',
 		keywords: [
