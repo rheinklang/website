@@ -1,2 +1,30 @@
 ErrorDocument 404 /404.html
 ErrorDocument 500 /500.html
+
+
+<IfModule mod_headers.c>
+	# do not emit the referrer information
+	Header set Referrer-Policy: no-referrer
+
+	# blocks content sniffing that could transform non-executable MIME types into executable MIME types
+	Header set X-Content-Type-Options nosniff
+
+	# help protecting against clickjacking
+	Header always set X-Frame-Options DENY
+
+	# prevent against XSS
+	Header set X-XSS-Protection "1; mode=block"
+
+	# informs browsers that the site should only be accessed using HTTPS - max age is 1 month
+	Header set Strict-Transport-Security "max-age=2592000; includeSubDomains; preload"
+
+	# we always allow our own domains as well as twitch for iframes
+	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; frame-src 'player.twitch.tv'"
+
+	# disable all client-side features as long as we don't use it
+	Header set Feature-Policy: "none"
+
+	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js)$">
+		Header append Vary: Accept-Encoding
+	</FilesMatch>
+</IfModule>
