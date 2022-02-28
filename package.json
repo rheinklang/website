@@ -13,7 +13,7 @@
     "graphql:introspect": "node ./bin/introspect-graphql-schema.js"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.9",
+    "@apollo/client": "3.5.9",
     "@heroicons/react": "^1.0.5",
     "classnames": "^2.3.1",
     "focus-trap": "^6.7.3",
@@ -43,7 +43,7 @@
     "@types/react": "17.0.39",
     "@types/react-transition-group": "^4.4.4",
     "@types/uuid": "^8.3.4",
-    "apollo-codegen": "^0.20.2",
+    "apollo-codegen": "0.20.2",
     "autoprefixer": "^10.4.2",
     "cssnano": "^5.0.17",
     "dotenv": "^16.0.0",
