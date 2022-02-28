@@ -45,6 +45,7 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 							<li key={title}>
 								<Link href={href}>
 									<a
+										tabIndex={isVisible ? 0 : -1}
 										className={classNames(
 											'transition-colors flex align-center whitespace-nowrap py-4 px-8 align-center hover:text-sea-green-300',
 											'lg:border-t lg:border-gray-600'

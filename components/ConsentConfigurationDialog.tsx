@@ -72,7 +72,8 @@ export const ConsentConfigurationDialog: FC<ConsentConfigurationDialogProps> = (
 				))}
 			</div>
 			<p className="text-xs">
-				<span className="text-slightly-rose-500">*</span> Benötigt um die Website zu nutzen.
+				<span className="text-slightly-rose-500">*</span>&nbsp;
+				{translate('consents.configure.requiredDescription')}
 			</p>
 			<div className="mt-8">
 				<Button

@@ -8,6 +8,7 @@ type Query {
 	headerConfigurationSingleton: HeaderConfiguration!
 	matomoConfigurationSingleton: MatomoConfiguration!
 	marketingBannerSingleton: MarketingBannger!
+	livestreamConfigurationSingleton: LivestreamConfiguration!
 	# Collections
 	teamMembersCollection(filter: TeamMembersCollectionFilter): [TeamMember]!
 	eventCategoriesCollection: [EventCategory]!

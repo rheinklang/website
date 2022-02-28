@@ -1,4 +1,5 @@
 import { CogIcon } from '@heroicons/react/outline';
+import classNames from 'classnames';
 import Cookies from 'js-cookie';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useCookie } from '../hooks/useCookie';
@@ -16,18 +17,26 @@ const quickAcceptConsents = () => {
 	}
 };
 
-export const Consent: FC = () => {
+export interface ConsentProps {
+	variant?: 'dark' | 'light';
+}
+
+export const Consent: FC<ConsentProps> = ({ variant }) => {
 	const translate = useTranslation();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const { value, setCookie } = useCookie<boolean>(CookieConsents.CONSENTED, undefined, {
 		expires: 365,
 	});
-	const [isVisible, setIsVisible] = useState<boolean>(false);
 
 	const handleConsented = useCallback(() => {
 		setCookie(CookieValues.TRUE);
 		setIsVisible(false);
 	}, [setCookie]);
+
+	const handleSetIsOpen = useCallback((nextOpenState: boolean) => {
+		setIsOpen(nextOpenState);
+	}, []);
 
 	useEffect(() => {
 		if (value === undefined) {
@@ -35,13 +44,25 @@ export const Consent: FC = () => {
 		}
 	}, [value]);
 
+	useEffect(() => {
+		console.log('open: %s, visible: %s', isOpen, isVisible);
+	}, [isOpen, isVisible]);
+
 	if (!isVisible) {
 		return null;
 	}
 
 	return (
 		<section>
-			<article className="bg-black text-white p-4 rounded-xl shadow-xl fixed right-4 left-4 bottom-4 md:p-8 md:w-96 md:left-auto">
+			<article
+				className={classNames(
+					'p-4 rounded-xl shadow-xl fixed right-4 left-4 bottom-4 md:p-8 md:w-96 md:left-auto',
+					{
+						'bg-black text-white': variant === 'dark',
+						'bg-white text-black': variant === 'light',
+					}
+				)}
+			>
 				<Heading tag="p" level="5" className="pb-2">
 					{translate('consents.request.title')}
 				</Heading>
@@ -52,7 +73,10 @@ export const Consent: FC = () => {
 						className="block sm:w-full"
 						iconPosition="post"
 						icon={<CogIcon className="inline-block align-top h-6 ml-2" />}
-						onClick={() => setIsOpen(true)}
+						onClick={() => {
+							console.log('set is open to true');
+							handleSetIsOpen(true);
+						}}
 					>
 						{translate('consents.action.configure')}
 					</Button>
@@ -72,7 +96,7 @@ export const Consent: FC = () => {
 					</div>
 				</div>
 			</article>
-			<ConsentConfigurationDialog state={[isOpen, setIsOpen]} handleConsented={handleConsented} />
+			<ConsentConfigurationDialog state={[isOpen, handleSetIsOpen]} handleConsented={handleConsented} />
 		</section>
 	);
 };

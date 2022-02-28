@@ -4,31 +4,28 @@ import { createRef, Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Heading } from './Heading';
 import { createFocusTrap } from 'focus-trap';
+import { traceDeprecation } from 'process';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 export interface DialogProps {
 	title?: string | JSX.Element;
 	description?: string | JSX.Element;
-	state: [boolean, Dispatch<SetStateAction<boolean>>];
+	state: [boolean, (isOpen: boolean) => void];
 }
 
 export const Dialog: FC<DialogProps> = ({ state, title, children }) => {
 	const [isOpen, setIsOpen] = state;
 	const dialogRootRef = createRef<HTMLDivElement>();
 	const dialogContentRef = createRef<HTMLElement>();
+	const dialogFocusTrap = useFocusTrap(dialogContentRef);
 
 	useEffect(() => {
-		if (dialogContentRef && dialogContentRef.current) {
-			const trap = createFocusTrap(dialogContentRef.current, {
-				onDeactivate: () => setIsOpen(false),
-			});
-
-			if (isOpen) {
-				trap.activate();
-			} else {
-				trap.deactivate();
-			}
+		if (isOpen) {
+			dialogFocusTrap.activate();
+		} else {
+			dialogFocusTrap.deactivate();
 		}
-	}, [isOpen, dialogContentRef, setIsOpen]);
+	}, [isOpen, dialogFocusTrap]);
 
 	return (
 		<section className="z-50">
@@ -56,7 +53,12 @@ export const Dialog: FC<DialogProps> = ({ state, title, children }) => {
 						ref={dialogContentRef}
 						className="relative flex flex-col w-auto lg:max-w-2xl py-4 rounded-lg bg-white lg:py-8"
 					>
-						<XIcon className="h-6 absolute right-4 top-4 cursor-pointer" onClick={() => setIsOpen(false)} />
+						<button
+							className="absolute right-4 top-4 cursor-pointer outline-none ring-slightly-rose-700 rounded-xl focus:ring-2"
+							onClick={() => setIsOpen(false)}
+						>
+							<XIcon className="text-slightly-rose-700 h-6" />
+						</button>
 						{title && (
 							<header className="px-4 mb-2 mr-10 lg:px-8">
 								<Heading level="5">{title}</Heading>

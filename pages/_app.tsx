@@ -14,11 +14,9 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<meta name="description" content="Rheinklang, Events für elektronische Musik im St. Galler Rheintal" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			{/* <ApolloCacheContext.Provider value={inMemoryCache.extract()}> */}
 			<div className="bg-white overflow-x-hidden">
 				<Component {...pageProps} />
 			</div>
-			{/* </ApolloCacheContext.Provider> */}
 		</>
 	);
 }

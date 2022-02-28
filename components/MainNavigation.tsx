@@ -104,19 +104,6 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	const translate = useTranslation();
 	const items = getMainNavigationTree(translate);
 
-	// useEffect(() => {
-	// 	if (typeof window !== 'undefined') {
-	// 		if (isExpanded === true) {
-	// 			document.body.classList.add('overflow-hidden');
-	// 			document.body.classList.add('h-screen');
-	// 		} else {
-	// 			document.body.classList.remove('overflow-hidden');
-	// 			document.body.classList.remove('h-screen');
-	// 		}
-	// 	}
-	// 	console.log('Navigation state change');
-	// }, [isExpanded]);
-
 	return (
 		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto">
 			<ul
@@ -171,7 +158,6 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 					'bg-white text-black border-white': isExpanded,
 				})}
 				onClick={() => {
-					console.log('expand menu');
 					setIsExpanded(!isExpanded);
 				}}
 			>

@@ -6,9 +6,10 @@ import { MarketingBanner } from '../MarketingBanner';
 import { Matomo } from '../utils/Matomo';
 import type { ContentProviderProps } from '../utils/ContentProvider';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { ConsentProps } from '../Consent';
 
 // TODO: Refactor to React.lazy once React 18 stable is released
-const Consent = dynamic<{}>(
+const Consent = dynamic<ConsentProps>(
 	() => import(/* webpackChunkName: "consent-component" */ '../Consent').then((m) => m.Consent),
 	{
 		loading: () => null,
@@ -18,9 +19,10 @@ const Consent = dynamic<{}>(
 interface PageLayoutProps {
 	marketingBanner: ContentProviderProps['marketingBanner'];
 	cta: ContentProviderProps['headerConfiguration']['cta'];
+	isDarkOnly?: boolean;
 }
 
-export const PageLayout: FC<PageLayoutProps> = ({ children, marketingBanner, cta }) => {
+export const PageLayout: FC<PageLayoutProps> = ({ children, marketingBanner, cta, isDarkOnly = false }) => {
 	const translate = useTranslation();
 
 	return (
@@ -31,7 +33,7 @@ export const PageLayout: FC<PageLayoutProps> = ({ children, marketingBanner, cta
 			<Header cta={cta} />
 			<div>{children}</div>
 			<Footer />
-			<Consent />
+			<Consent variant={isDarkOnly ? 'light' : 'dark'} />
 			<Matomo />
 		</>
 	);

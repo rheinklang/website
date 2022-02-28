@@ -22,6 +22,7 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 				<a
 					className={classNames(
 						'transition flex items-center h-12 px-6 rounded-lg text-lg hover:bg-white hover:text-black',
+						'outline-none ring-white focus:ring-2',
 						{
 							'bg-white text-black': isActive,
 							'cursor-default': isActive,

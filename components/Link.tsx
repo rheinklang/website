@@ -4,14 +4,14 @@ import classNames from 'classnames';
 
 export type LinkProps = PropsWithChildren<{
 	href: string;
-	prefetch?: boolean;
 	title?: string;
 	className?: string;
 	icon?: JSX.Element;
 	iconPositon?: 'pre' | 'post';
+	tabIndex?: number;
 }>;
 
-export const Link: FC<LinkProps> = ({ children, href, className, icon, title, prefetch, iconPositon = 'post' }) => {
+export const Link: FC<LinkProps> = ({ children, href, className, icon, title, tabIndex, iconPositon = 'post' }) => {
 	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
 
 	if (isInternal) {
@@ -20,6 +20,7 @@ export const Link: FC<LinkProps> = ({ children, href, className, icon, title, pr
 				<a
 					className={classNames('transition inline-flex items-center cursor-pointer', className)}
 					title={title}
+					tabIndex={tabIndex}
 				>
 					<span className="whitespace-nowrap">
 						{icon && iconPositon === 'pre' && icon}

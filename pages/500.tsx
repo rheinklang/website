@@ -17,6 +17,7 @@ export async function getStaticProps() {
 const Error500: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({ contentProviderProps }) => (
 	<ContentProvider {...contentProviderProps}>
 		<PageLayout
+			isDarkOnly
 			marketingBanner={contentProviderProps.marketingBanner}
 			cta={contentProviderProps.headerConfiguration.cta}
 		>

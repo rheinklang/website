@@ -28,6 +28,7 @@
     "react-focus-trap": "^2.7.1",
     "react-hook-form": "^7.27.1",
     "react-transition-group": "^4.4.2",
+    "stacktrace-js": "^2.0.2",
     "swr": "^1.2.1"
   },
   "devDependencies": {

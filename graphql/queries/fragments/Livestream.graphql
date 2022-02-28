@@ -1,0 +1,14 @@
+query CurrentLiveStream {
+	livestreamConfigurationSingleton {
+		isEnabled
+		twitchAccount
+		streamStart {
+			date
+			time
+		}
+		streamEnd {
+			date
+			time
+		}
+	}
+}

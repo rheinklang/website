@@ -51,7 +51,7 @@ export const Button: FC<ButtonProps> = ({
 			onClick={onClick}
 		>
 			{/* eslint-disable-next-line react/no-children-prop */}
-			{link && <Link className="block px-6" children={children} {...link} />}
+			{link && <Link tabIndex={-1} className="block px-6" children={children} {...link} />}
 			{!link && !isLoading && (
 				<span className="whitespace-nowrap">
 					{icon && iconPosition === 'pre' && icon}
