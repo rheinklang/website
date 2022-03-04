@@ -44,6 +44,11 @@ export const Dropdown: FC<DropdownProps> = ({ placeholder, value, onChange, opti
 					leaveTo="opacity-0"
 				>
 					<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+						<Listbox.Option value={undefined} disabled={false}>
+							<span className="inline-block cursor-pointer select-none relative py-2 pl-10 pr-4 text-gray-300 italic">
+								Zurücksetzen
+							</span>
+						</Listbox.Option>
 						{options.map((option) => (
 							<Listbox.Option
 								key={option.id}

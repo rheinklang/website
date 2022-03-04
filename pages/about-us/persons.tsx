@@ -55,12 +55,12 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					</div>
 					<div className="bg-black border-t border-b border-gray-800 py-12 lg:py-24">
 						<ContentConstraint>
-							<div className="flex flex-row flex-wrap justify-evenly">
+							<div className="flex flex-row flex-wrap sm:justify-evenly">
 								{teamMembers
 									.filter((member) => member.isActive === true)
 									.map((member) => (
 										<div
-											className="sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
+											className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
 											key={member.fullName}
 										>
 											<ProfileTeaser

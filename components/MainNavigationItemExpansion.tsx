@@ -15,12 +15,14 @@ export interface MainNavigationItemExpansionProps {
 	className?: string;
 	items?: MainNavigationItemExpansionItemProps[];
 	isVisible?: boolean;
+	handleClose?: () => void;
 }
 
 export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> = ({
 	className,
 	isVisible = false,
 	items = [],
+	handleClose,
 }) => {
 	const router = useRouter();
 
@@ -54,9 +56,10 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 											'lg:text-black lg:hover:text-sea-green-400',
 											{
 												'text-gray-100': router.asPath !== href,
-												'text-sea-green-300': router.asPath === href,
+												'text-sea-green-400': router.asPath === href,
 											}
 										)}
+										onClick={() => handleClose && handleClose()}
 									>
 										{Icon && <Icon className="mr-4 h-5 align-text-top" />}
 										{title}

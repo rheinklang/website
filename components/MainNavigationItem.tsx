@@ -9,9 +9,10 @@ export interface MainNavigationItemProps {
 	href: string;
 	title: string | JSX.Element;
 	expansion?: MainNavigationItemExpansionProps;
+	handleClose?: () => void;
 }
 
-export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, expansion }) => {
+export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, expansion, handleClose }) => {
 	const router = useRouter();
 	const isActive = useMemo(() => router.asPath !== '/' && router.asPath.startsWith(href), [router.asPath, href]);
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -35,7 +36,7 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 				</a>
 			</Link>
 			<div>
-				<MainNavigationItemExpansion {...expansion} isVisible={isExpanded} />
+				<MainNavigationItemExpansion {...expansion} handleClose={handleClose} isVisible={isExpanded} />
 			</div>
 		</div>
 	);

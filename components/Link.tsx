@@ -9,16 +9,32 @@ export type LinkProps = PropsWithChildren<{
 	icon?: JSX.Element;
 	iconPositon?: 'pre' | 'post';
 	tabIndex?: number;
+	isStandalone?: boolean;
 }>;
 
-export const Link: FC<LinkProps> = ({ children, href, className, icon, title, tabIndex, iconPositon = 'post' }) => {
+export const Link: FC<LinkProps> = ({
+	children,
+	href,
+	className,
+	icon,
+	title,
+	tabIndex,
+	iconPositon = 'post',
+	isStandalone = false,
+}) => {
 	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
 
 	if (isInternal) {
 		return (
 			<NextLink href={href}>
 				<a
-					className={classNames('transition inline-flex items-center cursor-pointer', className)}
+					className={classNames(
+						'transition group inline-flex items-center cursor-pointer',
+						{
+							'transition-colors hover:text-sea-green-300': isStandalone,
+						},
+						className
+					)}
 					title={title}
 					tabIndex={tabIndex}
 				>
@@ -39,7 +55,13 @@ export const Link: FC<LinkProps> = ({ children, href, className, icon, title, ta
 
 	return (
 		<a
-			className={classNames('transition inline-flex items-center cursor-pointer', className)}
+			className={classNames(
+				'transition group inline-flex items-center cursor-pointer',
+				{
+					'transition-colors hover:text-sea-green-300': isStandalone,
+				},
+				className
+			)}
 			rel="noopener noreferrer"
 			target="_blank"
 			href={`${href}?${utmParams.toString()}`}

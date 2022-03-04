@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
@@ -18,7 +18,6 @@ import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationIte
 import { useTranslation } from '../hooks/useTranslation';
 import type { ContentProviderProps } from './utils/ContentProvider';
 import { StaticRoutes } from '../utils/routes';
-import { useRouter } from 'next/router';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
@@ -104,7 +103,10 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const translate = useTranslation();
 	const items = getMainNavigationTree(translate);
-	const router = useRouter();
+
+	const handleClose = useCallback(() => {
+		setIsExpanded(false);
+	}, [setIsExpanded]);
 
 	return (
 		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-2">
@@ -121,7 +123,7 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 			>
 				{items.map((item) => (
 					<li key={item.href} className="p-4 lg:mr-4 lg:p-0">
-						<MainNavigationItem {...item} />
+						<MainNavigationItem {...item} handleClose={handleClose} />
 					</li>
 				))}
 				{cta && cta.link && (

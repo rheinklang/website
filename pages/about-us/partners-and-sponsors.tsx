@@ -62,7 +62,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 									})}
 								>
 									<ContentConstraint tag="article">
-										<header>
+										<header className="mb-16 sm:mb-8">
 											<Heading level="2" className="text-sea-green-700 text-center uppercase">
 												{level}
 											</Heading>
@@ -70,7 +70,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 										<div className="flex flex-row flex-wrap justify-evenly">
 											{partners[level].map((partner) => (
 												<div
-													className="sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
+													className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
 													key={partner.title}
 												>
 													<ProfileTeaser

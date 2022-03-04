@@ -36,6 +36,8 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 	articleCategories,
 }) => {
 	const [sort, setSort] = useState<BlogSort>(BlogSort.DESCENDING);
+	const [categoryFilter, setCategoryFilter] = useState<string | undefined>(undefined);
+	const [search, setSearch] = useState<string>('');
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const router = useRouter();
 
@@ -53,13 +55,23 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 						>
 							<>
 								<div className="mb-4">
-									<Input placeholder="Suchen ..." icon={SearchIcon} onChange={() => {}} />
+									<Input
+										placeholder="Suchen ..."
+										icon={SearchIcon}
+										value={search}
+										onChange={(value) => {
+											setSearch(value);
+										}}
+									/>
 								</div>
 								<div className="w-full flex flex-row flex-nowrap">
 									<Dropdown
 										placeholder="Kategorie auswählen"
 										icon={FilterIcon}
-										onChange={() => {}}
+										value={categoryFilter}
+										onChange={(value) => {
+											setCategoryFilter(value);
+										}}
 										options={articleCategories.map((ac) => ({
 											id: ac.slug,
 											label: ac.title,
@@ -82,7 +94,7 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 						</ContentHeader>
 
 						<div className="py-12">
-							<ContentConstraint className="grid gap-8 lg:grid-cols-3">
+							<ContentConstraint className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 								<ArticleExcerpt />
 								<ArticleExcerpt />
 								<ArticleExcerpt />

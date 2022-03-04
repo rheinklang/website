@@ -18,7 +18,7 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({ className }) => (
 				src="https://dummyimage.com/1920x1080/ffe054/ffffff"
 			/>
 		</div>
-		<div className="p-8 sm:p-12">
+		<div className="p-8 sm:p-4 md:p-8">
 			<Badge>CATEGORY</Badge>
 			<h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">
 				Roof party normcore before they sold out, cornhole vape
