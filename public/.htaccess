@@ -1,4 +1,5 @@
 ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
 ErrorDocument 500 /500.html
 
 
@@ -19,7 +20,7 @@ ErrorDocument 500 /500.html
 	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 	# we always allow our own domains as well as twitch for iframes
-	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src facebook.net *.facebook.net; img-src dummyimage.com; img-src data:"
+	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.staging.rheinklang-festival.ch *.rheinklang.events; style-src 'unsafe-inline'; frame-src player.twitch.tv; script-src facebook.net *.facebook.net; img-src dummyimage.com; img-src data:"
 
 	# disable all client-side features as long as we don't use it
 	Header set Feature-Policy: "none"
