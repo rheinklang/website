@@ -6,8 +6,6 @@ export const getPartners = async () => {
 		query: PartnerOverviewDocument,
 	});
 
-	console.log(result);
-
 	return result.data.partnersCollection.filter(nonNullish);
 };
 

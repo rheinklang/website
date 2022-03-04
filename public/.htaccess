@@ -26,7 +26,7 @@ RewriteRule ^(.*)/$ /$1 [L,R]
 	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.staging.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self'; style-src 'unsafe-inline'; frame-src player.twitch.tv; script-src 'self' analytics.rheinklang-festival.ch facebook.net *.facebook.net; img-src dummyimage.com 'self' data:"
 
 	# disable all client-side features as long as we don't use it
-	Header set Feature-Policy: "fullscreen: 'self' player.twitch.tv; geolocation: 'none'; camera: 'none'; autoplay: 'self' player.twitch.tv; battery: 'none'; gyroscope: 'none'; gamepad: 'none'; microphone: 'none'; payment: 'self'; usb: 'none'; xr-spatial-tracking: 'self'"
+	Header set Feature-Policy: "fullscreen 'self' player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' player.twitch.tv; battery 'none'; gyroscope 'none'; gamepad 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
 
 	# cross-site scripting whitelisting
 	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0

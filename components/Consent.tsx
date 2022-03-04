@@ -74,7 +74,6 @@ export const Consent: FC<ConsentProps> = ({ variant }) => {
 						iconPosition="post"
 						icon={<CogIcon className="inline-block align-top h-6 ml-2" />}
 						onClick={() => {
-							console.log('set is open to true');
 							handleSetIsOpen(true);
 						}}
 					>

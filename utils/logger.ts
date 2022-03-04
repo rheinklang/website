@@ -54,6 +54,8 @@ export class Logger {
 	private report(payload: LogPayload) {
 		if (process.env.NODE_ENV !== 'production') {
 			console.log(`[${payload.context}:${payload.env}] ${payload.message} [${payload.buildId}]`);
+		} else {
+			// TODO: Send logs to Cockpit and/or Slack
 		}
 	}
 }
