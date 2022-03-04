@@ -7,6 +7,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R]
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
+DirectorySlash Off
+
+Options -MultiViews
+Options -Indexes
+
 <IfModule mod_headers.c>
 	# do not emit the referrer information
 	Header set Referrer-Policy: no-referrer
@@ -24,7 +29,7 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 	# we always allow our own domains as well as twitch for iframes
-	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.staging.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self'; style-src 'self'; frame-src player.twitch.tv; script-src 'self' analytics.rheinklang-festival.ch facebook.net *.facebook.net; img-src 'self' cms.rheinklang-festival.ch dummyimage.com data:"
+	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src 'self' *.rheinklang-festival.ch *.rheinklang.events facebook.net *.facebook.net; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data:"
 
 	# disable all client-side features as long as we don't use it
 	Header set Feature-Policy: "fullscreen 'self' player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' player.twitch.tv; battery 'none'; gyroscope 'none'; gamepad 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
@@ -33,7 +38,33 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
     Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
 
-	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js)$">
+	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js|css)$">
 		Header append Vary: Accept-Encoding
 	</FilesMatch>
+
+	# caching set to 1 year for "static-ish" files
+	<FilesMatch "\.(ico|jpg|jpeg|gif|png|mp3|mp4)$">
+		Header set Cache-Control "public, max-age=31536000, no-transform"
+	</FilesMatch>
+
+	# caching set to 6 months for compiled assets (which contain a content hash)
+	<FilesMatch "\.(css|js)$">
+		Header set Cache-Control "public, max-age=15768000, no-transform"
+	</FilesMatch>
+
+	# caching set to 2 hours
+	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
+		Header set Cache-Control "public, max-age=7200, must-revalidate"
+	</FilesMatch>
+
+	# no cache for the following files
+	<FilesMatch "\.pdf$">
+		Header set Cache-Control "no-store, max-age=0"
+  	</FilesMatch>
+
+	# no cache for certain service pages
+	<FilesMatch "services\/(twitch)">
+		Header set Cache-Control "no-store, max-age=0"
+  	</FilesMatch>
+
 </IfModule>
