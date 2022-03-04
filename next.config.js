@@ -14,6 +14,7 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	exportTrailingSlash: true,
 	// content settings
 	redirects: async () => {
 		return [
