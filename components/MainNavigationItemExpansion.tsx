@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ComponentProps, FC } from 'react';
 import { Heading } from './Heading';
 
@@ -21,6 +22,8 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 	isVisible = false,
 	items = [],
 }) => {
+	const router = useRouter();
+
 	if (items.length === 0) {
 		return null;
 	}
@@ -29,8 +32,8 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 		<div className="lg:pt-7 overflow-hidden">
 			<ul
 				className={classNames(
-					'transition-all ease-in-out overflow-hidden bg-white py-2 text-black shadow-md ',
-					'lg:absolute lg:rounded-lg lg:opacity-0 lg:max-h-0 shadow-2xl',
+					'transition-all ease-in-out overflow-hidden py-2 shadow-md text-white',
+					'lg:absolute lg:rounded-lg lg:opacity-0 lg:max-h-0 lg:shadow-md lg:bg-white lg:text-black',
 					className,
 					{
 						'lg:visible lg:opacity-100 lg:max-h-screen': isVisible,
@@ -47,8 +50,12 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 									<a
 										tabIndex={isVisible ? 0 : -1}
 										className={classNames(
-											'transition-colors flex align-center whitespace-nowrap py-4 px-8 align-center hover:text-sea-green-400'
-											// 'lg:border-t lg:border-gray-700'
+											'transition-colors flex align-center whitespace-nowrap py-4 px-8 align-center',
+											'lg:text-black lg:hover:text-sea-green-400',
+											{
+												'text-gray-100': router.asPath !== href,
+												'text-sea-green-300': router.asPath === href,
+											}
 										)}
 									>
 										{Icon && <Icon className="mr-4 h-5 align-text-top" />}

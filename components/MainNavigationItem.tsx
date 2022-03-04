@@ -13,11 +13,10 @@ export interface MainNavigationItemProps {
 
 export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, expansion }) => {
 	const router = useRouter();
-	const isActive = useMemo(
-		() => router.pathname === href || href.startsWith(router.pathname),
-		[router.pathname, href]
-	);
+	const isActive = useMemo(() => router.asPath !== '/' && router.asPath.startsWith(href), [router.asPath, href]);
 	const [isExpanded, setIsExpanded] = useState(false);
+
+	console.log(router.asPath, href, isActive);
 
 	return (
 		<div className="relative" onMouseOver={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)}>
@@ -37,7 +36,9 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 					{expansion && isExpanded && <ChevronUpIcon className="invisible lg:visible ml-1 h-6" />}
 				</a>
 			</Link>
-			<div>{isExpanded && <MainNavigationItemExpansion {...expansion} isVisible={isExpanded} />}</div>
+			<div>
+				<MainNavigationItemExpansion {...expansion} isVisible={isExpanded} />
+			</div>
 		</div>
 	);
 };
