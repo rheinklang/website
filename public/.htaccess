@@ -2,6 +2,9 @@ ErrorDocument 404 /404.html
 ErrorDocument 403 /403.html
 ErrorDocument 500 /500.html
 
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R]
 
 <IfModule mod_headers.c>
 	# do not emit the referrer information

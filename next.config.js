@@ -13,8 +13,9 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	// server related settings
 	poweredByHeader: false,
-	exportTrailingSlash: true,
+	exportTrailingSlash: false,
 	// content settings
 	redirects: async () => {
 		return [
