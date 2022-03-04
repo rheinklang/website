@@ -78,7 +78,7 @@ jobs:
             **/.github/**
 
       - name: Report issue to Slack
-        if: failure()
+        if: failure() && github.ref == 'refs/heads/main'
         uses: 8398a7/action-slack@v3
         with:
           author_name: Deployment Robot
@@ -89,6 +89,7 @@ jobs:
 
   notify:
     needs: [build]
+    if: github.ref == 'refs/heads/main'
     name: Notify
     runs-on: ubuntu-latest
 
