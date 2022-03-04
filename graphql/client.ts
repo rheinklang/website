@@ -6,7 +6,6 @@ import {
 	InMemoryCache,
 	NormalizedCacheObject,
 } from '@apollo/client';
-import { JSONResolver, JSONDefinition } from 'graphql-scalars';
 import { print } from 'graphql/language/printer';
 
 import { RetryLink } from '@apollo/client/link/retry';
