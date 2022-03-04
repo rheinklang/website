@@ -30,8 +30,10 @@ const defaultOptions: DefaultOptions = {
 };
 
 const consoleDebugLink = new ApolloLink((operation, forward) => {
-	console.log(`Variables: ${JSON.stringify(operation.variables)}`);
-	console.log(`Query`, print(operation.query));
+	if (process.env.NODE_ENV !== 'production') {
+		console.log(`Variables: ${JSON.stringify(operation.variables)}`);
+		console.log(`Query`, print(operation.query));
+	}
 
 	return forward(operation);
 });
