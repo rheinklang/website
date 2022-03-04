@@ -5,6 +5,7 @@ ErrorDocument 500 /500.html
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R]
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 <IfModule mod_headers.c>
 	# do not emit the referrer information
@@ -23,7 +24,7 @@ RewriteRule ^(.*)/$ /$1 [L,R]
 	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 	# we always allow our own domains as well as twitch for iframes
-	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.staging.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self'; style-src 'unsafe-inline'; frame-src player.twitch.tv; script-src 'self' analytics.rheinklang-festival.ch facebook.net *.facebook.net; img-src dummyimage.com 'self' data:"
+	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.staging.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self'; style-src 'self'; frame-src player.twitch.tv; script-src 'self' analytics.rheinklang-festival.ch facebook.net *.facebook.net; img-src 'self' cms.rheinklang-festival.ch dummyimage.com data:"
 
 	# disable all client-side features as long as we don't use it
 	Header set Feature-Policy: "fullscreen 'self' player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' player.twitch.tv; battery 'none'; gyroscope 'none'; gamepad 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
