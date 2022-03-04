@@ -83,7 +83,7 @@ jobs:
         with:
           author_name: Deployment Robot
           status: ${{ job.status }}
-          fields: repo,message,commit,action,eventName,ref,workflow,pullRequest
+          fields: repo,message,commit,action,eventName,ref,workflow,author,pullRequest
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOY_WEBHOOK_URL }}
 
@@ -98,6 +98,6 @@ jobs:
         with:
           author_name: Deployment Robot
           status: ${{ job.status }}
-          fields: repo,message,commit,action,eventName,ref,workflow,pullRequest
+          fields: repo,message,commit,action,eventName,ref,workflow,author,pullRequest
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOY_WEBHOOK_URL }}
