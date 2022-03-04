@@ -1,0 +1,16 @@
+query PartnerOverview {
+	partnersCollection {
+		title
+		# slug
+		logo {
+			path
+		}
+		type
+		level
+		isActive
+		role
+		homepage
+		since
+		left
+	}
+}

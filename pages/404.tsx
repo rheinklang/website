@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import { ErrorPage } from '../components/ErrorPage';
 import { PageLayout } from '../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../components/utils/ContentProvider';
+import { ContentProvider, getContextualContentProviderFetcher } from '../components/utils/ContentProvider';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContentProviderPropsGetterForPage('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('http500');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {

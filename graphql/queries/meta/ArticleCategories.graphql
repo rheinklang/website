@@ -1,0 +1,6 @@
+query ArticleCategoriesForFilter {
+	articleCategoriesCollection {
+		slug
+		title
+	}
+}

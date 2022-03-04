@@ -1,74 +1,50 @@
 import { ApolloProvider, NormalizedCacheObject } from '@apollo/client';
 import Head from 'next/head';
 import { FC } from 'react';
-import {
-	client,
-	HeaderConfigurationDocument,
-	HeaderConfigurationQuery,
-	HeaderConfigurationQueryResult,
-	MarketingBannerDocument,
-	MarketingBannerQuery,
-	MarketingBannerQueryResult,
-	SeoDefaultValuesDocument,
-	SeoDefaultValuesQuery,
-	SeoForIdDocument,
-	SeoForIdQuery,
-	TranslationsDocument,
-	TranslationsQuery,
-} from '../../graphql';
+import { getHeaderConfiguration } from '../../api/header';
+import { getMarketingBanner } from '../../api/marketing';
+import { getDefaultSeo, getSeoForPageId } from '../../api/seo';
+import { getTranslations } from '../../api/translations';
+import { client, HeaderConfigurationQuery, MarketingBannerQuery } from '../../graphql';
+import { transformMarketingBanner } from '../../graphql/transformers/marketingBanner';
 import { transformMergeSeo } from '../../graphql/transformers/seo';
 import { transformTranslationsIntoObject } from '../../graphql/transformers/translations';
+import { transformHeaderConfiguration } from '../../graphql/transformers/headerConfiguration';
 import { TranslationContext } from '../../hooks/useTranslation';
-import type { MarketingBannerProps } from '../MarketingBanner';
 
 export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
 	seo: ReturnType<typeof transformMergeSeo>;
-	apolloCache: NormalizedCacheObject;
-	marketingBanner: MarketingBannerQuery['marketingBannerSingleton'];
-	headerConfiguration: HeaderConfigurationQuery['headerConfigurationSingleton'];
+	marketingBanner: ReturnType<typeof transformMarketingBanner>;
+	headerConfiguration: ReturnType<typeof transformHeaderConfiguration>;
+	__APOLLO_CACHE__: NormalizedCacheObject;
 }
 
-export function getContentProviderPropsGetterForPage(pageId: string) {
+export function getContextualContentProviderFetcher(pageId: string) {
 	return async (): Promise<ContentProviderProps> => {
-		const translationsQueryResult = await client.query<TranslationsQuery>({
-			query: TranslationsDocument,
-		});
-
-		const seoDefaultQueryResult = await client.query<SeoDefaultValuesQuery>({
-			query: SeoDefaultValuesDocument,
-		});
-
-		const seoPageQueryResult = await client.query<SeoForIdQuery>({
-			query: SeoForIdDocument,
-			variables: {
-				id: pageId,
-			},
-		});
-
-		const marketingBannerQueryResult = await client.query<MarketingBannerQuery>({
-			query: MarketingBannerDocument,
-		});
-
-		const headerConfigurationQueryResult = await client.query<HeaderConfigurationQuery>({
-			query: HeaderConfigurationDocument,
-		});
+		const translationsQueryResult = await getTranslations();
+		const seoDefaultQueryResult = await getDefaultSeo();
+		const seoPageQueryResult = await getSeoForPageId(pageId);
+		const marketingBannerQueryResult = await getMarketingBanner();
+		const headerConfigurationQueryResult = await getHeaderConfiguration();
 
 		const translations = transformTranslationsIntoObject(translationsQueryResult);
 		const seo = transformMergeSeo(seoDefaultQueryResult, seoPageQueryResult);
+		const marketingBanner = transformMarketingBanner(marketingBannerQueryResult);
+		const headerConfiguration = transformHeaderConfiguration(headerConfigurationQueryResult);
 
 		return {
 			translations,
 			seo,
-			marketingBanner: marketingBannerQueryResult.data.marketingBannerSingleton,
-			headerConfiguration: headerConfigurationQueryResult.data.headerConfigurationSingleton,
-			apolloCache: client.cache.extract(),
+			marketingBanner,
+			headerConfiguration,
+			__APOLLO_CACHE__: client.cache.extract(),
 		};
 	};
 }
 
-export const ContentProvider: FC<ContentProviderProps> = ({ children, translations, seo, apolloCache }) => {
-	client.cache.restore(apolloCache);
+export const ContentProvider: FC<ContentProviderProps> = ({ children, translations, seo, __APOLLO_CACHE__ }) => {
+	client.cache.restore(__APOLLO_CACHE__);
 
 	return (
 		<ApolloProvider client={client}>

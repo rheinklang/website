@@ -13,8 +13,8 @@ query SeoDefaultValues {
 	}
 }
 
-query SeoForId($id: String!) {
-	seoCollection(filter: { id: $id }) {
+query SeoWithFilter($filter: JsonType) {
+	seoCollection(filter: $filter) {
 		id
 		author
 		title

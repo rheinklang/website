@@ -26,11 +26,11 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 	}
 
 	return (
-		<div className="pt-2 pl-4 lg:pt-8 lg:pl-0">
+		<div className="lg:pt-7 overflow-hidden">
 			<ul
 				className={classNames(
-					'transition-all ease-in-out overflow-hidden bg-black text-white shadow-md ',
-					'lg:absolute lg:rounded-b-xl lg:opacity-0 lg:max-h-0',
+					'transition-all ease-in-out overflow-hidden bg-white py-2 text-black shadow-md ',
+					'lg:absolute lg:rounded-lg lg:opacity-0 lg:max-h-0 shadow-2xl',
 					className,
 					{
 						'lg:visible lg:opacity-100 lg:max-h-screen': isVisible,
@@ -47,8 +47,8 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 									<a
 										tabIndex={isVisible ? 0 : -1}
 										className={classNames(
-											'transition-colors flex align-center whitespace-nowrap py-4 px-8 align-center hover:text-sea-green-300',
-											'lg:border-t lg:border-gray-600'
+											'transition-colors flex align-center whitespace-nowrap py-4 px-8 align-center hover:text-sea-green-400'
+											// 'lg:border-t lg:border-gray-700'
 										)}
 									>
 										{Icon && <Icon className="mr-4 h-5 align-text-top" />}

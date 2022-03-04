@@ -3,11 +3,11 @@ import Head from 'next/head';
 import { useMemo } from 'react';
 import { getTwitchPlayerUrl } from '../../utils/twitch';
 import { PageLayout } from '../../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../../components/utils/ContentProvider';
+import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { TwitchStream } from '../../components/TwitchStream';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContentProviderPropsGetterForPage('livestream');
+	const getContentProviderProps = getContextualContentProviderFetcher('livestream');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {

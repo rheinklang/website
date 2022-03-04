@@ -1,0 +1,12 @@
+query FullTeamMembers {
+	teamMembersCollection {
+		fullName
+		primaryActivityArea
+		role
+		isFounder
+		isActive
+		image {
+			path
+		}
+	}
+}

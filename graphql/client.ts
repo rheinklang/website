@@ -1,4 +1,14 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import {
+	ApolloClient,
+	ApolloLink,
+	DefaultOptions,
+	HttpLink,
+	InMemoryCache,
+	NormalizedCacheObject,
+} from '@apollo/client';
+import { JSONResolver, JSONDefinition } from 'graphql-scalars';
+import { print } from 'graphql/language/printer';
+
 import { RetryLink } from '@apollo/client/link/retry';
 import { ErrorLink } from '@apollo/client/link/error';
 import { Logger } from '../utils/logger';
@@ -8,6 +18,24 @@ if (!process.env.NEXT_PUBLIC_CMS_GRAPHQL_API_URL) {
 }
 
 let sharedApolloClientInstance: ApolloClient<NormalizedCacheObject> | undefined;
+
+const defaultOptions: DefaultOptions = {
+	watchQuery: {
+		fetchPolicy: 'no-cache',
+		errorPolicy: 'ignore',
+	},
+	query: {
+		fetchPolicy: 'cache-first',
+		errorPolicy: 'all',
+	},
+};
+
+const consoleDebugLink = new ApolloLink((operation, forward) => {
+	console.log(`Variables: ${JSON.stringify(operation.variables)}`);
+	console.log(`Query`, print(operation.query));
+
+	return forward(operation);
+});
 
 export function createApolloClient() {
 	const logger = new Logger('Apollo');
@@ -58,8 +86,9 @@ export function createApolloClient() {
 	});
 
 	return new ApolloClient({
+		defaultOptions,
 		ssrMode: typeof window === 'undefined',
-		link: ApolloLink.from([errorLink, retryLink, connectionLink]),
+		link: ApolloLink.from([consoleDebugLink, errorLink, retryLink, connectionLink]),
 		cache: new InMemoryCache(),
 		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});

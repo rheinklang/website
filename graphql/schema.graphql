@@ -2,7 +2,11 @@ schema {
 	query: Query
 }
 
+scalar JsonType
+
 type Query {
+	# Core
+	collection(name: String, filter: JsonType): JsonType
 	# Singletons
 	maintenanceConfigurationSingleton: MaintenanceConfiguration!
 	headerConfigurationSingleton: HeaderConfiguration!
@@ -10,12 +14,13 @@ type Query {
 	marketingBannerSingleton: MarketingBannger!
 	livestreamConfigurationSingleton: LivestreamConfiguration!
 	# Collections
-	teamMembersCollection(filter: TeamMembersCollectionFilter): [TeamMember]!
+	teamMembersCollection(filter: JsonType): [TeamMember]!
 	eventCategoriesCollection: [EventCategory]!
 	articleCategoriesCollection: [ArticleCategory]!
-	articlesCollection(filter: TeamMembersCollectionFilter, limit: Int, skip: Int): [Article]!
+	articlesCollection(filter: JsonType, limit: Int, skip: Int): [Article]!
 	translationsCollection(limit: Int, skip: Int): [Translation]!
-	seoCollection(filter: SeoCollectionFilter): [Seo]!
+	seoCollection(filter: JsonType): [Seo]!
+	partnersCollection(filter: JsonType): [Partner]!
 }
 
 # Cockpit CMS
@@ -162,10 +167,7 @@ input SeoCollectionFilter {
 	id: String
 }
 
-type Seo implements CockpitField {
-	_id: String!
-	_created: String!
-	_modified: String!
+type Seo {
 	id: String!
 	title: String
 	description: String
@@ -174,4 +176,33 @@ type Seo implements CockpitField {
 	crawler: String
 	author: String
 	previewImage: CockpitAsset
+}
+
+# Partners
+
+enum PartnerType {
+	partner
+	supplier
+	sponsor
+}
+
+enum PartnerLevel {
+	bronze
+	silver
+	gold
+	platinum
+	diamond
+}
+
+type Partner {
+	title: String!
+	slug: String!
+	logo: CockpitAsset
+	type: PartnerType!
+	level: PartnerLevel
+	isActive: Boolean!
+	role: String!
+	homepage: String!
+	since: Int!
+	left: Int
 }

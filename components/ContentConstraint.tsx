@@ -17,7 +17,7 @@ export const ContentConstraint: FC<ContentConstraintProps> = ({
 
 	return (
 		<Tag
-			className={classNames('container px-4 mx-auto', className, {
+			className={classNames('container px-4 items-center mx-auto', className, {
 				'py-8': !useCustomYSpace,
 			})}
 		>

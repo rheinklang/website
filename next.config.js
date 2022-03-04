@@ -14,6 +14,16 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	// content settings
+	redirects: async () => {
+		return [
+			{
+				source: '/about-us',
+				destination: '/about-us/persons',
+				statusCode: 301,
+			},
+		];
+	},
 	// module settings
 	images: {
 		loader: 'custom',

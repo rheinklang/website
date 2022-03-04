@@ -18,6 +18,7 @@ import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationIte
 import { useTranslation } from '../hooks/useTranslation';
 import type { ContentProviderProps } from './utils/ContentProvider';
 import { StaticRoutes } from '../utils/routes';
+import { useRouter } from 'next/router';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
@@ -103,9 +104,10 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const translate = useTranslation();
 	const items = getMainNavigationTree(translate);
+	const router = useRouter();
 
 	return (
-		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto">
+		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-2">
 			<ul
 				className={classNames(
 					'transition-all absolute left-0 top-28 w-full overscroll-auto',

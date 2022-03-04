@@ -6,11 +6,11 @@ import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
 import { Hero } from '../components/Hero';
 import { PageLayout } from '../components/layouts/PageLayout';
-import { getContentProviderPropsGetterForPage, ContentProvider } from '../components/utils/ContentProvider';
+import { getContextualContentProviderFetcher, ContentProvider } from '../components/utils/ContentProvider';
 import { ErrorBoundary } from '../components/utils/ErrorBoundary';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContentProviderPropsGetterForPage('home');
+	const getContentProviderProps = getContextualContentProviderFetcher('home');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {

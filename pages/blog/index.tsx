@@ -1,14 +1,16 @@
-import { SortAscendingIcon, SortDescendingIcon, TagIcon } from '@heroicons/react/outline';
+import { FilterIcon, SearchIcon, SortAscendingIcon, SortDescendingIcon, TagIcon } from '@heroicons/react/outline';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { getArticleCategoriesForFilter } from '../../api/articles';
 import { ArticleExcerpt } from '../../components/ArticleExcerpt';
 import { Button } from '../../components/Button';
 import { ContentConstraint } from '../../components/ContentConstraint';
+import { ContentHeader } from '../../components/ContentHeader';
 import { Dropdown } from '../../components/Dropdown';
-import { Heading } from '../../components/Heading';
+import { Input } from '../../components/Input';
 import { PageLayout } from '../../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../../components/utils/ContentProvider';
+import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 
 enum BlogSort {
@@ -17,17 +19,22 @@ enum BlogSort {
 }
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContentProviderPropsGetterForPage('blog');
+	const getContentProviderProps = getContextualContentProviderFetcher('blog');
 	const contentProviderProps = await getContentProviderProps();
+	const articleCategories = await getArticleCategoriesForFilter();
 
 	return {
 		props: {
 			contentProviderProps,
+			articleCategories,
 		},
 	};
 }
 
-const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({ contentProviderProps }) => {
+const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
+	contentProviderProps,
+	articleCategories,
+}) => {
 	const [sort, setSort] = useState<BlogSort>(BlogSort.DESCENDING);
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const router = useRouter();
@@ -40,41 +47,40 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
 					<section className="bg-gray-50">
-						<div className="py-4 bg-white border-b border-gray-100">
-							<ContentConstraint className="flex flex-wrap lg:flex-nowrap">
-								<div className="flex flex-col text-center md:text-left">
-									<Heading level="1">Neuste Artikel</Heading>
-									<p className="mt-1 text-xl lg:text-2xl font-light">
-										Erfahre mehr was in der Welt von Rheinklang aktuell passiert.
-									</p>
+						<ContentHeader
+							title="Neueste Artikel"
+							text="Erfahre mehr was in der Welt von Rheinklang aktuell passiert."
+						>
+							<>
+								<div className="mb-4">
+									<Input placeholder="Suchen ..." icon={SearchIcon} onChange={() => {}} />
 								</div>
-								<div className="flex flex-col w-full flex-nowrap mt-8 md:mt-3 md:ml-auto md:w-auto">
-									<div className="mb-4">
-										<input
-											placeholder="Suchen ..."
-											className="w-full border-2 border-gray-100 py-2 px-4 rounded-lg bg-gray-50/50 ring-sea-green-400"
-										/>
-									</div>
-									<div className="w-full flex flex-row flex-wrap">
-										<Dropdown placeholder="Kategorie" icon={TagIcon} />
-										<Button
-											type="black"
-											className="ml-2 grow-0 w-1/4 md:w-auto"
-											onClick={() =>
-												setSort(
-													sort === BlogSort.ASCENDING
-														? BlogSort.DESCENDING
-														: BlogSort.ASCENDING
-												)
-											}
-										>
-											{sort === BlogSort.ASCENDING && <SortAscendingIcon className="h-6" />}
-											{sort === BlogSort.DESCENDING && <SortDescendingIcon className="h-6" />}
-										</Button>
-									</div>
+								<div className="w-full flex flex-row flex-nowrap">
+									<Dropdown
+										placeholder="Kategorie auswählen"
+										icon={FilterIcon}
+										onChange={() => {}}
+										options={articleCategories.map((ac) => ({
+											id: ac.slug,
+											label: ac.title,
+										}))}
+									/>
+									<Button
+										type="secondary"
+										className="ml-2 grow-0 w-1/4 md:w-auto"
+										onClick={() =>
+											setSort(
+												sort === BlogSort.ASCENDING ? BlogSort.DESCENDING : BlogSort.ASCENDING
+											)
+										}
+									>
+										{sort === BlogSort.ASCENDING && <SortAscendingIcon className="h-6" />}
+										{sort === BlogSort.DESCENDING && <SortDescendingIcon className="h-6" />}
+									</Button>
 								</div>
-							</ContentConstraint>
-						</div>
+							</>
+						</ContentHeader>
+
 						<div className="py-12">
 							<ContentConstraint className="grid gap-8 lg:grid-cols-3">
 								<ArticleExcerpt />

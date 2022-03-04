@@ -1,9 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client';
-import { SeoDefaultValuesQuery, SeoForIdQuery } from '../compiled/collection';
+import { SeoDefaultValuesQuery, SeoWithFilterQuery } from '../compiled/collection';
 
 export function transformMergeSeo(
 	defaultQueryResult: ApolloQueryResult<SeoDefaultValuesQuery | undefined>,
-	pageQueryResult: ApolloQueryResult<SeoForIdQuery | undefined>
+	pageQueryResult: ApolloQueryResult<SeoWithFilterQuery | undefined>
 ) {
 	const defaults = defaultQueryResult.data!.seoCollection[0];
 	const specific = pageQueryResult.data!.seoCollection[0];

@@ -1,17 +1,22 @@
-import type { NextPage, GetStaticPaths } from 'next';
+import type { NextPage, GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import {
 	EventCategorySlugsDocument,
 	EventCategorySlugsLazyQueryHookResult,
 	EventCategorySlugsQuery,
+	SeoDefaultValuesDocument,
+	useSeoWithFilterQuery,
 } from '../../../graphql';
 import { PageLayout } from '../../../components/layouts/PageLayout';
-import { ContentProvider, getContentProviderPropsGetterForPage } from '../../../components/utils/ContentProvider';
+import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { client } from '../../../graphql';
+import Head from 'next/head';
+import { compileStringTemplate } from '../../../utils/templating';
 
-export async function getStaticProps() {
-	const getContentProviderProps = getContentProviderPropsGetterForPage('http500');
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+	const seoId = params && params.category ? `${params.category}Events` : 'fallback';
+	const getContentProviderProps = getContextualContentProviderFetcher(seoId);
 	const contentProviderProps = await getContentProviderProps();
 
 	return {
@@ -19,7 +24,7 @@ export async function getStaticProps() {
 			contentProviderProps,
 		},
 	};
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const response = await client.query<EventCategorySlugsQuery>({
@@ -40,10 +45,18 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 	contentProviderProps,
 }) => {
 	const router = useRouter();
+	const { seo } = contentProviderProps;
 	const { category } = router.query;
 
 	return (
 		<ErrorBoundary route={router.asPath}>
+			<Head>
+				<title>
+					{compileStringTemplate(seo.title, {
+						category: category,
+					})}
+				</title>
+			</Head>
 			<ContentProvider {...contentProviderProps}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
