@@ -15,7 +15,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	// server related settings
 	poweredByHeader: false,
-	exportTrailingSlash: false,
+	trailingSlash: false,
 	// content settings
 	redirects: async () => {
 		return [
