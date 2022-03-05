@@ -37,7 +37,14 @@ export const TwitchStream: FC<TwitchStreamProps> = () => {
 						</div>
 					)}
 					{!loading && url && (
-						<iframe allowFullScreen id={TWITCH_FRAME_ID} src={url} frameBorder={0} height="100%" />
+						<iframe
+							allowFullScreen
+							id={TWITCH_FRAME_ID}
+							src={url}
+							frameBorder={0}
+							allow="fullscreen"
+							height="100%"
+						/>
 					)}
 				</div>
 			</ContentConstraint>
