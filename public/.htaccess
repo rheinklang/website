@@ -32,7 +32,7 @@ Options -Indexes
 	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; style-src-elem 'self' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src 'self' *.rheinklang-festival.ch *.rheinklang.events facebook.net *.facebook.net; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data:  https:"
 
 	# disable all client-side features as long as we don't use it
-	Header set Feature-Policy: "fullscreen 'self' https://player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' player.twitch.tv; battery 'none'; gyroscope 'none'; gamepad 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
+	Header set Feature-Policy: "fullscreen 'self' https://player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' player.twitch.tv; gyroscope 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
 
 	# cross-site scripting whitelisting
 	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
