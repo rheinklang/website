@@ -46,7 +46,7 @@
     "@types/uuid": "8.3.4",
     "apollo-codegen": "0.20.2",
     "autoprefixer": "10.4.2",
-    "cssnano": "5.1.0",
+    "cssnano": "5.1.1",
     "dotenv": "16.0.0",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
