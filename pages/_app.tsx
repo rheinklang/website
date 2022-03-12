@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-// import { inMemoryCache } from '../graphql';
-// import { ApolloCacheContext } from '../hooks/useApolloCache';
+
 import '../styles/globals.css';
 
 function RheinklangApp({ Component, pageProps }: AppProps) {

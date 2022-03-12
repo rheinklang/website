@@ -11,6 +11,7 @@ import { transformMergeSeo } from '../../graphql/transformers/seo';
 import { transformTranslationsIntoObject } from '../../graphql/transformers/translations';
 import { transformHeaderConfiguration } from '../../graphql/transformers/headerConfiguration';
 import { TranslationContext } from '../../hooks/useTranslation';
+import { isBrowser } from '../../utils/ssr';
 
 export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;

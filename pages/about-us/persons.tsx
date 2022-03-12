@@ -27,7 +27,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 	teamMembers,
 }) => {
 	const router = useRouter();
-	const translate = useTranslation();
+	const translate = useTranslation(contentProviderProps.translations);
 
 	return (
 		<ErrorBoundary route={router.asPath}>

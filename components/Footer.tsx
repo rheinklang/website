@@ -45,6 +45,7 @@ export const Footer: FC = () => {
 									{ href: '/about-us/persons', children: 'Personen' },
 									{ href: '/about-us/partners-and-sponsors', children: 'Partner & Sponsoren' },
 									{ href: '/about-us/impressions', children: 'Impressionen' },
+									{ href: '/services/faq', children: 'FAQ' },
 								]}
 							/>
 							<FooterNavigation
