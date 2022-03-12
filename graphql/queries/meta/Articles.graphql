@@ -1,0 +1,27 @@
+query Articles($limit: Int!, $skip: Int!) {
+	articlesCollection(limit: $limit, skip: $skip) {
+		slug
+		title
+		excerpt
+		image {
+			path
+			_id
+		}
+		author {
+			fullName
+			image {
+				path
+				_id
+			}
+		}
+		readingTime
+		category
+	}
+}
+
+query ArticleByFilter($filter: JsonType!) {
+	articlesCollection(filter: $filter) {
+		slug
+		title
+	}
+}

@@ -2,7 +2,7 @@ import { FilterIcon, SearchIcon, SortAscendingIcon, SortDescendingIcon, TagIcon 
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { getArticleCategoriesForFilter } from '../../api/articles';
+import { getPaginatedArticles } from '../../api/articles';
 import { ArticleExcerpt } from '../../components/ArticleExcerpt';
 import { Button } from '../../components/Button';
 import { ContentConstraint } from '../../components/ContentConstraint';
@@ -18,28 +18,35 @@ enum BlogSort {
 	DESCENDING = 'desc',
 }
 
+export const ARTICLE_PER_PAGE = 6;
+
 export async function getStaticProps() {
+	const initialPageStart = 1;
 	const getContentProviderProps = getContextualContentProviderFetcher('blog');
 	const contentProviderProps = await getContentProviderProps();
-	const articleCategories = await getArticleCategoriesForFilter();
+	const initialArticles = await getPaginatedArticles(initialPageStart, ARTICLE_PER_PAGE);
 
 	return {
 		props: {
 			contentProviderProps,
-			articleCategories,
+			initialArticles,
+			initialPageStart,
 		},
 	};
 }
 
 const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
-	articleCategories,
+	initialArticles,
 }) => {
 	const [sort, setSort] = useState<BlogSort>(BlogSort.DESCENDING);
 	const [categoryFilter, setCategoryFilter] = useState<string | undefined>(undefined);
 	const [search, setSearch] = useState<string>('');
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
 	const router = useRouter();
+
+	console.log('Articles', initialArticles);
 
 	return (
 		<ErrorBoundary route={router.asPath}>
@@ -72,10 +79,11 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 										onChange={(value) => {
 											setCategoryFilter(value);
 										}}
-										options={articleCategories.map((ac) => ({
-											id: ac.slug,
-											label: ac.title,
-										}))}
+										options={[]}
+										// options={articleCategories.map((ac) => ({
+										// 	id: ac.slug,
+										// 	label: ac.title,
+										// }))}
 									/>
 									<Button
 										type="secondary"
@@ -95,15 +103,18 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 
 						<div className="py-12">
 							<ContentConstraint className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
+								{initialArticles.map((article) => (
+									<ArticleExcerpt
+										key={article.slug}
+										title={article.title}
+										description={article.excerpt}
+										authorName={article.author?.fullName || 'Rheinklang Team'}
+										authorImage={article.author?.image?._id || 'TODO PLACEHOLDER'}
+										category={article.category}
+										image={article.image?._id || 'TODO FALLBACK'}
+										readingTime={article.readingTime || undefined}
+									/>
+								))}
 							</ContentConstraint>
 							<ContentConstraint className="pt-2 pb-0 flex justify-center">
 								<Button

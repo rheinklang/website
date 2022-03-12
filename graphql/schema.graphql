@@ -15,9 +15,8 @@ type Query {
 	livestreamConfigurationSingleton: LivestreamConfiguration!
 	# Collections
 	teamMembersCollection(filter: JsonType): [TeamMember]!
-	eventCategoriesCollection: [EventCategory]!
-	articleCategoriesCollection: [ArticleCategory]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int): [Article]!
+	eventsCollection(filter: JsonType, limit: Int, skip: Int): [Event]!
 	translationsCollection(limit: Int, skip: Int): [Translation]!
 	seoCollection(filter: JsonType): [Seo]!
 	partnersCollection(filter: JsonType): [Partner]!
@@ -86,17 +85,6 @@ type MatomoConfiguration @cacheControl(maxAge: 2400) {
 
 # Category Collections
 
-type EventCategory @cacheControl(maxAge: 2400) {
-	slug: String!
-	title: String!
-	color: String!
-}
-
-type ArticleCategory @cacheControl(maxAge: 2400) {
-	slug: String!
-	title: String!
-}
-
 # Collections
 
 enum TeamMemberActivityArea {
@@ -133,9 +121,19 @@ type TeamMember implements CockpitField {
 	exitDate: String
 }
 
+enum ArticleCategory {
+	general
+	news
+	events
+	press
+	media
+	partners
+	about
+}
+
 input ArticleFilter {
 	_id: String
-	category: String
+	category: ArticleCategory
 	tags: [String]
 }
 
@@ -146,9 +144,28 @@ type Article implements CockpitField {
 	slug: String!
 	title: String!
 	excerpt: String!
+	image: CockpitAsset
 	author: TeamMember
 	readingTime: Int
 	content: String
+	category: ArticleCategory!
+}
+
+enum EventType {
+	festival
+	cooperation
+	daydance
+}
+
+type Event implements CockpitField {
+	_id: String!
+	_created: String!
+	_modified: String!
+	slug: String!
+	title: String!
+	type: EventType
+	date: String!
+	endDate: String
 }
 
 # Translations
@@ -158,6 +175,7 @@ type Translation implements CockpitField {
 	_created: String!
 	_modified: String!
 	key: String!
+	Date: String
 	value: String
 }
 

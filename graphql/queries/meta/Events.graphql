@@ -1,5 +1,5 @@
 query EventCategorySlugs {
-	eventCategoriesCollection {
+	eventsCollection {
 		slug
 	}
 }
