@@ -44,10 +44,6 @@ export const Consent: FC<ConsentProps> = ({ variant }) => {
 		}
 	}, [value]);
 
-	useEffect(() => {
-		console.log('open: %s, visible: %s', isOpen, isVisible);
-	}, [isOpen, isVisible]);
-
 	if (!isVisible) {
 		return null;
 	}

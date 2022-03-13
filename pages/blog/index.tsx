@@ -46,8 +46,6 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 	const [currentPage, setCurrentPage] = useState(1);
 	const router = useRouter();
 
-	console.log('Articles', initialArticles);
-
 	return (
 		<ErrorBoundary route={router.asPath}>
 			<ContentProvider {...contentProviderProps}>

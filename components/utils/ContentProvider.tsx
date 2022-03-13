@@ -31,8 +31,6 @@ export function getContextualContentProviderFetcher(pageId: string, seoVariables
 		const headerConfiguration = await getHeaderConfiguration();
 		const seo = await getSeoMetaData(pageId, seoVariables);
 
-		console.log(seo);
-
 		return {
 			translations,
 			seo,

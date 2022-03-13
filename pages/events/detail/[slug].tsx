@@ -48,24 +48,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
-	slug,
 	event,
 	contentProviderProps,
 }) => {
 	const router = useRouter();
-	const { seo } = contentProviderProps;
 
 	const date = useMemo(() => {
 		if (event.date && event.endDate) {
 			return formatDateRange(event.date, event.endDate);
 		}
 
-		return `Am ${formatDate(event.date)}`;
+		if (event.date) {
+			return `Am ${formatDate(event.date)}`;
+		}
+
+		return null;
 	}, [event]);
 
-	const isEventPast = useMemo(() => {
-		return isPast(parseCockpitDate(event.endDate || event.date));
-	}, [event.date, event.endDate]);
+	// const isEventPast = useMemo(() => {
+	// 	return isPast(parseCockpitDate(event.endDate || event.date));
+	// }, [event.date, event.endDate]);
 
 	return (
 		<ErrorBoundary route={router.asPath}>

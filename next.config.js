@@ -16,16 +16,6 @@ const nextConfig = {
 	// server related settings
 	poweredByHeader: false,
 	trailingSlash: false,
-	// content settings
-	redirects: async () => {
-		return [
-			{
-				source: '/about-us',
-				destination: '/about-us/persons',
-				statusCode: 301,
-			},
-		];
-	},
 	// module settings
 	images: {
 		loader: 'custom',

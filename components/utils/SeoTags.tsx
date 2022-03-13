@@ -19,7 +19,6 @@ export const SeoTags: FC<SeoTagsProps> = (props) => {
 		[props.description, variables]
 	);
 
-	console.log(title);
 	return (
 		<>
 			{title && (
