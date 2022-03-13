@@ -12,6 +12,7 @@ export interface ButtonProps {
 	iconPosition?: 'pre' | 'post';
 	link?: LinkProps;
 	className?: string;
+	isDisabled?: boolean;
 	isLoading?: boolean;
 	onClick?: EventHandler<MouseEvent<HTMLButtonElement>>;
 }
@@ -32,6 +33,7 @@ export const Button: FC<ButtonProps> = ({
 	link,
 	id,
 	onClick,
+	isDisabled = false,
 	isLoading = false,
 	type = 'primary',
 	iconPosition = 'pre',
@@ -45,10 +47,14 @@ export const Button: FC<ButtonProps> = ({
 				className,
 				{
 					'px-6': !link,
-					'cursor-not-allowed opacity-70': isLoading,
+					'cursor-not-allowed opacity-70': isLoading || isDisabled,
 				}
 			)}
-			onClick={onClick}
+			onClick={(ev) => {
+				if (!isLoading && !isDisabled && onClick) {
+					onClick(ev);
+				}
+			}}
 		>
 			{/* eslint-disable-next-line react/no-children-prop */}
 			{link && <Link tabIndex={-1} className="block px-6" children={children} {...link} />}

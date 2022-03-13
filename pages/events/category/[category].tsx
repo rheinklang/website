@@ -37,19 +37,11 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 	contentProviderProps,
 }) => {
 	const router = useRouter();
-	const { seo } = contentProviderProps;
 	const { category } = router.query;
 
 	return (
 		<ErrorBoundary route={router.asPath}>
-			<Head>
-				<title>
-					{compileStringTemplate(seo.title, {
-						category: category,
-					})}
-				</title>
-			</Head>
-			<ContentProvider {...contentProviderProps}>
+			<ContentProvider {...contentProviderProps} seoVariables={{ category: `${category}` }}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}

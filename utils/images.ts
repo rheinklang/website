@@ -33,7 +33,7 @@ export const COCKPIT_IMAGER_URL = `${process.env.NEXT_PUBLIC_CMS_REST_API_URL}/c
 
 export const BREAKPOINTS = [Breakpoint.sm, Breakpoint.md, Breakpoint.lg, Breakpoint.xl, Breakpoint.xxl];
 
-const DEFAULT_QUALITY = 1;
+const DEFAULT_QUALITY = 90;
 
 const DEFAULT_OUTPUT = 1;
 

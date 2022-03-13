@@ -17,7 +17,7 @@ export const mapBadgeTypeToClass: Record<BadgeType, string> = {
 export const Badge: FC<BadgeProps> = ({ children, isUppercase = true, type = 'primary', className }) => (
 	<span
 		className={classNames(
-			'inline-block py-1 px-2 rounded  text-xs font-medium tracking-widest',
+			'inline-block w-fit py-1 px-2 rounded  text-xs font-medium tracking-widest',
 			mapBadgeTypeToClass[type],
 			{
 				uppercase: isUppercase,

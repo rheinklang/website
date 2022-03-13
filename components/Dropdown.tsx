@@ -24,7 +24,7 @@ export const Dropdown: FC<DropdownProps> = ({ placeholder, value, onChange, opti
 	return (
 		<Listbox value={value} onChange={(val) => onChange(val)}>
 			<div className="relative w-full">
-				<Listbox.Button className="w-full h-12 border-2 text-left border-gray-100 py-2 px-4 rounded-lg bg-gray-50/50 ring-sea-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
+				<Listbox.Button className="w-full h-12 border-2 text-left border-gray-100 py-2 px-4 rounded-lg bg-gray-50 ring-sea-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2">
 					<span
 						className={classNames('block truncate', {
 							'text-gray-300': !value,
@@ -43,7 +43,7 @@ export const Dropdown: FC<DropdownProps> = ({ placeholder, value, onChange, opti
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+					<Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						<Listbox.Option value={undefined} disabled={false}>
 							<span className="inline-block cursor-pointer select-none relative py-2 pl-10 pr-4 text-gray-300 italic">
 								Zurücksetzen

@@ -1,5 +1,6 @@
-query Articles($limit: Int!, $skip: Int!) {
-	articlesCollection(limit: $limit, skip: $skip) {
+query Articles($limit: Int!, $skip: Int!, $sort: JsonType) {
+	articlesCollection(limit: $limit, skip: $skip, sort: $sort) {
+		_created
 		slug
 		title
 		excerpt
@@ -8,7 +9,6 @@ query Articles($limit: Int!, $skip: Int!) {
 		}
 		author {
 			fullName
-			role
 			image {
 				path
 			}
@@ -20,6 +20,7 @@ query Articles($limit: Int!, $skip: Int!) {
 
 query ArticleByFilter($filter: JsonType!) {
 	articlesCollection(filter: $filter) {
+		_created
 		slug
 		title
 	}

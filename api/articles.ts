@@ -10,6 +10,7 @@ export const getPaginatedArticles = async (page: number, amountToLoad: number) =
 		variables: {
 			limit,
 			skip,
+			sort: { _created: -1 },
 		},
 	});
 

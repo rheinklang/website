@@ -15,11 +15,11 @@ type Query {
 	livestreamConfigurationSingleton: LivestreamConfiguration!
 	# Collections
 	teamMembersCollection(filter: JsonType): [TeamMember]!
-	articlesCollection(filter: JsonType, limit: Int, skip: Int): [Article]!
-	eventsCollection(filter: JsonType, limit: Int, skip: Int): [Event]!
+	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
+	eventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Event]!
 	translationsCollection(limit: Int, skip: Int): [Translation]!
-	seoCollection(filter: JsonType): [Seo]!
-	partnersCollection(filter: JsonType): [Partner]!
+	seoCollection(filter: JsonType, limit: Int, skip: Int): [Seo]!
+	partnersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Partner]!
 }
 
 # Cockpit CMS
@@ -30,8 +30,8 @@ interface CockpitAssetField {
 
 interface CockpitField {
 	_id: String!
-	_created: String!
-	_modified: String!
+	_created: Int!
+	_modified: Int!
 }
 
 type CockpitAsset implements CockpitAssetField {
@@ -113,8 +113,8 @@ input TeamMembersCollectionFilter {
 
 type TeamMember implements CockpitField {
 	_id: String!
-	_created: String!
-	_modified: String!
+	_created: Int!
+	_modified: Int!
 	image: CockpitAsset
 	fullName: String!
 	primaryActivityArea: TeamMemberActivityArea!
@@ -143,8 +143,8 @@ input ArticleFilter {
 
 type Article implements CockpitField {
 	_id: String!
-	_created: String!
-	_modified: String!
+	_created: Int!
+	_modified: Int!
 	slug: String!
 	title: String!
 	excerpt: String!
@@ -163,21 +163,26 @@ enum EventType {
 
 type Event implements CockpitField {
 	_id: String!
-	_created: String!
-	_modified: String!
+	_created: Int!
+	_modified: Int!
 	slug: String!
 	title: String!
 	type: EventType
+	excerpt: String!
+	content: String!
 	date: String!
 	endDate: String
+	location: Location
+	ticketingUrl: String
+	facebookEventUrl: String
 }
 
 # Translations
 
 type Translation implements CockpitField {
 	_id: String!
-	_created: String!
-	_modified: String!
+	_created: Int!
+	_modified: Int!
 	key: String!
 	Date: String
 	value: String
@@ -227,4 +232,14 @@ type Partner {
 	homepage: String!
 	since: Int!
 	left: Int
+}
+
+# Locations
+
+type Location {
+	name: String!
+	city: String!
+	address: String
+	country: String!
+	link: String
 }

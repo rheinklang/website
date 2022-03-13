@@ -13,6 +13,33 @@ query SeoDefaultValues {
 	}
 }
 
+query SeoMetaData($filter: JsonType) {
+	defaults: seoCollection(filter: { id: "default" }, limit: 1) {
+		id
+		author
+		title
+		description
+		crawler
+		keywords
+		image {
+			path
+			title
+		}
+	}
+	specific: seoCollection(filter: $filter, limit: 1) {
+		id
+		author
+		title
+		description
+		crawler
+		keywords
+		image {
+			path
+			title
+		}
+	}
+}
+
 query SeoWithFilter($filter: JsonType) {
 	seoCollection(filter: $filter) {
 		id

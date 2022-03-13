@@ -1,19 +1,22 @@
 import classNames from 'classnames';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, forwardRef, HTMLInputTypeAttribute } from 'react';
 
 export interface InputProps {
 	value?: string;
+	type?: HTMLInputTypeAttribute;
 	placeholder?: string;
 	onChange: (value: string) => void;
 	icon?: (props: ComponentProps<'svg'>) => JSX.Element;
 }
 
-export const Input: FC<InputProps> = ({ value, placeholder, icon, onChange }) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ value, type, placeholder, icon, onChange }, ref) => {
 	const Icon = icon;
 
 	return (
 		<div className="w-full relative">
 			<input
+				ref={ref}
+				type={type}
 				value={value}
 				onChange={(ev) => onChange(ev.target.value)}
 				placeholder={placeholder}
@@ -31,6 +34,6 @@ export const Input: FC<InputProps> = ({ value, placeholder, icon, onChange }) =>
 			)}
 		</div>
 	);
-};
+});
 
 Input.displayName = 'Input';

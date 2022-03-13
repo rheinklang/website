@@ -1,0 +1,34 @@
+query EventsPreview($limit: Int) {
+	eventsCollection(limit: $limit) {
+		slug
+		title
+		type
+		date
+		excerpt
+		location {
+			name
+			country
+		}
+	}
+}
+
+query EventByFilter($filter: JsonType) {
+	eventsCollection(filter: $filter, limit: 1) {
+		slug
+		title
+		type
+		date
+		endDate
+		content
+		excerpt
+		ticketingUrl
+		facebookEventUrl
+		location {
+			name
+			city
+			address
+			country
+			link
+		}
+	}
+}

@@ -102,20 +102,22 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 						</ContentHeader>
 
 						<div className="py-12">
-							<ContentConstraint className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-								{initialArticles.map((article) => (
-									<ArticleExcerpt
-										key={article.slug}
-										title={article.title}
-										description={article.excerpt}
-										authorName={article.author?.fullName || 'Rheinklang Team'}
-										authorImage={article.author?.image?.path || 'TODO PLACEHOLDER'}
-										authorRole={article.author?.role}
-										category={article.category}
-										image={article.image?.path || 'TODO FALLBACK'}
-										readingTime={article.readingTime}
-									/>
-								))}
+							<ContentConstraint>
+								<div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
+									{initialArticles.map((article) => (
+										<ArticleExcerpt
+											key={article.slug}
+											title={article.title}
+											description={article.excerpt}
+											authorName={article.author?.fullName || 'Rheinklang Team'}
+											authorImage={article.author?.image?.path || 'TODO PLACEHOLDER'}
+											creationDate={article._created}
+											category={article.category}
+											image={article.image?.path || 'TODO FALLBACK'}
+											readingTime={article.readingTime}
+										/>
+									))}
+								</div>
 							</ContentConstraint>
 							<ContentConstraint className="pt-2 pb-0 flex justify-center">
 								<Button

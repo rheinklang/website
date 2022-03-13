@@ -4,7 +4,7 @@ import { PageLayout } from '../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../components/utils/ContentProvider';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('http404');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {

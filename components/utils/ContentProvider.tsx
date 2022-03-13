@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { FC } from 'react';
 import { getHeaderConfiguration } from '../../api/header';
 import { getMarketingBanner } from '../../api/marketing';
-import { getDefaultSeo, getSeoForPageId } from '../../api/seo';
+import { getDefaultSeo, getSeoForPageId, getSeoMetaData } from '../../api/seo';
 import { getTranslations } from '../../api/translations';
 import { client, HeaderConfigurationQuery, MarketingBannerQuery } from '../../graphql';
 import { transformMarketingBanner } from '../../graphql/transformers/marketingBanner';
@@ -12,27 +12,26 @@ import { transformTranslationsIntoObject } from '../../graphql/transformers/tran
 import { transformHeaderConfiguration } from '../../graphql/transformers/headerConfiguration';
 import { TranslationContext } from '../../hooks/useTranslation';
 import { isBrowser } from '../../utils/ssr';
+import { SeoTags } from './SeoTags';
+import { COCKPIT_IMAGER_URL, getCockpitImagerParams } from '../../utils/images';
 
 export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
-	seo: ReturnType<typeof transformMergeSeo>;
+	seo: Awaited<ReturnType<typeof getSeoMetaData>>;
+	seoVariables?: Record<string, string>;
 	marketingBanner: ReturnType<typeof transformMarketingBanner>;
 	headerConfiguration: ReturnType<typeof transformHeaderConfiguration>;
 	__APOLLO_CACHE__: NormalizedCacheObject;
 }
 
-export function getContextualContentProviderFetcher(pageId: string) {
+export function getContextualContentProviderFetcher(pageId: string, seoVariables?: Record<string, string>) {
 	return async (): Promise<ContentProviderProps> => {
-		const translationsQueryResult = await getTranslations();
-		const seoDefaultQueryResult = await getDefaultSeo();
-		const seoPageQueryResult = await getSeoForPageId(pageId);
-		const marketingBannerQueryResult = await getMarketingBanner();
-		const headerConfigurationQueryResult = await getHeaderConfiguration();
+		const translations = await getTranslations();
+		const marketingBanner = await getMarketingBanner();
+		const headerConfiguration = await getHeaderConfiguration();
+		const seo = await getSeoMetaData(pageId, seoVariables);
 
-		const translations = transformTranslationsIntoObject(translationsQueryResult);
-		const seo = transformMergeSeo(seoDefaultQueryResult, seoPageQueryResult);
-		const marketingBanner = transformMarketingBanner(marketingBannerQueryResult);
-		const headerConfiguration = transformHeaderConfiguration(headerConfigurationQueryResult);
+		console.log(seo);
 
 		return {
 			translations,
@@ -44,33 +43,44 @@ export function getContextualContentProviderFetcher(pageId: string) {
 	};
 }
 
-export const ContentProvider: FC<ContentProviderProps> = ({ children, translations, seo, __APOLLO_CACHE__ }) => {
+export const ContentProvider: FC<ContentProviderProps> = ({
+	children,
+	translations,
+	seo,
+	seoVariables,
+	__APOLLO_CACHE__,
+}) => {
 	client.cache.restore(__APOLLO_CACHE__);
 
 	return (
 		<ApolloProvider client={client}>
-			{seo && (
-				<Head>
-					<meta property="og:type" content="website" />
-					<meta property="og:locale" content="de_CH" />
-					<meta property="og:site_name" content="Rheinklang" />
-					{seo.title && (
-						<>
-							<title>Rheinklang - {seo.title}</title>
-							<meta property="og:title" content={seo.title} />
-						</>
-					)}
-					{seo.description && (
-						<>
-							<meta name="description" content={seo.description} />
-							<meta property="og:description" content={seo.description} />
-						</>
-					)}
-					{seo.keywords && <meta name="keywords" content={seo.keywords.join(',')} />}
-					{seo.crawler && <meta name="robots" content={seo.crawler} />}
-					{seo.image && seo.image.path && <meta property="og:image" content={seo.image.path} />}
-				</Head>
-			)}
+			<Head>
+				{seo.title && (
+					<>
+						<title>Rheinklang - {seo.title}</title>
+						<meta key="seo-og-title" property="og:title" content={seo.title} />
+					</>
+				)}
+				{seo.description && (
+					<>
+						<meta key="seo-description" name="description" content={seo.description} />
+						<meta key="seo-og-description" property="og:description" content={seo.description} />
+					</>
+				)}
+				{seo.keywords && <meta key="seo-keywords" name="keywords" content={seo.keywords} />}
+				{seo.crawler && <meta key="seo-robots" name="robots" content={seo.crawler} />}
+				{seo.image && seo.image.path && (
+					<meta
+						key="seo-og-image"
+						property="og:image"
+						content={`${COCKPIT_IMAGER_URL}?${getCockpitImagerParams(seo.image.path, {
+							width: 1200,
+							height: 630,
+							mask: 'crop',
+						})}`}
+					/>
+				)}
+			</Head>
 			<TranslationContext.Provider value={translations}>{children}</TranslationContext.Provider>
 		</ApolloProvider>
 	);
