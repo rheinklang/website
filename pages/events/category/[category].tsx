@@ -1,18 +1,12 @@
-import type { NextPage, GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import {
-	EventCategorySlugsDocument,
-	EventCategorySlugsLazyQueryHookResult,
-	EventCategorySlugsQuery,
-	SeoDefaultValuesDocument,
-	useSeoWithFilterQuery,
-} from '../../../graphql';
+import { EventType } from '../../../graphql';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
-import { client } from '../../../graphql';
-import Head from 'next/head';
 import { compileStringTemplate } from '../../../utils/templating';
+import { keys } from '../../../utils/structs';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const seoId = params && params.category ? `${params.category}Events` : 'fallback';
@@ -27,11 +21,9 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const response = await client.query<EventCategorySlugsQuery>({
-		query: EventCategorySlugsDocument,
-	});
-
-	const slugs = response.data.eventCategoriesCollection.map((item) => item?.slug).filter(Boolean);
+	const slugs = keys(EventType)
+		.map((item) => EventType[item])
+		.filter(Boolean);
 
 	return {
 		fallback: false,
