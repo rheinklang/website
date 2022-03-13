@@ -1,6 +1,7 @@
 import { TicketIcon } from '@heroicons/react/outline';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { getPaginatedArticles } from '../api/articles';
 import { ArticleExcerpt } from '../components/ArticleExcerpt';
 import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
@@ -12,15 +13,20 @@ import { ErrorBoundary } from '../components/utils/ErrorBoundary';
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('home');
 	const contentProviderProps = await getContentProviderProps();
+	const latestArticles = await getPaginatedArticles(0, 3);
 
 	return {
 		props: {
 			contentProviderProps,
+			latestArticles,
 		},
 	};
 }
 
-const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({ contentProviderProps }) => {
+const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
+	contentProviderProps,
+	latestArticles,
+}) => {
 	const router = useRouter();
 
 	return (
@@ -52,9 +58,19 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					<div className="bg-sea-green-200 md:py-16">
 						<ContentConstraint>
 							<div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-								<ArticleExcerpt />
-								<ArticleExcerpt />
-								<ArticleExcerpt />
+								{latestArticles.map((article) => (
+									<ArticleExcerpt
+										key={article.slug}
+										title={article.title}
+										description={article.excerpt}
+										authorName={article.author?.fullName || 'Rheinklang Team'}
+										authorImage={article.author?.image?.path || 'TODO PLACEHOLDER'}
+										authorRole={article.author?.role}
+										category={article.category}
+										image={article.image?.path || 'TODO FALLBACK'}
+										readingTime={article.readingTime}
+									/>
+								))}
 							</div>
 						</ContentConstraint>
 					</div>
