@@ -109,10 +109,11 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 										title={article.title}
 										description={article.excerpt}
 										authorName={article.author?.fullName || 'Rheinklang Team'}
-										authorImage={article.author?.image?._id || 'TODO PLACEHOLDER'}
+										authorImage={article.author?.image?.path || 'TODO PLACEHOLDER'}
+										authorRole={article.author?.role}
 										category={article.category}
-										image={article.image?._id || 'TODO FALLBACK'}
-										readingTime={article.readingTime || undefined}
+										image={article.image?.path || 'TODO FALLBACK'}
+										readingTime={article.readingTime}
 									/>
 								))}
 							</ContentConstraint>

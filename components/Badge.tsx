@@ -5,6 +5,7 @@ export type BadgeType = 'primary' | 'secondary';
 
 export interface BadgeProps {
 	type?: BadgeType;
+	isUppercase?: boolean;
 	className?: string;
 }
 
@@ -13,11 +14,14 @@ export const mapBadgeTypeToClass: Record<BadgeType, string> = {
 	secondary: 'bg-gray-100 text-gray-500',
 };
 
-export const Badge: FC<BadgeProps> = ({ children, type = 'primary', className }) => (
+export const Badge: FC<BadgeProps> = ({ children, isUppercase = true, type = 'primary', className }) => (
 	<span
 		className={classNames(
 			'inline-block py-1 px-2 rounded  text-xs font-medium tracking-widest',
 			mapBadgeTypeToClass[type],
+			{
+				uppercase: isUppercase,
+			},
 			className
 		)}
 	>

@@ -1,5 +1,14 @@
 import classNames from 'classnames';
 import { FC, useMemo } from 'react';
+import {
+	Breakpoint,
+	BREAKPOINTS,
+	CockpitImagerOptions,
+	COCKPIT_IMAGER_URL,
+	EMPTY_PLACEHOLDER_IMAGE,
+	getCockpitImagerParams,
+} from '../utils/images';
+import '../utils/lazysizes';
 
 export type ImageFilter = 'blur' | 'sharpen' | 'sketch' | 'emboss' | 'invert';
 
@@ -8,66 +17,116 @@ export type ImageMask = 'crop' | 'thumbnail';
 export interface ImageProps {
 	src: string;
 	alt: string;
-	width?: string;
-	height?: string;
-	quality?: number;
-	mask?: ImageMask;
-	filters?: ImageFilter[];
-	useBase64?: boolean;
+	preset?: ImageSourceProps['preset'];
+	options?: CockpitImagerOptions;
 	className?: string;
 }
 
-export const COCKPIT_IMAGER_URL = `${process.env.NEXT_PUBLIC_CMS_REST_API_URL}/cockpit/image`;
+interface ImageSourceProps {
+	src: ImageProps['src'];
+	preset?: 'full' | 'teaser' | 'thumbnail';
+	options?: ImageProps['options'];
+	breakpoint?: Breakpoint;
+}
 
-const getCockpitImagerParams = (
-	props: Pick<ImageProps, 'width' | 'height' | 'filters' | 'mask' | 'quality' | 'useBase64'>
-) => {
-	const params = new URLSearchParams();
+const ImageSource: FC<ImageSourceProps> = ({ src, breakpoint, preset = 'teaser', options = {} }) => {
+	const mediaQuery = useMemo(
+		() => (breakpoint ? `(min-width: ${breakpoint}px)` : `(max-width: ${Breakpoint.sm - 1}px)`),
+		[breakpoint]
+	);
 
-	if (props.width) {
-		params.set('w', props.width);
-	}
+	const mimeType = useMemo(() => {
+		if (src.endsWith('jpg') || src.endsWith('jpeg')) {
+			return 'image/jpeg';
+		}
 
-	if (props.height) {
-		params.set('h', props.height);
-	}
+		if (src.endsWith('png')) {
+			return 'image/png';
+		}
 
-	if (props.filters) {
-		params.set('f', props.filters.join(','));
-	}
+		if (src.endsWith('gif')) {
+			return 'image/gif';
+		}
 
-	if (props.mask) {
-		params.set('m', props.mask);
-	}
+		if (src.endsWith('webp')) {
+			return 'image/webp';
+		}
+	}, [src]);
 
-	if (props.quality) {
-		params.set('q', props.quality.toString());
-	}
+	const correspondingSize = useMemo(() => {
+		if (!breakpoint) {
+			// mobile image size if breakpoint is undefined
+			return Breakpoint.sm;
+		}
 
-	if (props.useBase64) {
-		params.set('b64', 'true');
-	}
+		// calculate the next best image size based on the next maximum viewport and source image size
+		const nextHigherBreakpointScale = BREAKPOINTS[BREAKPOINTS.indexOf(breakpoint) + 1];
 
-	return params;
+		// 1920px is max size for images
+		return nextHigherBreakpointScale || 1920;
+	}, [breakpoint]);
+
+	const size = useMemo(() => {
+		switch (preset) {
+			case 'full':
+				return correspondingSize;
+			case 'teaser':
+				return Math.round(correspondingSize / 3);
+			case 'thumbnail':
+				return Math.round(correspondingSize / 18);
+			default:
+				return Math.round(correspondingSize / 2);
+		}
+	}, [preset, correspondingSize]);
+
+	const defaultParams = useMemo(() => getCockpitImagerParams(src, { ...options, width: size }), [src, options, size]);
+
+	const retinaParams = useMemo(
+		() => getCockpitImagerParams(src, { ...options, width: Math.round(size * 1.8) }),
+		[src, options, size]
+	);
+
+	return (
+		<source
+			type={mimeType}
+			media={mediaQuery}
+			data-breakpoint={`${breakpoint}`}
+			data-base-size={`${size}`}
+			data-srcset={`${COCKPIT_IMAGER_URL}?${defaultParams.toString()} 1x, ${COCKPIT_IMAGER_URL}?${retinaParams.toString()} 2x`}
+		/>
+	);
 };
 
-export const Image: FC<ImageProps> = ({ src, alt, className, width, height, quality, useBase64, filters, mask }) => {
-	const imagerParams = useMemo(
-		() => getCockpitImagerParams({ width, height, filters, mask, quality, useBase64 }),
-		[width, height, filters, mask, quality, useBase64]
-	);
-
-	const url = useMemo(
+export const Image: FC<ImageProps> = ({ src, alt, preset, className, options }) => {
+	const fallbackParams = useMemo(
 		() =>
-			`${COCKPIT_IMAGER_URL}?${imagerParams.toString()}&src=${src}=&token=${
-				process.env.NEXT_PUBLIC_CMS_API_TOKEN
-			}&o=true`,
-		[src, imagerParams]
+			getCockpitImagerParams(src || '', {
+				...options,
+				width: Breakpoint.xxl,
+			}),
+		[src, options]
 	);
 
-	if (width) {
+	if (!src) {
+		return null;
 	}
 
-	// eslint-disable-next-line @next/next/no-img-element
-	return <img className={classNames('block', className)} src={url} alt={alt} />;
+	return (
+		<picture data-preset={preset}>
+			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.xxl} />
+			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.xl} />
+			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.lg} />
+			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.md} />
+			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.sm} />
+			<ImageSource preset={preset} src={src} options={options} />
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img
+				data-sizes="auto"
+				className={classNames('lazyload', className)}
+				src={EMPTY_PLACEHOLDER_IMAGE}
+				data-src={`${COCKPIT_IMAGER_URL}?${fallbackParams.toString()}`}
+				alt={alt}
+			/>
+		</picture>
+	);
 };

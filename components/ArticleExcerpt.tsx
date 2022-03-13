@@ -4,16 +4,16 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { Badge } from './Badge';
 import { Image } from './Image';
-import { Tag } from './Tag';
 
 export interface ArticleExcerptProps {
 	image: string;
 	category: string;
 	title: string;
 	description: string;
-	readingTime?: number;
+	readingTime?: number | null;
 	authorName: string;
 	authorImage: string;
+	authorRole?: string | null;
 	className?: string;
 }
 
@@ -25,13 +25,19 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 	category,
 	authorName,
 	authorImage,
+	authorRole,
 	className,
 }) => (
 	<article className={classNames('flex flex-col items-start rounded-xl bg-white shadow-sm', className)}>
 		<div className="w-full h-64 lg:h-80">
-			<Image width="1000px" className="w-full h-64 object-cover rounded-t-xl lg:h-80" alt={'image'} src={image} />
+			<Image
+				preset="teaser"
+				className="w-full h-64 object-cover rounded-t-xl lg:h-80"
+				alt={'image'}
+				src={image}
+			/>
 		</div>
-		<div className="p-8 sm:p-4 md:p-8">
+		<div className="p-8 sm:p-4 md:p-8 w-full">
 			<Badge>{category}</Badge>
 			<h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{title}</h2>
 			<p className="leading-relaxed mb-8">{description}</p>
@@ -68,6 +74,7 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 			</div>
 			<a className="inline-flex items-center">
 				<Image
+					preset="thumbnail"
 					className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
 					src={authorImage}
 					alt={authorName}
@@ -75,7 +82,9 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 
 				<span className="flex-grow flex flex-col pl-4">
 					<span className="title-font font-medium text-gray-900">{authorName}</span>
-					<span className="text-gray-400 text-xs tracking-widest mt-0.5">Rolle</span>
+					<span className="text-gray-400 text-xs tracking-widest mt-0.5">
+						{authorRole || 'Rheinklang Mitglied'}
+					</span>
 				</span>
 			</a>
 		</div>

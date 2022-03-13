@@ -5,13 +5,12 @@ query Articles($limit: Int!, $skip: Int!) {
 		excerpt
 		image {
 			path
-			_id
 		}
 		author {
 			fullName
+			role
 			image {
 				path
-				_id
 			}
 		}
 		readingTime

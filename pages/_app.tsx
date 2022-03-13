@@ -12,6 +12,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 				<meta name="description" content="Rheinklang, Events für elektronische Musik im St. Galler Rheintal" />
 				<link rel="icon" type="image/png" href="/favicon.png" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<div className="bg-white overflow-x-hidden">
 				<Component {...pageProps} />

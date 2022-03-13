@@ -2,10 +2,11 @@ import { ArrowRightIcon, LinkIcon, StarIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { FC } from 'react';
 import { Button } from './Button';
+import { Image } from './Image';
 
 export interface ProfileTeaserProps {
 	className?: string;
-	image?: string;
+	image: string;
 	name: string;
 	role: string;
 	href?: string;
@@ -33,11 +34,7 @@ export const ProfileTeaser: FC<ProfileTeaserProps> = ({
 		>
 			<div className="w-full pt-1 text-center -mt-24 mx-auto">
 				<a href="#" className="block relative">
-					<img
-						alt="profil"
-						src="https://dummyimage.com/250x250/ffe054/ffffff"
-						className="mx-auto object-cover rounded-full h-40 w-40 "
-					/>
+					<Image alt={name} src={image} className="mx-auto object-cover rounded-full h-40 w-40" />
 				</a>
 			</div>
 			<div className="w-full mt-4">

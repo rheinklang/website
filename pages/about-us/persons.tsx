@@ -68,7 +68,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 												name={member.fullName}
 												role={member.role || ''}
 												description={translate(`team.roles.${member.primaryActivityArea}`)}
-												image={member.image?.path}
+												image={member.image!.path}
 												isActive={member.isActive}
 												starred={member.isFounder}
 											/>
