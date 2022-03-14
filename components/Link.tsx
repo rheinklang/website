@@ -9,6 +9,7 @@ export type LinkProps = PropsWithChildren<{
 	icon?: JSX.Element;
 	iconPositon?: 'pre' | 'post';
 	tabIndex?: number;
+	action?: string;
 	isStandalone?: boolean;
 }>;
 
@@ -19,6 +20,7 @@ export const Link: FC<LinkProps> = ({
 	icon,
 	title,
 	tabIndex,
+	action,
 	iconPositon = 'post',
 	isStandalone = false,
 }) => {
@@ -62,6 +64,7 @@ export const Link: FC<LinkProps> = ({
 				},
 				className
 			)}
+			data-action={action}
 			rel="noopener noreferrer"
 			target="_blank"
 			href={`${href}?${utmParams.toString()}`}

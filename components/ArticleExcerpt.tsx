@@ -4,11 +4,13 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { formatCreationDate, formatRelativeDate } from '../utils/date';
+import { StaticRoutes } from '../utils/routes';
 import { Badge } from './Badge';
 import { Image } from './Image';
 
 export interface ArticleExcerptProps {
 	image: string;
+	slug: string;
 	category: string;
 	title: string;
 	description: string;
@@ -28,6 +30,7 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 	authorName,
 	authorImage,
 	creationDate,
+	slug,
 	className,
 }) => {
 	const translate = useTranslation();
@@ -47,7 +50,7 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 				<h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{title}</h2>
 				<p className="leading-relaxed mb-8">{description}</p>
 				<div className="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-					<Link href="#">
+					<Link href={`${StaticRoutes.BLOG}/view/${slug}`}>
 						<a className="group transition-all text-sea-green-400 inline-flex items-center hover:border-sea-green-600 hover:text-sea-green-600">
 							Weiterlesen
 							<ArrowRightIcon className="transition-all w-4 h-4 ml-1 group-hover:ml-2" />

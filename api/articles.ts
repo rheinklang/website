@@ -1,4 +1,12 @@
-import { ArticlesDocument, ArticlesQuery, client } from '../graphql';
+import {
+	ArticlesDocument,
+	ArticlesQuery,
+	AllArticleSlugsQuery,
+	AllArticleSlugsDocument,
+	ArticleByFilterQuery,
+	ArticleByFilterDocument,
+	client,
+} from '../graphql';
 import { nonNullish } from '../utils/filter';
 
 export const getPaginatedArticles = async (page: number, amountToLoad: number) => {
@@ -15,4 +23,23 @@ export const getPaginatedArticles = async (page: number, amountToLoad: number) =
 	});
 
 	return result.data.articlesCollection.filter(nonNullish);
+};
+
+export const getAllArticleSlugs = async () => {
+	const result = await client.query<AllArticleSlugsQuery>({
+		query: AllArticleSlugsDocument,
+	});
+
+	return result.data.articlesCollection.filter(nonNullish).map((article) => article.slug);
+};
+
+export const getArticleBySlug = async (slug: string) => {
+	const result = await client.query<ArticleByFilterQuery>({
+		query: ArticleByFilterDocument,
+		variables: {
+			filter: { slug },
+		},
+	});
+
+	return result.data.articlesCollection.filter(nonNullish)[0];
 };

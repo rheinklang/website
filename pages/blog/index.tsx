@@ -105,6 +105,7 @@ const BlogPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 									{initialArticles.map((article) => (
 										<ArticleExcerpt
 											key={article.slug}
+											slug={article.slug}
 											title={article.title}
 											description={article.excerpt}
 											authorName={article.author?.fullName || 'Rheinklang Team'}

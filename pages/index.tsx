@@ -1,9 +1,11 @@
-import { TicketIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, TicketIcon } from '@heroicons/react/outline';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getPaginatedArticles } from '../api/articles';
 import { getUpcomingEvents } from '../api/events';
 import { ArticleExcerpt } from '../components/ArticleExcerpt';
+import { Button } from '../components/Button';
+import { ButtonGroup } from '../components/ButtonGroup';
 import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
 import { Hero } from '../components/Hero';
@@ -11,6 +13,7 @@ import { PageLayout } from '../components/layouts/PageLayout';
 import { getContextualContentProviderFetcher, ContentProvider } from '../components/utils/ContentProvider';
 import { ErrorBoundary } from '../components/utils/ErrorBoundary';
 import { parseCockpitDate } from '../utils/date';
+import { StaticRoutes } from '../utils/routes';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('home');
@@ -62,10 +65,11 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					/>
 					<div className="bg-sea-green-200 md:py-16">
 						<ContentConstraint>
-							<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
+							<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-8">
 								{latestArticles.map((article) => (
 									<ArticleExcerpt
 										key={article.slug}
+										slug={article.slug}
 										title={article.title}
 										description={article.excerpt}
 										authorName={article.author?.fullName || 'Rheinklang Team'}
@@ -77,6 +81,16 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 									/>
 								))}
 							</div>
+							<ButtonGroup className="mt-8 lg:mt-16">
+								<Button
+									type="black"
+									link={{
+										href: StaticRoutes.BLOG,
+										icon: <ArrowRightIcon className="inline ml-2 h-5 align-text-top" />,
+										children: 'Alle Artikel',
+									}}
+								/>
+							</ButtonGroup>
 						</ContentConstraint>
 					</div>
 					<div className="bg-sea-green-400 md:py-16">

@@ -1,27 +1,5 @@
-query Articles($limit: Int!, $skip: Int!, $sort: JsonType) {
-	articlesCollection(limit: $limit, skip: $skip, sort: $sort) {
-		_created
+query AllArticleSlugs {
+	articlesCollection {
 		slug
-		title
-		excerpt
-		image {
-			path
-		}
-		author {
-			fullName
-			image {
-				path
-			}
-		}
-		readingTime
-		category
-	}
-}
-
-query ArticleByFilter($filter: JsonType!) {
-	articlesCollection(filter: $filter) {
-		_created
-		slug
-		title
 	}
 }
