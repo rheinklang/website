@@ -1,4 +1,4 @@
-import { FC, ReactElement, ReactNode, useMemo, useState } from 'react';
+import { FC, ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
@@ -16,6 +16,10 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 	const router = useRouter();
 	const isActive = useMemo(() => router.asPath !== '/' && router.asPath.startsWith(href), [router.asPath, href]);
 	const [isExpanded, setIsExpanded] = useState(false);
+
+	useEffect(() => {
+		console.log('MainNavigationItem: useEffect', isExpanded);
+	}, [isExpanded]);
 
 	return (
 		<div className="relative" onMouseOver={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)}>
