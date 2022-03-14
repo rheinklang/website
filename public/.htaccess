@@ -52,9 +52,9 @@ Options -Indexes
 		Header set Cache-Control "public, max-age=15768000, no-transform"
 	</FilesMatch>
 
-	# caching set to 2 hours
+	# caching set to 1 hour
 	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-		Header set Cache-Control "public, max-age=7200, must-revalidate"
+		Header set Cache-Control "public, max-age=3600, must-revalidate"
 	</FilesMatch>
 
 	# no cache for the following files
