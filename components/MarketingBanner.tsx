@@ -1,5 +1,6 @@
 import { ArrowRightIcon, SpeakerphoneIcon, XIcon } from '@heroicons/react/outline';
 import { FC, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from '../hooks/useTranslation';
 import { storage } from '../utils/localstorage';
 import { Button } from './Button';
 import { ContentConstraint } from './ContentConstraint';
@@ -14,6 +15,7 @@ export interface MarketingBannerProps {
 const MARKETING_BANNER_STORAGE_KEY = 'marketingBannerState' as const;
 
 export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) => {
+	const translate = useTranslation();
 	const [isInitialized, setIsInitialized] = useState(false);
 	const [isDismissed, setIsDismissed] = useState(false);
 
@@ -50,7 +52,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 						<span>
 							&nbsp;–&nbsp;
 							<Link className="w-auto underline text-sm" href={link} title={text}>
-								Mehr dazu
+								{translate('common.action.learnMore')}
 							</Link>
 						</span>
 					)}

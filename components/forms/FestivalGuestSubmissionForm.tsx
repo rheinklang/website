@@ -1,23 +1,38 @@
-import { LinkIcon, MailIcon, LocationMarkerIcon } from '@heroicons/react/outline';
+import {
+	LinkIcon,
+	MailIcon,
+	LocationMarkerIcon,
+	ExclamationCircleIcon,
+	ExclamationIcon,
+} from '@heroicons/react/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from '../../hooks/useTranslation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
+import { Heading } from '../Heading';
 import { Input } from '../Input';
 
 export interface FestivalGuestSubmissionFormState {
 	email: string;
 	name: string;
+	event: string;
 	location: string;
 	mixtapeLink: string;
 	genre: string;
+	gotcha: string;
 	contactAgreement: boolean;
 	pickAvailabilityGuarantee: boolean;
 }
 
-export const FestivalGuestSubmissionForm: FC = () => {
+export interface FestivalGuestSubmissionFormProps {
+	options?: Array<{ id: string; label: string }> | null;
+}
+
+export const FestivalGuestSubmissionForm: FC<FestivalGuestSubmissionFormProps> = ({ options = [] }) => {
+	const translate = useTranslation();
 	const { control, register, getValues } = useForm<FestivalGuestSubmissionFormState>({
 		reValidateMode: 'onChange',
 		defaultValues: {
@@ -26,18 +41,36 @@ export const FestivalGuestSubmissionForm: FC = () => {
 			location: '',
 			name: '',
 			genre: '',
+			gotcha: '',
+			event: '',
 			contactAgreement: true,
 			pickAvailabilityGuarantee: true,
 		},
 	});
+
+	if (!options || options.length === 0) {
+		return (
+			<div className="my-8 p-16 bg-gray-50 rounded-xl text-center">
+				<div className="mb-2 flex justify-center">
+					<ExclamationIcon className="text-gray-500 h-8" />
+				</div>
+				<Heading level="3" className="text-gray-500">
+					{translate('forms.guestAppearanceSubmission.notAvailableTitle')}
+				</Heading>
+				<p className="mt-2 text-gray-300 text-lg">
+					{translate('forms.guestAppearanceSubmission.notAvailableText')}
+				</p>
+			</div>
+		);
+	}
 
 	return (
 		<div className="grid grid-cols-1 gap-6 py-4">
 			<Controller
 				control={control}
 				rules={{ required: true }}
-				name="name"
-				render={({ field }) => <Input placeholder="Dein Name" {...field} />}
+				name="event"
+				render={({ field }) => <Dropdown options={options} placeholder="Welcher Event?" {...field} />}
 			/>
 			<Controller
 				control={control}
@@ -87,10 +120,15 @@ export const FestivalGuestSubmissionForm: FC = () => {
 					/>
 				)}
 			/>
+			<Controller
+				control={control}
+				name="gotcha"
+				render={({ field }) => <Input type="hidden" placeholder="Message" {...field} />}
+			/>
 			<Checkbox
 				register={register}
 				id="contactAgreement"
-				title="Bist du damit einverstanden von uns zu kontaktiert werden?"
+				title={translate('forms.common.contactAgreementText')}
 			/>
 			<Checkbox
 				register={register}
@@ -107,7 +145,7 @@ export const FestivalGuestSubmissionForm: FC = () => {
 						console.log('send it!', getValues());
 					}}
 				>
-					Bewerbung einsenden
+					{translate('common.action.submitForm')}
 				</Button>
 			</ButtonGroup>
 		</div>

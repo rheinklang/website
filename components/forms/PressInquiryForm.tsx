@@ -1,6 +1,7 @@
 import { MailIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from '../../hooks/useTranslation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
@@ -14,10 +15,12 @@ export interface PressInquiryFormState {
 	publisher: string;
 	requestType: string;
 	message: string;
+	gotcha: string;
 	contactAgreement: boolean;
 }
 
 export const PressInquiryForm: FC = () => {
+	const translate = useTranslation();
 	const { control, register, getValues } = useForm<PressInquiryFormState>({
 		reValidateMode: 'onChange',
 		defaultValues: {
@@ -27,6 +30,7 @@ export const PressInquiryForm: FC = () => {
 			email: '',
 			name: '',
 			message: '',
+			gotcha: '',
 		},
 	});
 
@@ -74,10 +78,15 @@ export const PressInquiryForm: FC = () => {
 					<Textarea rows={14} placeholder="Ihre Nachricht" {...field} value={`${field.value || ''}`} />
 				)}
 			/>
+			<Controller
+				control={control}
+				name="gotcha"
+				render={({ field }) => <Input type="hidden" placeholder="Message" {...field} />}
+			/>
 			<Checkbox
 				register={register}
 				id="contactAgreement"
-				title="Sind Sie damit einverstanden von uns kontaktiert zu werden?"
+				title={translate('forms.common.contactAgreementText')}
 			/>
 			<ButtonGroup>
 				<Button
@@ -85,7 +94,7 @@ export const PressInquiryForm: FC = () => {
 						console.log('send it!', getValues());
 					}}
 				>
-					Anfrage senden
+					{translate('common.action.submitForm')}
 				</Button>
 			</ButtonGroup>
 		</div>

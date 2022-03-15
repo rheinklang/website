@@ -16,3 +16,10 @@ body {
 	/* sea green 300 */
 	background-color: rgb(157 175 177);
 }
+
+// hide markers of number box
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

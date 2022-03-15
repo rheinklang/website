@@ -24,6 +24,7 @@ import { Badge } from '../../../components/Badge';
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
 	const article = await getArticleBySlug(`${slug}`);
+	const allSlugs = await getAllArticleSlugs();
 
 	const contentProviderProps = await getContextualContentProviderFetcher('article', {
 		title: article.title,
@@ -35,6 +36,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 			slug,
 			article,
 			contentProviderProps,
+			count: allSlugs.length,
 		},
 	};
 };
@@ -53,6 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const ArticleBySlugPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	article,
 	contentProviderProps,
+	count,
 }) => {
 	const router = useRouter();
 	const translate = useTranslation(contentProviderProps.translations);

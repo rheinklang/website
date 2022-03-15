@@ -20,6 +20,7 @@ type Query {
 	translationsCollection(limit: Int, skip: Int): [Translation]!
 	seoCollection(filter: JsonType, limit: Int, skip: Int): [Seo]!
 	partnersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Partner]!
+	guestAppearanceEventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [GuestAppearanceEvent]!
 }
 
 # Cockpit CMS
@@ -242,4 +243,11 @@ type Location {
 	address: String
 	country: String!
 	link: String
+}
+
+# Guest Appearance
+type GuestAppearanceEvent {
+	id: String!
+	label: String!
+	isActive: String!
 }

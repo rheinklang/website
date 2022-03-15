@@ -1,6 +1,7 @@
 import { MailIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from '../../hooks/useTranslation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
@@ -12,15 +13,18 @@ export interface SupportFormState {
 	name: string;
 	message: string;
 	contactAgreement: boolean;
+	gotcha: string;
 }
 
 export const SupportForm: FC = () => {
+	const translate = useTranslation();
 	const { control, register, getValues } = useForm<SupportFormState>({
 		reValidateMode: 'onChange',
 		defaultValues: {
 			email: '',
 			name: '',
 			message: '',
+			gotcha: '',
 			contactAgreement: true,
 		},
 	});
@@ -47,10 +51,15 @@ export const SupportForm: FC = () => {
 					<Textarea rows={14} placeholder="Ihre Nachricht" {...field} value={`${field.value || ''}`} />
 				)}
 			/>
+			<Controller
+				control={control}
+				name="gotcha"
+				render={({ field }) => <Input type="hidden" placeholder="Message" {...field} />}
+			/>
 			<Checkbox
 				register={register}
 				id="contactAgreement"
-				title="Sind Sie damit einverstanden von uns kontaktiert zu werden?"
+				title={translate('forms.common.contactAgreementText')}
 			/>
 			<ButtonGroup>
 				<Button
@@ -58,7 +67,7 @@ export const SupportForm: FC = () => {
 						console.log('send it!', getValues());
 					}}
 				>
-					Anfrage senden
+					{translate('common.action.submitForm')}
 				</Button>
 			</ButtonGroup>
 		</div>

@@ -32,3 +32,10 @@ query EventByFilter($filter: JsonType) {
 		}
 	}
 }
+
+query EventsForGuestSubmission {
+	guestAppearanceEventsCollection(filter: { isActive: true }) {
+		id
+		label
+	}
+}

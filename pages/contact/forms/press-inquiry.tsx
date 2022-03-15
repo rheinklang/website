@@ -6,6 +6,7 @@ import { PressInquiryForm } from '../../../components/forms/PressInquiryForm';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('http500');
@@ -21,6 +22,7 @@ export async function getStaticProps() {
 const ContactPressInquiryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 }) => {
+	const translate = useTranslation(contentProviderProps.translations);
 	const router = useRouter();
 
 	return (
@@ -30,7 +32,7 @@ const ContactPressInquiryPage: NextPage<Awaited<ReturnType<typeof getStaticProps
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<ContentHeader title="Presse-Anfrage" constraintClassName="lg:max-w-4xl" />
+					<ContentHeader title={translate('forms.pressInquiry.title')} constraintClassName="lg:max-w-4xl" />
 					<ContentConstraint className="lg:max-w-4xl">
 						<PressInquiryForm />
 					</ContentConstraint>

@@ -8,6 +8,7 @@ import { SupportForm } from '../../../components/forms/SupportForm';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('http500');
@@ -24,6 +25,7 @@ const ContactSupportPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 	contentProviderProps,
 }) => {
 	const router = useRouter();
+	const translate = useTranslation(contentProviderProps.translations);
 
 	return (
 		<ErrorBoundary route={router.asPath}>
@@ -33,8 +35,8 @@ const ContactSupportPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
 					<ContentHeader
-						title="Support Anfrage"
-						text="Sie brauchen Hilfe? Wir sind für Sie da."
+						title={translate('forms.support.title')}
+						text={translate('forms.support.text')}
 						constraintClassName="lg:max-w-4xl"
 					/>
 					<ContentConstraint className="lg:max-w-4xl">

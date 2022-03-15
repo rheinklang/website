@@ -1,5 +1,7 @@
+import { CashIcon, LocationMarkerIcon, MailIcon, UserGroupIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from '../../hooks/useTranslation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
@@ -15,6 +17,7 @@ export interface EventBookingFormState {
 }
 
 export const EventBookingForm: FC = () => {
+	const translate = useTranslation();
 	const { control, register, getValues } = useForm<EventBookingFormState>({
 		reValidateMode: 'onChange',
 		defaultValues: {
@@ -37,13 +40,15 @@ export const EventBookingForm: FC = () => {
 				control={control}
 				rules={{ required: true }}
 				name="email"
-				render={({ field }) => <Input type="email" placeholder="E-Mail" {...field} />}
+				render={({ field }) => <Input type="email" icon={MailIcon} placeholder="E-Mail" {...field} />}
 			/>
 			<Controller
 				control={control}
 				rules={{ required: true }}
 				name="location"
-				render={({ field }) => <Input placeholder="Ort der Veranstaltung" {...field} />}
+				render={({ field }) => (
+					<Input icon={LocationMarkerIcon} placeholder="Ort der Veranstaltung" {...field} />
+				)}
 			/>
 			<Controller
 				control={control}
@@ -51,9 +56,11 @@ export const EventBookingForm: FC = () => {
 				name="guestCount"
 				render={({ field }) => (
 					<Input
+						{...field}
 						type="number"
 						placeholder="Anzahl der Gäste"
-						{...field}
+						className="appearance-none"
+						icon={UserGroupIcon}
 						value={`${field.value || ''}`}
 						onChange={(value) => field.onChange(Number.parseInt(value))}
 					/>
@@ -67,6 +74,7 @@ export const EventBookingForm: FC = () => {
 					<Input
 						type="number"
 						placeholder="Durchschnittlicher Eintrittspreis in CHF"
+						icon={CashIcon}
 						{...field}
 						value={`${field.value || ''}`}
 						onChange={(value) => field.onChange(Number.parseInt(value))}
@@ -76,7 +84,7 @@ export const EventBookingForm: FC = () => {
 			<Checkbox
 				register={register}
 				id="contactAgreement"
-				title="Bist du damit einverstanden von uns zu kontaktiert werden?"
+				title={translate('forms.common.contactAgreementText')}
 			/>
 			<ButtonGroup>
 				<Button
@@ -84,7 +92,7 @@ export const EventBookingForm: FC = () => {
 						console.log('send it!', getValues());
 					}}
 				>
-					Anfrage senden
+					{translate('common.action.submitForm')}
 				</Button>
 			</ButtonGroup>
 		</div>
