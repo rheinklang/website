@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import '../styles/fonts.css';
 import '../styles/globals.css';
 
 function RheinklangApp({ Component, pageProps }: AppProps) {
