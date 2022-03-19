@@ -1,0 +1,11 @@
+query PortraitPage {
+	portraitPageSingleton {
+		title
+		description
+		teamImage {
+			path
+			title
+		}
+		teamImageDescription
+	}
+}

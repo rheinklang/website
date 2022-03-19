@@ -1,4 +1,12 @@
-import { BlogPageDocument, BlogPageQuery, client, HomePageDocument, HomePageQuery } from '../graphql';
+import {
+	BlogPageDocument,
+	BlogPageQuery,
+	client,
+	HomePageDocument,
+	HomePageQuery,
+	PortraitPageDocument,
+	PortraitPageQuery,
+} from '../graphql';
 
 export const getHomePage = async () => {
 	const result = await client.query<HomePageQuery>({
@@ -14,4 +22,12 @@ export const getBlogPage = async () => {
 	});
 
 	return result.data.blogPageSingleton;
+};
+
+export const getPortraitPage = async () => {
+	const result = await client.query<PortraitPageQuery>({
+		query: PortraitPageDocument,
+	});
+
+	return result.data.portraitPageSingleton;
 };

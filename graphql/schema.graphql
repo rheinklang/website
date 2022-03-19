@@ -16,6 +16,7 @@ type Query {
 	# Page Singletons
 	homePageSingleton: HomePage!
 	blogPageSingleton: BlogPage!
+	portraitPageSingleton: PortraitPage!
 	# Collections
 	teamMembersCollection(filter: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
@@ -91,6 +92,8 @@ type MatomoConfiguration @cacheControl(maxAge: 2400) {
 	containerId: String!
 }
 
+# Page singletons
+
 type HomePage {
 	eventShowcase: Event
 }
@@ -100,7 +103,12 @@ type BlogPage {
 	description: String
 }
 
-# Category Collections
+type PortraitPage {
+	title: String!
+	description: String
+	teamImage: CockpitAsset!
+	teamImageDescription: String!
+}
 
 # Collections
 

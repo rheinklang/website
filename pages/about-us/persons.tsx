@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getTeamMembersList } from '../../api/team';
+import { getPortraitPage } from '../../api/pages';
 import { ContentConstraint } from '../../components/ContentConstraint';
 import { ContentHeader } from '../../components/ContentHeader';
 import { PageLayout } from '../../components/layouts/PageLayout';
@@ -8,15 +9,18 @@ import { ProfileTeaser } from '../../components/ProfileTeaser';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { useTranslation } from '../../hooks/useTranslation';
+import { Image } from '../../components/Image';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('http500');
 	const contentProviderProps = await getContentProviderProps();
 	const teamMembers = await getTeamMembersList();
+	const pageData = await getPortraitPage();
 
 	return {
 		props: {
 			contentProviderProps,
+			pageData,
 			teamMembers,
 		},
 	};
@@ -25,6 +29,7 @@ export async function getStaticProps() {
 const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	teamMembers,
+	pageData,
 }) => {
 	const router = useRouter();
 	const translate = useTranslation(contentProviderProps.translations);
@@ -36,19 +41,20 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<ContentHeader title="Unser Team" text="Irgendeine beschreibung ..." />
+					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
 					<div className="bg-sea-green-300 py-12">
 						<ContentConstraint>
 							<div className="mx-auto flex flex-row flex-wrap lg:flex-nowrap gap-12">
 								<div className="lg:w-3/4 xl:w-8/12">
-									<img
-										className="rounded-2xl shadow-sm object-cover object-center"
-										src="https://dummyimage.com/1920x1080/ffe054/ffffff"
-										alt="Team"
+									<Image
+										isObjectFitCover
+										src={pageData.teamImage.path}
+										alt={pageData.teamImage.title || 'Team Portrait'}
+										className="rounded-2xl shadow-2xl"
 									/>
 								</div>
-								<div className="flex-grow rounded-2xl bg-white p-8 shadow-sm">
-									<p className="mr-auto">Von links nach rechts: ...</p>
+								<div className="flex-grow rounded-2xl shadow-2xl bg-white p-8">
+									<p className="mr-auto">{pageData.teamImageDescription}</p>
 								</div>
 							</div>
 						</ContentConstraint>
