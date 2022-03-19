@@ -10,6 +10,7 @@ export type LinkProps = PropsWithChildren<{
 	iconPositon?: 'pre' | 'post';
 	tabIndex?: number;
 	action?: string;
+	isPureContent?: boolean;
 	isStandalone?: boolean;
 }>;
 
@@ -22,6 +23,7 @@ export const Link: FC<LinkProps> = ({
 	tabIndex,
 	action,
 	iconPositon = 'post',
+	isPureContent = false,
 	isStandalone = false,
 }) => {
 	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
@@ -40,11 +42,21 @@ export const Link: FC<LinkProps> = ({
 					title={title}
 					tabIndex={tabIndex}
 				>
-					<span className="whitespace-nowrap">
-						{icon && iconPositon === 'pre' && icon}
-						{children}
-						{icon && iconPositon === 'post' && icon}
-					</span>
+					{isPureContent && (
+						<>
+							{icon && iconPositon === 'pre' && icon}
+							{children}
+							{icon && iconPositon === 'post' && icon}
+						</>
+					)}
+
+					{!isPureContent && (
+						<span className="whitespace-nowrap">
+							{icon && iconPositon === 'pre' && icon}
+							{children}
+							{icon && iconPositon === 'post' && icon}
+						</span>
+					)}
 				</a>
 			</NextLink>
 		);

@@ -6,6 +6,8 @@ import {
 	AllEventSlugsDocument,
 	EventByFilterQuery,
 	EventByFilterDocument,
+	EventOverviewQuery,
+	EventOverviewDocument,
 } from '../graphql';
 import { parseCockpitDate } from '../utils/date';
 import { nonNullish } from '../utils/filter';
@@ -16,6 +18,14 @@ export const getAllEventSlugs = async () => {
 	});
 
 	return result.data.eventsCollection.filter(nonNullish).map((event) => event.slug);
+};
+
+export const getEventOverview = async () => {
+	const result = await client.query<EventOverviewQuery>({
+		query: EventOverviewDocument,
+	});
+
+	return result.data.eventOverviewCollection.filter(nonNullish);
 };
 
 export const getEventBySlug = async (slug: string) => {

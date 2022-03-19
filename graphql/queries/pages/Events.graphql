@@ -1,0 +1,11 @@
+query EventOverview {
+	eventOverviewCollection {
+		title
+		image {
+			path
+			title
+		}
+		category
+		cssStyleTransforms
+	}
+}

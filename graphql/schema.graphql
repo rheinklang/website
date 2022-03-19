@@ -22,6 +22,7 @@ type Query {
 	teamMembersCollection(filter: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
 	eventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Event]!
+	eventOverviewCollection: [EventOverview]!
 	translationsCollection(limit: Int, skip: Int): [Translation]!
 	seoCollection(filter: JsonType, limit: Int, skip: Int): [Seo]!
 	partnersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Partner]!
@@ -203,6 +204,15 @@ type Event implements CockpitField {
 	ticketingUrl: String
 	facebookEventUrl: String
 	image: CockpitAsset
+}
+
+# Event Overview
+
+type EventOverview {
+	title: String!
+	image: CockpitAsset!
+	category: EventType!
+	cssStyleTransforms: String
 }
 
 # Translations
