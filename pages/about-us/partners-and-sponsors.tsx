@@ -67,16 +67,15 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 												{level}
 											</Heading>
 										</header>
-										<div className="flex flex-row flex-wrap justify-evenly">
+										<div className="flex flex-row flex-wrap items-stretch justify-evenly">
 											{partners[level].map((partner) => (
 												<div
+													key={`${level}-${partner.title}`}
 													className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
-													key={partner.title}
-													data-logo={partner.logo}
 												>
 													<ProfileTeaser
 														name={partner.title}
-														role={translate(`partner.types.${partner.type}`)}
+														role={translate(`partner.type.${partner.type}`)}
 														description={partner.role}
 														image={partner.logo?.path || 'TODO_FALLBACK_IMAGE'}
 														isActive={
