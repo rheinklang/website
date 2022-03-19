@@ -74,7 +74,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 	{
 		title: translate('navigation.contact.title'),
-		href: StaticRoutes.CONTACT,
+		href: StaticRoutes.EVENT_INQUIRY, // TODO: build index page
 		expansion: {
 			items: [
 				{
@@ -124,22 +124,17 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 			<ul
 				className={classNames(
 					'transition-all absolute left-0 top-28 w-full overscroll-auto',
-					'bg-black border-gray-500 border-t',
-					'lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
+					'bg-black border-gray-500 border-t shadow-xl',
+					'sm:shadow-none lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
 						'translate-x-full': !isExpanded,
 						'transform-none': isExpanded,
 					}
 				)}
 			>
-				{items.map((item) => (
-					<li key={item.href} className="p-4 lg:mr-4 lg:p-0">
-						<MainNavigationItem {...item} handleClose={handleClose} />
-					</li>
-				))}
 				{cta && cta.link && (
 					<li>
-						<div className="px-10 pb-10 mt-10 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0">
+						<div className="px-10 mt-10 mb-4 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0">
 							<Button
 								link={{
 									href: cta.link,
@@ -152,6 +147,11 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 						</div>
 					</li>
 				)}
+				{items.map((item) => (
+					<li key={item.href} className="p-4 lg:mr-4 lg:p-0">
+						<MainNavigationItem {...item} handleClose={handleClose} />
+					</li>
+				))}
 			</ul>
 			{/* This CTA should be dynamically controllable via CMS eg. "Festival Tickets" or "Rhema Tickets" */}
 			{cta && cta.link && (
