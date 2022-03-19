@@ -13,7 +13,7 @@ export interface EventCategoryCardProps {
 
 export const EventCategoryCard: FC<EventCategoryCardProps> = ({ title, href, image, className }) => {
 	return (
-		<div className={classNames('relative group z-50 transform shadow-sm transition-all rounded-xl', className)}>
+		<div className={classNames('relative group transform shadow-sm transition-all rounded-xl', className)}>
 			<Link isPureContent href={href} className="block w-full relative">
 				<div className="w-full h-1/4">
 					<Image isObjectFitCover src={image} alt={title} className="rounded-xl" />

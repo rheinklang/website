@@ -6,6 +6,13 @@ import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { keys } from '../../../utils/structs';
+import { getEventsByType, getUpcomingEvents } from '../../../api/events';
+import { ContentConstraint } from '../../../components/ContentConstraint';
+import { Hero } from '../../../components/Hero';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { StaticRoutes } from '../../../utils/routes';
+import { Link } from '../../../components/Link';
+import { Heading } from '../../../components/Heading';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
@@ -14,9 +21,15 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 		category: `${category || ''}`,
 	});
 	const contentProviderProps = await getContentProviderProps();
+	const events = await getEventsByType(`${category}`);
+	const nextRelevantEvents = await getUpcomingEvents(1, {
+		type: category,
+	});
 
 	return {
 		props: {
+			events,
+			nextRelevantEvent: nextRelevantEvents[0] || null,
 			contentProviderProps,
 		},
 	};
@@ -37,8 +50,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
+	events,
+	nextRelevantEvent,
 }) => {
 	const router = useRouter();
+	const translate = useTranslation(contentProviderProps.translations);
 	const { category } = router.query;
 
 	return (
@@ -48,7 +64,30 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<p>Events in {category}</p>
+					{nextRelevantEvent && (
+						<Hero
+							title={nextRelevantEvent.title}
+							text={[nextRelevantEvent.excerpt]}
+							primaryCta={{
+								link: {
+									href: `${StaticRoutes.EVENT_DETAIL}/${nextRelevantEvent.slug}`,
+									children: translate('common.action.moreInformation'),
+								},
+							}}
+						/>
+					)}
+					<ContentConstraint>
+						<Heading level="1">{translate(`event.type.${category}`)}</Heading>
+						<p className="text-xl font-bold">Work in progress: List Events in {category}</p>
+						{events.map((event) => (
+							<p key={event.slug}>
+								- Click me:
+								<Link isStandalone href={`${StaticRoutes.EVENT_DETAIL}/${event.slug}`}>
+									{event.title}
+								</Link>
+							</p>
+						))}
+					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
 		</ErrorBoundary>

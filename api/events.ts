@@ -1,3 +1,4 @@
+import { EventType } from 'react-hook-form';
 import {
 	client,
 	EventsPreviewDocument,
@@ -32,6 +33,7 @@ export const getEventBySlug = async (slug: string) => {
 	const result = await client.query<EventByFilterQuery>({
 		query: EventByFilterDocument,
 		variables: {
+			limit: 1,
 			filter: { slug },
 		},
 	});
@@ -39,9 +41,24 @@ export const getEventBySlug = async (slug: string) => {
 	return result.data.eventsCollection.filter(nonNullish)[0];
 };
 
-export const getUpcomingEvents = async (limit: number = 5) => {
+export const getEventsByType = async (eventType: string) => {
+	const result = await client.query<EventByFilterQuery>({
+		query: EventByFilterDocument,
+		variables: {
+			sort: { date: -1 },
+			filter: { type: eventType },
+		},
+	});
+
+	return result.data.eventsCollection.filter(nonNullish);
+};
+
+export const getUpcomingEvents = async (limit: number = 5, filter?: Record<string, any>) => {
 	const result = await client.query<EventsPreviewQuery>({
 		query: EventsPreviewDocument,
+		variables: {
+			filter,
+		},
 	});
 
 	const safeResult = result.data.eventsCollection.filter(nonNullish);

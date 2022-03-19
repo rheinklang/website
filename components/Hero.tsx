@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import type { FC } from 'react';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
@@ -10,11 +11,12 @@ export interface HeroProps {
 	image?: string;
 	primaryCta: ButtonProps;
 	secondaryCta?: ButtonProps;
+	className?: string;
 }
 
-export const Hero: FC<HeroProps> = ({ title, text, image, primaryCta, secondaryCta }) => {
+export const Hero: FC<HeroProps> = ({ title, text, image, className, primaryCta, secondaryCta }) => {
 	return (
-		<section className="text-sea-green-900">
+		<section className={classNames('text-sea-green-900', className)}>
 			<div className="container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center">
 				<div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
 					<Heading level="1" className="mb-4">

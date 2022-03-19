@@ -1,10 +1,13 @@
-query EventsPreview($limit: Int) {
-	eventsCollection(limit: $limit) {
+query EventsPreview($limit: Int, $filter: JsonType) {
+	eventsCollection(limit: $limit, filter: $filter) {
 		slug
 		title
 		type
 		date
 		excerpt
+		image {
+			path
+		}
 		location {
 			name
 			country
@@ -12,8 +15,8 @@ query EventsPreview($limit: Int) {
 	}
 }
 
-query EventByFilter($filter: JsonType) {
-	eventsCollection(filter: $filter, limit: 1) {
+query EventByFilter($filter: JsonType, $limit: Int, $sort: JsonType) {
+	eventsCollection(filter: $filter, limit: $limit, sort: $sort) {
 		slug
 		title
 		type

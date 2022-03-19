@@ -4,6 +4,7 @@ import {
 	BriefcaseIcon,
 	FlagIcon,
 	InboxIcon,
+	LightningBoltIcon,
 	MenuIcon,
 	NewspaperIcon,
 	SunIcon,
@@ -18,6 +19,7 @@ import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationIte
 import { useTranslation } from '../hooks/useTranslation';
 import type { ContentProviderProps } from './utils/ContentProvider';
 import { StaticRoutes } from '../utils/routes';
+import { EventType } from '../graphql';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
@@ -27,18 +29,23 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 			items: [
 				{
 					title: translate('navigation.events.festivals'),
-					href: '/events/category/festival',
+					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Festival}`,
 					icon: FlagIcon,
 				},
 				{
 					title: translate('navigation.events.daydances'),
-					href: '/events/category/daydance',
+					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Daydance}`,
 					icon: SunIcon,
 				},
 				{
 					title: translate('navigation.events.cooperations'),
-					href: '/events/category/cooperation',
+					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Cooperation}`,
 					icon: UsersIcon,
+				},
+				{
+					title: translate('navigation.events.showcases'),
+					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Showcase}`,
+					icon: LightningBoltIcon,
 				},
 			],
 		},

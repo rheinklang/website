@@ -187,6 +187,7 @@ enum EventType {
 	festival
 	cooperation
 	daydance
+	showcase
 }
 
 type Event implements CockpitField {

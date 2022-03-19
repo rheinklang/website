@@ -66,7 +66,7 @@ export const Button: FC<ButtonProps> = ({
 					{...link}
 					href={isDisabled ? '#' : link.href}
 				>
-					{children}
+					{children || link.children}
 				</Link>
 			)}
 
