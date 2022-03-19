@@ -1,11 +1,9 @@
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { EventType } from '../../../graphql';
+import { ContentConstraint } from '../../../components/ContentConstraint';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
-import { keys } from '../../../utils/structs';
 
 export const getStaticProps = async ({}: GetStaticPropsContext) => {
 	const getContentProviderProps = getContextualContentProviderFetcher('impression');
@@ -40,12 +38,14 @@ const EventsImperssionsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>
 
 	return (
 		<ErrorBoundary route={router.asPath}>
-			<ContentProvider {...contentProviderProps} seoVariables={{ category: `${category}` }}>
+			<ContentProvider {...contentProviderProps}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<p>EventsImperssionsPage</p>
+					<ContentConstraint>
+						<p>EventsImperssionsPage</p>
+					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
 		</ErrorBoundary>
