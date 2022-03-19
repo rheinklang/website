@@ -24,7 +24,7 @@ import { EventType } from '../graphql';
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
 		title: translate('navigation.events.title'),
-		href: '/events',
+		href: StaticRoutes.EVENTS,
 		expansion: {
 			items: [
 				{
@@ -52,11 +52,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 	{
 		title: translate('navigation.blog.title'),
-		href: StaticRoutes.BLOG,
+		href: `${StaticRoutes.BLOG}/page/1`,
 	},
 	{
 		title: translate('navigation.about.title'),
-		href: StaticRoutes.ABOUT_US,
+		href: StaticRoutes.PORTRAIT, // TODO: build landing page
 		expansion: {
 			items: [
 				{
