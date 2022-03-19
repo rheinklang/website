@@ -15,4 +15,11 @@ export enum StaticRoutes {
 	SPONSOR_INQUIRY = '/contact/forms/sponsor',
 	SUPPORT_INQUIRY = '/contact/forms/support',
 	FESTIVAL_GUEST_APPEARANCE_INQUIRY = '/contact/forms/guest-appearance',
+	MAINTENANCE = '/service/maintenance',
+}
+
+export enum StaticExternalUrls {
+	FACEBOOK = 'https://facebook.com/rhnklng',
+	INSTAGRAM = 'https://instagram.com/rheinklang',
+	GITHUB = 'https://github.com/rheinklang',
 }

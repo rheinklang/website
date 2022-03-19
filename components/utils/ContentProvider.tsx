@@ -3,38 +3,45 @@ import Head from 'next/head';
 import { FC } from 'react';
 import { getHeaderConfiguration } from '../../api/header';
 import { getMarketingBanner } from '../../api/marketing';
-import { getDefaultSeo, getSeoForPageId, getSeoMetaData } from '../../api/seo';
+import { getSeoMetaData } from '../../api/seo';
 import { getTranslations } from '../../api/translations';
-import { client, HeaderConfigurationQuery, MarketingBannerQuery } from '../../graphql';
+import { client } from '../../graphql';
 import { transformMarketingBanner } from '../../graphql/transformers/marketingBanner';
-import { transformMergeSeo } from '../../graphql/transformers/seo';
 import { transformTranslationsIntoObject } from '../../graphql/transformers/translations';
 import { transformHeaderConfiguration } from '../../graphql/transformers/headerConfiguration';
 import { TranslationContext } from '../../hooks/useTranslation';
-import { isBrowser } from '../../utils/ssr';
-import { SeoTags } from './SeoTags';
 import { COCKPIT_IMAGER_URL, getCockpitImagerParams } from '../../utils/images';
+import { getCurrentMaintenance } from '../../api/maintenance';
+import { MaintenancePage } from '../pages/Maintenance';
 
 export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
 	seo: Awaited<ReturnType<typeof getSeoMetaData>>;
-	seoVariables?: Record<string, string>;
 	marketingBanner: ReturnType<typeof transformMarketingBanner>;
+	maintenance: Awaited<ReturnType<typeof getCurrentMaintenance>>;
 	headerConfiguration: ReturnType<typeof transformHeaderConfiguration>;
 	__APOLLO_CACHE__: NormalizedCacheObject;
 }
 
 export function getContextualContentProviderFetcher(pageId: string, seoVariables?: Record<string, string>) {
+	/**
+	 * Basic content provider for all pages.
+	 *
+	 * Maybe we should convert the return type to `Promise<GetStaticPropsResult<ContentProviderProps>>`
+	 * to be able to handle redirects.
+	 */
 	return async (): Promise<ContentProviderProps> => {
 		const translations = await getTranslations();
 		const marketingBanner = await getMarketingBanner();
 		const headerConfiguration = await getHeaderConfiguration();
 		const seo = await getSeoMetaData(pageId, seoVariables);
+		const maintenance = await getCurrentMaintenance();
 
 		return {
 			translations,
 			seo,
 			marketingBanner,
+			maintenance,
 			headerConfiguration,
 			__APOLLO_CACHE__: client.cache.extract(),
 		};
@@ -45,7 +52,7 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 	children,
 	translations,
 	seo,
-	seoVariables,
+	maintenance,
 	__APOLLO_CACHE__,
 }) => {
 	client.cache.restore(__APOLLO_CACHE__);
@@ -79,7 +86,13 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 					/>
 				)}
 			</Head>
-			<TranslationContext.Provider value={translations}>{children}</TranslationContext.Provider>
+			<TranslationContext.Provider value={translations}>
+				{maintenance.isMaintenanceActive ? (
+					<MaintenancePage title={maintenance.title} description={maintenance.description} />
+				) : (
+					children
+				)}
+			</TranslationContext.Provider>
 		</ApolloProvider>
 	);
 };

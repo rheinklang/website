@@ -1,0 +1,7 @@
+query CurrentMaintenanceInfo {
+	maintenanceConfigurationSingleton {
+		isMaintenanceActive
+		title
+		description
+	}
+}

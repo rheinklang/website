@@ -7,6 +7,7 @@ import { rawImageLoader } from '../utils/image-loader';
 import { FooterNavigation } from './FooterNavigation';
 import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';
+import { StaticExternalUrls } from '../utils/routes';
 
 export const Footer: FC = () => {
 	const translation = useTranslation();
@@ -62,7 +63,7 @@ export const Footer: FC = () => {
 								title="Plattformen"
 								items={[
 									{
-										href: 'https://facebook.com/rhnklng',
+										href: StaticExternalUrls.FACEBOOK,
 										children: 'Facebook',
 										isStandalone: true,
 										icon: (
@@ -70,7 +71,7 @@ export const Footer: FC = () => {
 										),
 									},
 									{
-										href: 'https://instagram.com/rheinklang',
+										href: StaticExternalUrls.INSTAGRAM,
 										children: 'Instagram',
 										isStandalone: true,
 										icon: (
@@ -78,7 +79,7 @@ export const Footer: FC = () => {
 										),
 									},
 									{
-										href: 'https://github.com/rheinklang',
+										href: StaticExternalUrls.GITHUB,
 										children: 'GitHub',
 										isStandalone: true,
 										icon: (
