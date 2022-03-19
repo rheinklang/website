@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { getPartnerPage } from '../../api/pages';
 import { getLevelClusteredPartners } from '../../api/partners';
 import { getTeamMembersList } from '../../api/team';
 import { ContentConstraint } from '../../components/ContentConstraint';
@@ -19,10 +20,12 @@ export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('http500');
 	const contentProviderProps = await getContentProviderProps();
 	const partners = await getLevelClusteredPartners();
+	const pageData = await getPartnerPage();
 
 	return {
 		props: {
 			contentProviderProps,
+			pageData,
 			partners,
 		},
 	};
@@ -39,6 +42,7 @@ const LEVEL_ORDER = [
 const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	partners,
+	pageData,
 }) => {
 	const router = useRouter();
 	const translate = useTranslation(contentProviderProps.translations);
@@ -50,7 +54,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<ContentHeader title="Partner &amp; Sponsoren" text="Guter Text hier ..." />
+					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
 					{/* border-t border-b border-gray-800 */}
 					<section className="bg-gray-50 py-12 lg:py-12">
 						{LEVEL_ORDER.map((level, levelIndex) =>

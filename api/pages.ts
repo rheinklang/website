@@ -4,6 +4,8 @@ import {
 	client,
 	HomePageDocument,
 	HomePageQuery,
+	PartnerPageDocument,
+	PartnerPageQuery,
 	PortraitPageDocument,
 	PortraitPageQuery,
 } from '../graphql';
@@ -30,4 +32,12 @@ export const getPortraitPage = async () => {
 	});
 
 	return result.data.portraitPageSingleton;
+};
+
+export const getPartnerPage = async () => {
+	const result = await client.query<PartnerPageQuery>({
+		query: PartnerPageDocument,
+	});
+
+	return result.data.partnerPageSingleton;
 };

@@ -17,6 +17,7 @@ type Query {
 	homePageSingleton: HomePage!
 	blogPageSingleton: BlogPage!
 	portraitPageSingleton: PortraitPage!
+	partnerPageSingleton: PartnerPage!
 	# Collections
 	teamMembersCollection(filter: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
@@ -108,6 +109,11 @@ type PortraitPage {
 	description: String
 	teamImage: CockpitAsset!
 	teamImageDescription: String!
+}
+
+type PartnerPage {
+	title: String!
+	description: String
 }
 
 # Collections

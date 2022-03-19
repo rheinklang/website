@@ -1,0 +1,6 @@
+query PartnerPage {
+	partnerPageSingleton {
+		title
+		description
+	}
+}
