@@ -5,6 +5,7 @@ import { Location } from '../graphql';
 import { Badge } from './Badge';
 import { Button } from './Button';
 import { Heading } from './Heading';
+import { StaticRoutes } from '../utils/routes';
 
 export interface EventExcerptProps {
 	title: string;
@@ -55,7 +56,7 @@ export const EventExcerpt: FC<EventExcerptProps> = ({
 				<Button
 					type="black"
 					link={{
-						href: `/events/detail/${slug}`,
+						href: `${StaticRoutes.EVENT_DETAIL}/${slug}`,
 						children: 'Details',
 						icon: <ArrowRightIcon className="inline ml-2 h-4" />,
 					}}

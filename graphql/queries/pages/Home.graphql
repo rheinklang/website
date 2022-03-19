@@ -1,0 +1,13 @@
+query HomePage {
+	homePageSingleton {
+		eventShowcase {
+			title
+			excerpt
+			ticketingUrl
+			slug
+			image {
+				path
+			}
+		}
+	}
+}

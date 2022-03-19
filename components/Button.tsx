@@ -57,7 +57,19 @@ export const Button: FC<ButtonProps> = ({
 			}}
 		>
 			{/* eslint-disable-next-line react/no-children-prop */}
-			{link && <Link tabIndex={-1} className="block px-6" children={children} {...link} />}
+			{link && (
+				<Link
+					tabIndex={-1}
+					className={classNames('block px-6', {
+						'cursor-not-allowed': isDisabled,
+					})}
+					{...link}
+					href={isDisabled ? '#' : link.href}
+				>
+					{children}
+				</Link>
+			)}
+
 			{!link && !isLoading && (
 				<span className="whitespace-nowrap">
 					{icon && iconPosition === 'pre' && icon}
@@ -65,6 +77,7 @@ export const Button: FC<ButtonProps> = ({
 					{icon && iconPosition === 'post' && icon}
 				</span>
 			)}
+
 			{!link && isLoading && <RefreshIcon className="animate-spin h-6" />}
 		</button>
 	);

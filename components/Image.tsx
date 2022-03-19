@@ -19,6 +19,7 @@ export interface ImageProps {
 	alt: string;
 	preset?: ImageSourceProps['preset'];
 	options?: CockpitImagerOptions;
+	isObjectFitCover?: boolean;
 	className?: string;
 }
 
@@ -97,7 +98,7 @@ const ImageSource: FC<ImageSourceProps> = ({ src, breakpoint, preset = 'teaser',
 	);
 };
 
-export const Image: FC<ImageProps> = ({ src, alt, preset, className, options }) => {
+export const Image: FC<ImageProps> = ({ src, alt, isObjectFitCover, preset, className, options }) => {
 	const fallbackParams = useMemo(
 		() =>
 			getCockpitImagerParams(src || '', {
@@ -112,7 +113,12 @@ export const Image: FC<ImageProps> = ({ src, alt, preset, className, options }) 
 	}
 
 	return (
-		<picture data-preset={preset}>
+		<picture
+			className={classNames({
+				'inline-block w-full h-full': isObjectFitCover,
+			})}
+			data-preset={preset}
+		>
 			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.xxl} />
 			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.xl} />
 			<ImageSource preset={preset} src={src} options={options} breakpoint={Breakpoint.lg} />
@@ -122,7 +128,13 @@ export const Image: FC<ImageProps> = ({ src, alt, preset, className, options }) 
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
 				data-sizes="auto"
-				className={classNames('lazyload', className)}
+				className={classNames(
+					'h-full lazyload',
+					{
+						'w-full object-cover object-center h-full inline-block': isObjectFitCover,
+					},
+					className
+				)}
 				src={EMPTY_PLACEHOLDER_IMAGE}
 				data-src={`${COCKPIT_IMAGER_URL}?${fallbackParams.toString()}`}
 				alt={alt}

@@ -56,7 +56,7 @@ export const Footer: FC = () => {
 									{ href: '/contact/forms/press-inquiry', children: 'Presseanfrage' },
 									{ href: '/contact/forms/sponsor', children: 'Sponsoring' },
 									{ href: '/contact/forms/guest-appearance', children: 'Gastauftritt' },
-									{ href: '/services/consents', children: 'Cookies' },
+									{ href: '/services/settings', children: 'Einstellungen' },
 								]}
 							/>
 							<FooterNavigation

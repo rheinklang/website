@@ -5,12 +5,14 @@ import { EventType } from '../../../graphql';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
-import { compileStringTemplate } from '../../../utils/templating';
 import { keys } from '../../../utils/structs';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-	const seoId = params && params.category ? `${params.category}Events` : 'fallback';
-	const getContentProviderProps = getContextualContentProviderFetcher(seoId);
+	const category = params && params.category ? params.category : undefined;
+	const seoId = category ? `${category}Events` : 'events';
+	const getContentProviderProps = getContextualContentProviderFetcher(seoId, {
+		category: `${category || ''}`,
+	});
 	const contentProviderProps = await getContentProviderProps();
 
 	return {
@@ -41,7 +43,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 
 	return (
 		<ErrorBoundary route={router.asPath}>
-			<ContentProvider {...contentProviderProps} seoVariables={{ category: `${category}` }}>
+			<ContentProvider {...contentProviderProps}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}

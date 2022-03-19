@@ -13,6 +13,9 @@ type Query {
 	matomoConfigurationSingleton: MatomoConfiguration!
 	marketingBannerSingleton: MarketingBannger!
 	livestreamConfigurationSingleton: LivestreamConfiguration!
+	# Page Singletons
+	homePageSingleton: HomePage!
+	blogPageSingleton: BlogPage!
 	# Collections
 	teamMembersCollection(filter: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
@@ -86,6 +89,15 @@ type HeaderConfiguration @cacheControl(maxAge: 320) {
 
 type MatomoConfiguration @cacheControl(maxAge: 2400) {
 	containerId: String!
+}
+
+type HomePage {
+	eventShowcase: Event
+}
+
+type BlogPage {
+	title: String!
+	description: String
 }
 
 # Category Collections
@@ -176,6 +188,7 @@ type Event implements CockpitField {
 	location: Location
 	ticketingUrl: String
 	facebookEventUrl: String
+	image: CockpitAsset
 }
 
 # Translations

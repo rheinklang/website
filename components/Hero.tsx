@@ -2,15 +2,17 @@ import type { FC } from 'react';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 import { Heading } from './Heading';
+import { Image } from './Image';
 
 export interface HeroProps {
 	title: string | JSX.Element;
 	text: (string | JSX.Element)[];
+	image?: string;
 	primaryCta: ButtonProps;
 	secondaryCta?: ButtonProps;
 }
 
-export const Hero: FC<HeroProps> = ({ title, text, primaryCta, secondaryCta }) => {
+export const Hero: FC<HeroProps> = ({ title, text, image, primaryCta, secondaryCta }) => {
 	return (
 		<section className="text-sea-green-900">
 			<div className="container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center">
@@ -29,11 +31,12 @@ export const Hero: FC<HeroProps> = ({ title, text, primaryCta, secondaryCta }) =
 					</ButtonGroup>
 				</div>
 				<div className="lg:max-w-lg lg:w-full md:pb-0 md:w-1/2 w-5/6 pb-8">
-					<img
+					{image && <Image isObjectFitCover className="rounded-xl" src={image} alt={`${title}`} />}
+					{/* <img
 						className="object-cover object-center rounded-xl"
 						alt="hero"
-						src="https://dummyimage.com/720x600"
-					/>
+						src="https://dummyimage.com/1920x1080"
+					/> */}
 				</div>
 			</div>
 		</section>

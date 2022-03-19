@@ -1,3 +1,10 @@
+query BlogPage {
+	blogPageSingleton {
+		title
+		description
+	}
+}
+
 query BlogArticles($limit: Int, $skip: Int) {
 	articlesCollection(limit: $limit, skip: $skip) {
 		title
