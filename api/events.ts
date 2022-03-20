@@ -9,6 +9,8 @@ import {
 	EventByFilterDocument,
 	EventOverviewQuery,
 	EventOverviewDocument,
+	EventsByCategoryOverviewDocument,
+	EventsByCategoryOverviewQuery,
 } from '../graphql';
 import { parseCockpitDate } from '../utils/date';
 import { nonNullish } from '../utils/filter';
@@ -42,8 +44,8 @@ export const getEventBySlug = async (slug: string) => {
 };
 
 export const getEventsByType = async (eventType: string) => {
-	const result = await client.query<EventByFilterQuery>({
-		query: EventByFilterDocument,
+	const result = await client.query<EventsByCategoryOverviewQuery>({
+		query: EventsByCategoryOverviewDocument,
 		variables: {
 			sort: { date: -1 },
 			filter: { type: eventType },

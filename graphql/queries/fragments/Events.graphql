@@ -26,6 +26,7 @@ query EventByFilter($filter: JsonType, $limit: Int, $sort: JsonType) {
 		excerpt
 		ticketingUrl
 		facebookEventUrl
+		isCanceled
 		location {
 			name
 			city

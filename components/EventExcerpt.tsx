@@ -7,12 +7,13 @@ import { Button } from './Button';
 import { Heading } from './Heading';
 import { StaticRoutes } from '../utils/routes';
 import { useTranslation } from '../hooks/useTranslation';
+import { TinyCalendarIndicator } from './CalendarIndicator';
 
 export interface EventExcerptProps {
 	title: string;
 	category: string;
 	description: string;
-	date: Date;
+	date: string;
 	location?: Pick<Location, 'name' | 'country'> | null;
 	slug: string;
 	className?: string;
@@ -30,14 +31,9 @@ export const EventExcerpt: FC<EventExcerptProps> = ({
 	const translate = useTranslation();
 
 	return (
-		<article className="h-full flex items-start">
-			<div className="w-12 mt-10 flex-shrink-0 flex flex-col text-center leading-none rounded-xl bg-white">
-				<span className="pt-2 pb-2 mb-2 border-b-2 text-gray-300 border-gray-100 uppercase">
-					{format(date, 'MMM')}
-				</span>
-				<span className="pb-2 font-medium text-lg title-font leading-none text-gray-500">
-					{format(date, 'dd')}
-				</span>
+		<article className="h-full flex flex-nowrap items-start justify-items-stretch">
+			<div className="w-16 mt-10 mr-2 flex-shrink-0 flex flex-col text-center leading-none rounded-xl bg-white">
+				<TinyCalendarIndicator date={date} />
 			</div>
 			<div className="flex-grow pl-6">
 				<Badge type="secondary" className="mb-3">

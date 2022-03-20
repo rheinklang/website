@@ -110,7 +110,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 								{nextEvents.map((event) => (
 									<EventExcerpt
 										key={event.slug}
-										date={parseCockpitDate(event.date)}
+										date={event.date}
 										category={event.type || 'unknown'}
 										location={event.location}
 										description={event.excerpt}

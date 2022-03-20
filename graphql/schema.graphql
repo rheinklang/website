@@ -205,6 +205,7 @@ type Event implements CockpitField {
 	ticketingUrl: String
 	facebookEventUrl: String
 	image: CockpitAsset
+	isCanceled: Boolean
 }
 
 # Event Overview

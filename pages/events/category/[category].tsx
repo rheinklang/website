@@ -13,6 +13,8 @@ import { Link } from '../../../components/Link';
 import { Heading } from '../../../components/Heading';
 import { RecommendedContentHero } from '../../../components/RecommendedContentHero';
 import { parseCockpitDate } from '../../../utils/date';
+import { EventTeaser } from '../../../components/EventTeaser';
+import { ContentHeader } from '../../../components/ContentHeader';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
@@ -78,6 +80,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
+					<ContentHeader title={translate(`event.type.${category}`)} />
 					{nextRelevantEvent && (
 						<RecommendedContentHero
 							title={nextRelevantEvent.title}
@@ -86,27 +89,42 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							date={nextRelevantEvent.date}
 						/>
 					)}
+
 					<ContentConstraint>
-						<Heading level="1">{translate(`event.type.${category}`)}</Heading>
-						<p className="text-xl font-bold">Upcoming Events in {category}</p>
-						{upcomingEvents.map((event) => (
-							<p key={event.slug}>
-								- Click me:
-								<Link isStandalone href={`${StaticRoutes.EVENT_DETAIL}/${event.slug}`}>
-									{event.title}
-								</Link>
-							</p>
-						))}
-						<p className="text-xl font-bold">Past Events in {category}</p>
-						{pastEvents.map((event) => (
-							<p key={event.slug}>
-								- Click me:
-								<Link isStandalone href={`${StaticRoutes.EVENT_DETAIL}/${event.slug}`}>
-									{event.title}
-								</Link>
-							</p>
-						))}
+						<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+							{upcomingEvents.map((event) => (
+								<EventTeaser
+									key={event._id}
+									title={event.title}
+									image={event.image!.path}
+									description={event.excerpt}
+									slug={event.slug}
+									isCanceled={event.isCanceled}
+									ticketingUrl={event.ticketingUrl}
+								/>
+							))}
+						</div>
 					</ContentConstraint>
+
+					<div className="bg-gray-100">
+						<ContentConstraint useCustomYSpace className="py-16 lg:py-24 border-b border-gray-800">
+							<Heading level="2" className="text-center mb-12">
+								Vergangene Events
+							</Heading>
+							<div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+								{pastEvents.map((event) => (
+									<EventTeaser
+										key={event._id}
+										title={event.title}
+										image={event.image!.path}
+										description={event.excerpt}
+										slug={event.slug}
+										isCanceled={event.isCanceled}
+									/>
+								))}
+							</div>
+						</ContentConstraint>
+					</div>
 				</PageLayout>
 			</ContentProvider>
 		</ErrorBoundary>

@@ -9,3 +9,30 @@ query EventOverview {
 		cssStyleTransforms
 	}
 }
+
+query EventsByCategoryOverview($filter: JsonType, $sort: JsonType) {
+	eventsCollection(filter: $filter, sort: $sort) {
+		_id
+		slug
+		title
+		type
+		date
+		endDate
+		content
+		excerpt
+		ticketingUrl
+		facebookEventUrl
+		isCanceled
+		image {
+			path
+			title
+		}
+		location {
+			name
+			city
+			address
+			country
+			link
+		}
+	}
+}
