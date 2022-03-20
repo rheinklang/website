@@ -32,8 +32,13 @@ export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
 
 	return (
 		<ContentConstraint tag="section">
-			<Link isPureContent isUnstyled href={link} className="group">
-				<div className="flex transition-colors shadow-sm bg-sea-green-200 rounded-lg group-hover:bg-sea-green-300 p-4 gap-2 md:p-8 md:gap-8 md:items-center">
+			<Link isPureContent isUnstyled isFlex={false} href={link} className="group">
+				<div
+					className={classNames(
+						'flex transition-colors shadow-sm bg-sea-green-200 rounded-xl group-hover:bg-sea-green-300 p-4 gap-2 md:p-8 md:gap-8 md:items-center lg:p-16',
+						className
+					)}
+				>
 					<div className="xl:w-0 xl:flex-1">
 						<hgroup>
 							<Badge className="mb-3 md:mb-4">{labelOrDefault}</Badge>

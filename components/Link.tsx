@@ -1,4 +1,4 @@
-import { AriaAttributes, FC, PropsWithChildren, useMemo } from 'react';
+import { AriaAttributes, FC, HTMLAttributes, PropsWithChildren, useMemo } from 'react';
 import NextLink from 'next/link';
 import classNames from 'classnames';
 
@@ -10,11 +10,62 @@ export type LinkProps = PropsWithChildren<{
 	iconPositon?: 'pre' | 'post';
 	tabIndex?: number;
 	action?: string;
+	isFlex?: boolean;
 	isUnstyled?: boolean;
 	isPureContent?: boolean;
 	isStandalone?: boolean;
 }> &
 	Partial<AriaAttributes>;
+
+export interface RawLinkProps extends HTMLAttributes<HTMLAnchorElement> {
+	href: string;
+	className?: string;
+	title?: string;
+	action?: string;
+	utmParams?: URLSearchParams;
+}
+
+export const DEFAULT_UTM_PARAMS = new URLSearchParams();
+DEFAULT_UTM_PARAMS.append('utm_source', 'rheinklang-website');
+DEFAULT_UTM_PARAMS.append('utm_medium', 'link');
+DEFAULT_UTM_PARAMS.append('utm_campaign', 'referral');
+
+export const RawLink: FC<RawLinkProps> = ({
+	href,
+	title,
+	className,
+	children,
+	action,
+	utmParams = DEFAULT_UTM_PARAMS,
+	...nativeHtmlAttributes
+}) => {
+	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
+
+	if (isInternal) {
+		return (
+			<NextLink href={href}>
+				<a className={className} title={title} {...nativeHtmlAttributes}>
+					{children}
+				</a>
+			</NextLink>
+		);
+	}
+
+	return (
+		<a
+			data-action={action}
+			rel="noopener noreferrer"
+			target="_blank"
+			href={`${href}?${utmParams.toString()}`}
+			title={title}
+			{...nativeHtmlAttributes}
+		>
+			{children}
+		</a>
+	);
+};
+
+RawLink.displayName = 'RawLink';
 
 export const Link: FC<LinkProps> = ({
 	children,
@@ -25,6 +76,7 @@ export const Link: FC<LinkProps> = ({
 	tabIndex,
 	action,
 	iconPositon = 'post',
+	isFlex = true,
 	isUnstyled = false,
 	isPureContent = false,
 	isStandalone = false,
@@ -38,7 +90,8 @@ export const Link: FC<LinkProps> = ({
 				<a
 					className={classNames(
 						{
-							'transition group inline-flex items-center cursor-pointer': isUnstyled === false,
+							'transition group cursor-pointer': isUnstyled === false,
+							'inline-flex items-center': isFlex,
 							'transition-colors hover:text-sea-green-300': isStandalone,
 						},
 						className

@@ -60,10 +60,10 @@ export const Button: FC<ButtonProps> = ({
 			{link && (
 				<Link
 					tabIndex={-1}
-					className={classNames('block px-6', {
+					{...link}
+					className={classNames('block h-full grow justify-center items-center sm:grow-0 text-center px-6', {
 						'cursor-not-allowed': isDisabled,
 					})}
-					{...link}
 					href={isDisabled ? '#' : link.href}
 				>
 					{children || link.children}

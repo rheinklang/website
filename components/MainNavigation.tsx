@@ -148,7 +148,7 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 			>
 				{cta && cta.link && (
 					<li>
-						<div className="px-10 mt-10 mb-4 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0">
+						<div className="px-4 mt-10 mb-4 shadow-2xl lg:shadow-none bg-black sm:hidden sm:pb-0 sm:px-2">
 							<Button
 								link={{
 									href: cta.link,
