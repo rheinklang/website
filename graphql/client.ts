@@ -30,7 +30,7 @@ const defaultOptions: DefaultOptions = {
 };
 
 const consoleDebugLink = new ApolloLink((operation, forward) => {
-	if (process.env.NODE_ENV !== 'production') {
+	if (process.env.NODE_ENV !== 'production' && process.env.DEBUG_GRAPHQL_CLIENT === 'true') {
 		console.log(`Variables: ${JSON.stringify(operation.variables)}`);
 		console.log(`Query`, print(operation.query));
 	}

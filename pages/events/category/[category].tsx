@@ -1,5 +1,4 @@
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { EventType } from '../../../graphql';
 import { PageLayout } from '../../../components/layouts/PageLayout';
@@ -8,18 +7,17 @@ import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { keys } from '../../../utils/structs';
 import { getEventsByType, getUpcomingEvents } from '../../../api/events';
 import { ContentConstraint } from '../../../components/ContentConstraint';
-import { Hero } from '../../../components/Hero';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { StaticRoutes } from '../../../utils/routes';
 import { Link } from '../../../components/Link';
 import { Heading } from '../../../components/Heading';
 import { RecommendedContentHero } from '../../../components/RecommendedContentHero';
+import { parseCockpitDate } from '../../../utils/date';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
-	const seoId = category ? `${category}Events` : 'events';
-	const getContentProviderProps = getContextualContentProviderFetcher(seoId, {
-		category: `${category || ''}`,
+	const getContentProviderProps = getContextualContentProviderFetcher('eventCategory', {
+		category: category ? `translate:navigation.events.${category}s` : 'Unbekannt', // TODO: We need to fix that "s"
 	});
 	const contentProviderProps = await getContentProviderProps();
 	const events = await getEventsByType(`${category}`);
@@ -27,10 +25,23 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 		type: category,
 	});
 
+	// Aggregation of partial content
+
+	const pastEvents = events.filter((ev) => (parseCockpitDate(ev.date) < new Date() ? true : false));
+	const upcomingEvents = events.filter((ev) => (parseCockpitDate(ev.date) < new Date() ? false : true));
+
+	const maybeNextRelevantEvent = nextRelevantEvents.length > 0 ? nextRelevantEvents[0] : undefined;
+	const nextRelevantEvent =
+		maybeNextRelevantEvent && parseCockpitDate(maybeNextRelevantEvent.date) > new Date()
+			? maybeNextRelevantEvent
+			: null;
+
 	return {
 		props: {
 			events,
-			nextRelevantEvent: nextRelevantEvents[0] || null,
+			pastEvents,
+			upcomingEvents,
+			nextRelevantEvent,
 			contentProviderProps,
 		},
 	};
@@ -52,6 +63,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	events,
+	upcomingEvents,
+	pastEvents,
 	nextRelevantEvent,
 }) => {
 	const router = useRouter();
@@ -75,8 +88,17 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					)}
 					<ContentConstraint>
 						<Heading level="1">{translate(`event.type.${category}`)}</Heading>
-						<p className="text-xl font-bold">Work in progress: List Events in {category}</p>
-						{events.map((event) => (
+						<p className="text-xl font-bold">Upcoming Events in {category}</p>
+						{upcomingEvents.map((event) => (
+							<p key={event.slug}>
+								- Click me:
+								<Link isStandalone href={`${StaticRoutes.EVENT_DETAIL}/${event.slug}`}>
+									{event.title}
+								</Link>
+							</p>
+						))}
+						<p className="text-xl font-bold">Past Events in {category}</p>
+						{pastEvents.map((event) => (
 							<p key={event.slug}>
 								- Click me:
 								<Link isStandalone href={`${StaticRoutes.EVENT_DETAIL}/${event.slug}`}>

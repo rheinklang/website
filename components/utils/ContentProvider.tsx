@@ -34,7 +34,7 @@ export function getContextualContentProviderFetcher(pageId: string, seoVariables
 		const translations = await getTranslations();
 		const marketingBanner = await getMarketingBanner();
 		const headerConfiguration = await getHeaderConfiguration();
-		const seo = await getSeoMetaData(pageId, seoVariables);
+		const seo = await getSeoMetaData(pageId, seoVariables, translations);
 		const maintenance = await getCurrentMaintenance();
 
 		return {

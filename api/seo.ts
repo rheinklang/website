@@ -42,13 +42,36 @@ export interface SeoMetaData {
 }
 
 // THIS IS THE FINAL IMPL!
-export const getSeoMetaData = async (pageId: string, variables: Record<string, string> = {}): Promise<SeoMetaData> => {
+export const getSeoMetaData = async (
+	pageId: string,
+	variables: Record<string, string> = {},
+	translations: Record<string, string> = {}
+): Promise<SeoMetaData> => {
 	const result = await client.query<SeoMetaDataQuery>({
 		query: SeoMetaDataDocument,
 		variables: {
 			filter: { id: pageId },
 		},
 	});
+
+	const templateCompilerVariables = {
+		...variables,
+	};
+
+	for (const variable in templateCompilerVariables) {
+		// we support i18n keys directly, so we need to replace the i18n keys with the corresponding label
+		if (templateCompilerVariables[variable].startsWith('translate:')) {
+			const [, translationKey] = templateCompilerVariables[variable].split(':');
+			templateCompilerVariables[variable] = translations[translationKey];
+
+			if (!translations[translationKey]) {
+				console.warn(
+					`Could not replace translation key "${translationKey}" while aggregating SEO meta data for page "${pageId}"`
+				);
+				templateCompilerVariables[variable] = '';
+			}
+		}
+	}
 
 	const defaults = result.data.defaults[0];
 	const specific = result.data.specific[0] || ({} as typeof defaults);
@@ -70,8 +93,8 @@ export const getSeoMetaData = async (pageId: string, variables: Record<string, s
 
 	return {
 		...data,
-		title: compileStringTemplate(data.title, variables),
-		description: compileStringTemplate(data.description, variables),
-		keywords: compileStringTemplate(data.keywords, variables),
+		title: compileStringTemplate(data.title, templateCompilerVariables),
+		description: compileStringTemplate(data.description, templateCompilerVariables),
+		keywords: compileStringTemplate(data.keywords, templateCompilerVariables),
 	};
 };

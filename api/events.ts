@@ -79,11 +79,10 @@ export const getUpcomingEvents = async (limit: number = 5, filter?: Record<strin
 
 			return dateA < dateB ? 1 : -1;
 		})
-		.sort((a, b) => {
-			return (
+		.sort(
+			(a, b) =>
 				Math.abs(Date.now() - new Date(a.date).valueOf()) - Math.abs(Date.now() - new Date(b.date).valueOf())
-			);
-		});
+		);
 
 	return computedResult.slice(0, limit);
 };
