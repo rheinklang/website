@@ -65,15 +65,15 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 										'border-b': levelIndex !== LEVEL_ORDER.length - 1,
 									})}
 								>
-									<ContentConstraint tag="article">
-										<header className="mb-16 sm:mb-8">
+									<ContentConstraint tag="section">
+										<hgroup className="mb-16 sm:mb-8">
 											<Heading level="2" className="text-sea-green-700 text-center uppercase">
 												{level}
 											</Heading>
-										</header>
+										</hgroup>
 										<div className="flex flex-row flex-wrap items-stretch justify-evenly">
 											{partners[level].map((partner) => (
-												<div
+												<article
 													key={`${level}-${partner.title}`}
 													className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
 												>
@@ -87,7 +87,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 														}
 														href={partner.homepage}
 													/>
-												</div>
+												</article>
 											))}
 										</div>
 									</ContentConstraint>

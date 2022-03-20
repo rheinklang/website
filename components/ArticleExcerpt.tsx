@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { formatCreationDate, formatRelativeDate } from '../utils/date';
+import { formatCreationDate } from '../utils/date';
 import { StaticRoutes } from '../utils/routes';
 import { Badge } from './Badge';
 import { Image } from './Image';

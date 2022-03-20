@@ -11,11 +11,11 @@ const defaultItemsForTesting: LinkProps[] = [{ href: '/', children: 'Home' }];
 
 export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = defaultItemsForTesting }) => {
 	return (
-		<div className="">
+		<div className="w-fit">
 			<Heading level="3" className="mb-4">
 				{title}
 			</Heading>
-			<nav>
+			<nav id="footer-navigation" aria-label="Footer">
 				<ul>
 					{items.map((item) => (
 						<li key={item.href} className="mb-2">

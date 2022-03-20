@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement, useMemo } from 'react';
+import { AriaAttributes, Attributes, FC, PropsWithChildren, ReactElement, useMemo } from 'react';
 import NextLink from 'next/link';
 import classNames from 'classnames';
 
@@ -12,7 +12,8 @@ export type LinkProps = PropsWithChildren<{
 	action?: string;
 	isPureContent?: boolean;
 	isStandalone?: boolean;
-}>;
+}> &
+	Partial<AriaAttributes>;
 
 export const Link: FC<LinkProps> = ({
 	children,
@@ -25,6 +26,7 @@ export const Link: FC<LinkProps> = ({
 	iconPositon = 'post',
 	isPureContent = false,
 	isStandalone = false,
+	...ariaAttributes
 }) => {
 	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
 
@@ -41,6 +43,7 @@ export const Link: FC<LinkProps> = ({
 					)}
 					title={title}
 					tabIndex={tabIndex}
+					{...ariaAttributes}
 				>
 					{isPureContent && (
 						<>
@@ -81,6 +84,7 @@ export const Link: FC<LinkProps> = ({
 			target="_blank"
 			href={`${href}?${utmParams.toString()}`}
 			title={title}
+			{...ariaAttributes}
 		>
 			<span className="whitespace-nowrap">
 				{icon && iconPositon === 'pre' && icon}

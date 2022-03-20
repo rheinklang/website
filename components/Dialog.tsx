@@ -60,9 +60,9 @@ export const Dialog: FC<DialogProps> = ({ state, title, children }) => {
 							<XIcon className="text-slightly-rose-700 h-6" />
 						</button>
 						{title && (
-							<header className="px-4 mb-2 mr-10 lg:px-8">
+							<div className="px-4 mb-2 mr-10 lg:px-8">
 								<Heading level="5">{title}</Heading>
-							</header>
+							</div>
 						)}
 						<div className="px-4 lg:px-8">{children}</div>
 					</article>

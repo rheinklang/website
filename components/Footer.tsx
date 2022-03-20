@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { HeartIcon } from '@heroicons/react/solid';
 import { ArrowRightIcon } from '@heroicons/react/outline';
@@ -7,60 +6,76 @@ import { rawImageLoader } from '../utils/image-loader';
 import { FooterNavigation } from './FooterNavigation';
 import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';
-import { StaticExternalUrls } from '../utils/routes';
+import { StaticExternalUrls, StaticRoutes } from '../utils/routes';
+import { EventType } from '../graphql';
+import { Link } from './Link';
 
 export const Footer: FC = () => {
-	const translation = useTranslation();
+	const translate = useTranslation();
 
 	return (
 		<footer className="z-30">
 			<div className="md:py-20 bg-black text-white">
 				<ContentConstraint>
 					<div className="flex flex-col lg:flex-row align-top md:justify-between">
-						<Link href="/">
-							<a title="Homepage" className="pb-12 lg:mr-8 lg:pb-0 xl:mr-28">
-								<Image
-									className="hue-rotate-180"
-									src="https://cockpit.rheinklang-festival.ch/storage/uploads/2020/04/07/5e8c0b6e8a7f4logo-sm.png"
-									loader={rawImageLoader}
-									width={150}
-									height={150}
-									alt="Logo"
-								/>
-							</a>
+						<Link href={StaticRoutes.HOME} title="Homepage" className="pb-12 lg:mr-8 lg:pb-0 xl:mr-28">
+							<Image
+								className="hue-rotate-180"
+								src="https://cockpit.rheinklang-festival.ch/storage/uploads/2020/04/07/5e8c0b6e8a7f4logo-sm.png"
+								loader={rawImageLoader}
+								width={150}
+								height={150}
+								alt="Logo"
+							/>
 						</Link>
-						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:ml-auto">
+						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 lg:gap-12 lg:grid-cols-4 lg:ml-auto">
 							<FooterNavigation
-								title="Veranstaltungen"
+								title={translate('footer.navigationSection.events')}
 								items={[
-									{ href: '/events', children: 'Übersicht' },
-									{ href: '/events/festival', children: 'Festival' },
-									{ href: '/events/daydance', children: 'DayDances' },
-									{ href: '/events/cooperation', children: 'Kooperationen' },
+									{
+										href: StaticRoutes.EVENTS,
+										children: translate('navigation.events.overviewTitle'),
+									},
+									{
+										href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Festival}`,
+										children: translate('navigation.events.festivals'),
+									},
+									{
+										href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Daydance}`,
+										children: translate('navigation.events.daydances'),
+									},
+									{
+										href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Cooperation}`,
+										children: translate('navigation.events.cooperations'),
+									},
+									{
+										href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Showcase}`,
+										children: translate('navigation.events.showcases'),
+									},
 								]}
 							/>
 							<FooterNavigation
-								title="Informationen"
+								title={translate('footer.navigationSection.information')}
 								items={[
-									{ href: '/about-us', children: 'Über Uns' },
-									{ href: '/about-us/persons', children: 'Personen' },
-									{ href: '/about-us/partners-and-sponsors', children: 'Partner & Sponsoren' },
+									{ href: StaticRoutes.ABOUT_US, children: translate('navigation.about.title') },
+									{ href: StaticRoutes.PORTRAIT, children: translate('navigation.about.team') },
+									{ href: StaticRoutes.PARTNERS, children: translate('navigation.about.partners') },
 									{ href: '/about-us/impressions', children: 'Impressionen' },
 									{ href: '/services/faq', children: 'FAQ' },
 								]}
 							/>
 							<FooterNavigation
-								title="Services"
+								title={translate('footer.navigationSection.services')}
 								items={[
-									{ href: '/contact/forms/event-booking', children: 'Veranstaltung Buchen' },
-									{ href: '/contact/forms/press-inquiry', children: 'Presseanfrage' },
-									{ href: '/contact/forms/sponsor', children: 'Sponsoring' },
-									{ href: '/contact/forms/guest-appearance', children: 'Gastauftritt' },
+									{ href: StaticRoutes.EVENT_INQUIRY, children: 'Veranstaltung Buchen' },
+									{ href: StaticRoutes.PRESS_INQUIRY, children: 'Presseanfrage' },
+									{ href: StaticRoutes.SPONSOR_INQUIRY, children: 'Sponsoring' },
+									{ href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY, children: 'Gastauftritt' },
 									{ href: '/services/settings', children: 'Einstellungen' },
 								]}
 							/>
 							<FooterNavigation
-								title="Plattformen"
+								title={translate('footer.navigationSection.externalPlatforms')}
 								items={[
 									{
 										href: StaticExternalUrls.FACEBOOK,

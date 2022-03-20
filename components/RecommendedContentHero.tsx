@@ -5,16 +5,23 @@ import { ButtonGroup } from './ButtonGroup';
 import { Heading } from './Heading';
 import { Image } from './Image';
 
-export interface HeroProps {
+export interface RecommendedContentHeroProps {
 	title: string | JSX.Element;
 	text: (string | JSX.Element)[];
 	image?: string;
-	primaryCta: ButtonProps;
+	primaryCta?: ButtonProps;
 	secondaryCta?: ButtonProps;
 	className?: string;
 }
 
-export const Hero: FC<HeroProps> = ({ title, text, image, className, primaryCta, secondaryCta }) => {
+export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
+	title,
+	text,
+	image,
+	className,
+	primaryCta,
+	secondaryCta,
+}) => {
 	return (
 		<article className={classNames('text-sea-green-900', className)}>
 			<div className="container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center">
@@ -42,4 +49,4 @@ export const Hero: FC<HeroProps> = ({ title, text, image, className, primaryCta,
 	);
 };
 
-Hero.displayName = 'Hero';
+RecommendedContentHero.displayName = 'RecommendedContentHero';
