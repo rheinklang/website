@@ -13,6 +13,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import { StaticRoutes } from '../../../utils/routes';
 import { Link } from '../../../components/Link';
 import { Heading } from '../../../components/Heading';
+import { RecommendedContentHero } from '../../../components/RecommendedContentHero';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
@@ -65,15 +66,11 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
 					{nextRelevantEvent && (
-						<Hero
+						<RecommendedContentHero
 							title={nextRelevantEvent.title}
 							text={[nextRelevantEvent.excerpt]}
-							primaryCta={{
-								link: {
-									href: `${StaticRoutes.EVENT_DETAIL}/${nextRelevantEvent.slug}`,
-									children: translate('common.action.moreInformation'),
-								},
-							}}
+							link={`${StaticRoutes.EVENT_DETAIL}/${nextRelevantEvent.slug}`}
+							date={nextRelevantEvent.date}
 						/>
 					)}
 					<ContentConstraint>

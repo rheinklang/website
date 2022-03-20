@@ -10,6 +10,7 @@ export type LinkProps = PropsWithChildren<{
 	iconPositon?: 'pre' | 'post';
 	tabIndex?: number;
 	action?: string;
+	isUnstyled?: boolean;
 	isPureContent?: boolean;
 	isStandalone?: boolean;
 }> &
@@ -24,6 +25,7 @@ export const Link: FC<LinkProps> = ({
 	tabIndex,
 	action,
 	iconPositon = 'post',
+	isUnstyled = false,
 	isPureContent = false,
 	isStandalone = false,
 	...ariaAttributes
@@ -35,8 +37,8 @@ export const Link: FC<LinkProps> = ({
 			<NextLink href={href}>
 				<a
 					className={classNames(
-						'transition group inline-flex items-center cursor-pointer',
 						{
+							'transition group inline-flex items-center cursor-pointer': isUnstyled === false,
 							'transition-colors hover:text-sea-green-300': isStandalone,
 						},
 						className
@@ -73,8 +75,8 @@ export const Link: FC<LinkProps> = ({
 	return (
 		<a
 			className={classNames(
-				'transition group inline-flex items-center cursor-pointer',
 				{
+					'transition group inline-flex items-center cursor-pointer': isUnstyled === false,
 					'transition-colors hover:text-sea-green-300': isStandalone,
 				},
 				className

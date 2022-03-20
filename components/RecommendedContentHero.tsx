@@ -1,51 +1,54 @@
 import classNames from 'classnames';
-import type { FC } from 'react';
+import { FC, useMemo } from 'react';
+import { useTranslation } from '../hooks/useTranslation';
+import { Badge } from './Badge';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
+import { CalendarIndicator } from './CalendarIndicator';
+import { ContentConstraint } from './ContentConstraint';
 import { Heading } from './Heading';
 import { Image } from './Image';
+import { Link } from './Link';
 
 export interface RecommendedContentHeroProps {
 	title: string | JSX.Element;
 	text: (string | JSX.Element)[];
-	image?: string;
-	primaryCta?: ButtonProps;
-	secondaryCta?: ButtonProps;
+	label?: string;
+	link?: string;
+	date?: string;
 	className?: string;
 }
 
 export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
+	label,
 	title,
 	text,
-	image,
 	className,
-	primaryCta,
-	secondaryCta,
+	date,
+	link = '#',
 }) => {
+	const translate = useTranslation();
+	const labelOrDefault = useMemo(() => label || translate('common.badge.recommended'), [translate, label]);
+
 	return (
-		<article className={classNames('text-sea-green-900', className)}>
-			<div className="container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center">
-				<div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-					<Heading level="1" className="mb-4">
-						{title}
-					</Heading>
-					{text.map((line, i) => (
-						<p key={i} className="mb-8 leading-relaxed w-3/4">
-							{line}
-						</p>
-					))}
-					<ButtonGroup>
-						<Button {...primaryCta} />
-						{secondaryCta && <Button {...secondaryCta} type="secondary" />}
-					</ButtonGroup>
-				</div>
-				{image && (
-					<div className="lg:max-w-lg lg:w-full md:pb-0 md:w-1/2 w-5/6 pb-8">
-						<Image isObjectFitCover className="rounded-xl" src={image} alt={`${title}`} />
+		<ContentConstraint tag="section">
+			<Link isPureContent isUnstyled href={link} className="group">
+				<div className="flex transition-colors shadow-sm bg-sea-green-200 rounded-lg group-hover:bg-sea-green-300 p-4 gap-2 md:p-8 md:gap-8 md:items-center">
+					<div className="xl:w-0 xl:flex-1">
+						<hgroup>
+							<Badge className="mb-3 md:mb-4">{labelOrDefault}</Badge>
+							<Heading level="2">{title}</Heading>
+						</hgroup>
+						<p className="mt-3 max-w-2xl lg:max-w-3xl text-lg leading-6">{text}</p>
 					</div>
-				)}
-			</div>
-		</article>
+					{date && (
+						<div className="md:ml-auto">
+							<CalendarIndicator date={date} className="shadow-lg" />
+						</div>
+					)}
+				</div>
+			</Link>
+		</ContentConstraint>
 	);
 };
 
