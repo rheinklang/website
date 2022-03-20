@@ -52,6 +52,10 @@ export const Footer: FC = () => {
 										href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Showcase}`,
 										children: translate('navigation.events.showcases'),
 									},
+									{
+										href: StaticRoutes.LIVESTREAM,
+										children: translate('navigation.events.livestream'),
+									},
 								]}
 							/>
 							<FooterNavigation
@@ -61,17 +65,29 @@ export const Footer: FC = () => {
 									{ href: StaticRoutes.PORTRAIT, children: translate('navigation.about.team') },
 									{ href: StaticRoutes.PARTNERS, children: translate('navigation.about.partners') },
 									{ href: '/about-us/impressions', children: 'Impressionen' },
-									{ href: '/services/faq', children: 'FAQ' },
+									{ href: StaticRoutes.FAQ, children: translate('navigation.about.faq') },
 								]}
 							/>
 							<FooterNavigation
 								title={translate('footer.navigationSection.services')}
 								items={[
-									{ href: StaticRoutes.EVENT_INQUIRY, children: 'Veranstaltung Buchen' },
-									{ href: StaticRoutes.PRESS_INQUIRY, children: 'Presseanfrage' },
-									{ href: StaticRoutes.SPONSOR_INQUIRY, children: 'Sponsoring' },
-									{ href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY, children: 'Gastauftritt' },
-									{ href: '/services/settings', children: 'Einstellungen' },
+									{
+										href: StaticRoutes.EVENT_INQUIRY,
+										children: translate('navigation.contact.eventBooking'),
+									},
+									{
+										href: StaticRoutes.PRESS_INQUIRY,
+										children: translate('navigation.contact.festivalGuestAppearance'),
+									},
+									{
+										href: StaticRoutes.SPONSOR_INQUIRY,
+										children: translate('navigation.contact.press'),
+									},
+									{
+										href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
+										children: translate('navigation.contact.support'),
+									},
+									{ href: '/services/settings', children: translate('navigation.services.settings') },
 								]}
 							/>
 							<FooterNavigation

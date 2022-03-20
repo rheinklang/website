@@ -4,7 +4,6 @@ export const TWITCH_PLAYER_URL = 'https://player.twitch.tv' as const;
  * @see https://dev.twitch.tv/docs/embed/video-and-clips
  */
 const twitchPlayerParams = new URLSearchParams();
-twitchPlayerParams.set('channel', 'rheinklang');
 
 if (process.env.NODE_ENV === 'development') {
 	twitchPlayerParams.set('muted', 'true');

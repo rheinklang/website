@@ -19,7 +19,8 @@ export enum StaticRoutes {
 	SPONSOR_INQUIRY = '/contact/forms/sponsor',
 	SUPPORT_INQUIRY = '/contact/forms/support',
 	FESTIVAL_GUEST_APPEARANCE_INQUIRY = '/contact/forms/guest-appearance',
-	MAINTENANCE = '/service/maintenance',
+	FAQ = '/services/faq',
+	LIVESTREAM = '/services/livestream',
 }
 
 export enum StaticExternalUrls {

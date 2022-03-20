@@ -2,15 +2,19 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
+	CameraIcon,
 	FlagIcon,
 	InboxIcon,
 	LightningBoltIcon,
 	MenuIcon,
+	MusicNoteIcon,
 	NewspaperIcon,
+	QuestionMarkCircleIcon,
 	SunIcon,
 	SupportIcon,
 	UserGroupIcon,
 	UsersIcon,
+	VideoCameraIcon,
 	XIcon,
 } from '@heroicons/react/outline';
 import classNames from 'classnames';
@@ -47,6 +51,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Showcase}`,
 					icon: LightningBoltIcon,
 				},
+				{
+					title: translate('navigation.events.livestream'),
+					href: StaticRoutes.LIVESTREAM,
+					icon: VideoCameraIcon,
+				},
 			],
 		},
 	},
@@ -69,6 +78,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					href: StaticRoutes.PARTNERS,
 					icon: BriefcaseIcon,
 				},
+				{
+					title: translate('navigation.about.faq'),
+					href: StaticRoutes.FAQ,
+					icon: QuestionMarkCircleIcon,
+				},
 			],
 		},
 	},
@@ -85,7 +99,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 				{
 					title: translate('navigation.contact.festivalGuestAppearance'),
 					href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
-					icon: InboxIcon,
+					icon: MusicNoteIcon,
 				},
 				{
 					title: translate('navigation.contact.press'),
