@@ -137,7 +137,7 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-2">
 			<ul
 				className={classNames(
-					'transition-all absolute left-0 top-28 w-full overscroll-auto',
+					'transition-all transform-gpu absolute left-0 top-28 w-full overscroll-auto',
 					'bg-black border-gray-500 border-t shadow-xl',
 					'sm:shadow-none lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
