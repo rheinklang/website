@@ -62,7 +62,7 @@ jobs:
           BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
 
-      - name: Deployment
+      - name: Deploy Website
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -70,6 +70,21 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
           server-dir: website/staging/
+          exclude: |
+            **/.DS_Store
+            **/.vscode
+            **/.git*
+            **/.git*/**
+            **/.github/**
+
+      - name: Deploy Styleguide
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./styleguide/
+          server-dir: styleguide/corporate/
           exclude: |
             **/.DS_Store
             **/.vscode
