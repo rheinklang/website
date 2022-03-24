@@ -26,7 +26,7 @@ export const TwitchStream: FC<TwitchStreamProps> = () => {
 	);
 
 	return (
-		<div className="bg-black text-white border-t border-b border-gray-800">
+		<div className="bg-black text-white">
 			<ContentConstraint useCustomYSpace>
 				<div className="aspect-w-16 aspect-h-9">
 					{loading && (
