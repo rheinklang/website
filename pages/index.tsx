@@ -89,6 +89,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 								title={pageData.eventShowcase.title}
 								text={[pageData.eventShowcase.excerpt]}
 								date={pageData.eventShowcase.date}
+								link={`${StaticRoutes.EVENT_DETAIL}/${pageData.eventShowcase.slug}`}
 							/>
 						</div>
 					)}
