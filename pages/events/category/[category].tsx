@@ -91,7 +91,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					)}
 
 					<ContentConstraint>
-						<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+						<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
 							{upcomingEvents.map((event) => (
 								<EventTeaser
 									key={event._id}

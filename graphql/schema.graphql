@@ -96,8 +96,18 @@ type MatomoConfiguration @cacheControl(maxAge: 2400) {
 
 # Page singletons
 
+type HomePageHeroCTA {
+	title: String
+	link: String
+}
+
 type HomePage {
 	eventShowcase: Event
+	heroTitle: String
+	heroText: String
+	heroImage: CockpitAsset
+	heroPrimaryCta: HomePageHeroCTA
+	heroSecondaryCta: HomePageHeroCTA
 }
 
 type BlogPage {

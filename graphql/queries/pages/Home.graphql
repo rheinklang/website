@@ -1,13 +1,25 @@
 query HomePage {
 	homePageSingleton {
+		heroTitle
+		heroText
+		heroPrimaryCta {
+			link
+			title
+		}
+		heroSecondaryCta {
+			link
+			title
+		}
+		heroImage {
+			path
+			title
+		}
 		eventShowcase {
 			title
 			excerpt
 			ticketingUrl
 			slug
-			image {
-				path
-			}
+			date
 		}
 	}
 }

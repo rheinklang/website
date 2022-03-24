@@ -1,14 +1,13 @@
 import { FC } from 'react';
-import Image from 'next/image';
 import { HeartIcon } from '@heroicons/react/solid';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { rawImageLoader } from '../utils/image-loader';
 import { FooterNavigation } from './FooterNavigation';
 import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';
 import { StaticExternalUrls, StaticRoutes } from '../utils/routes';
 import { EventType } from '../graphql';
 import { Link } from './Link';
+import { CorporateLogo } from './static/CorporateLogo';
 
 export const Footer: FC = () => {
 	const translate = useTranslation();
@@ -19,14 +18,7 @@ export const Footer: FC = () => {
 				<ContentConstraint>
 					<div className="flex flex-col lg:flex-row align-top md:justify-between">
 						<Link href={StaticRoutes.HOME} title="Homepage" className="pb-12 lg:mr-8 lg:pb-0 xl:mr-28">
-							<Image
-								className="hue-rotate-180"
-								src="https://cockpit.rheinklang-festival.ch/storage/uploads/2020/04/07/5e8c0b6e8a7f4logo-sm.png"
-								loader={rawImageLoader}
-								width={150}
-								height={150}
-								alt="Logo"
-							/>
+							<CorporateLogo className="h-36 w-36" />
 						</Link>
 						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 lg:gap-12 lg:grid-cols-4 lg:ml-auto">
 							<FooterNavigation

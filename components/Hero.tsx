@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { FC } from 'react';
+import { Badge, BadgeProps } from './Badge';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 import { Heading } from './Heading';
@@ -8,17 +9,37 @@ import { Image } from './Image';
 export interface HeroProps {
 	title: string | JSX.Element;
 	text: (string | JSX.Element)[];
-	image?: string;
-	primaryCta: ButtonProps;
-	secondaryCta?: ButtonProps;
+	image?: string | null;
+	badge?: string;
+	primaryCta?: ButtonProps | null;
+	secondaryCta?: ButtonProps | null;
 	className?: string;
+	hasFollowingContent?: boolean;
 }
 
-export const Hero: FC<HeroProps> = ({ title, text, image, className, primaryCta, secondaryCta }) => {
+export const Hero: FC<HeroProps> = ({
+	title,
+	text,
+	image,
+	badge,
+	className,
+	hasFollowingContent = false,
+	primaryCta,
+	secondaryCta,
+}) => {
 	return (
-		<article className={classNames('text-sea-green-900', className)}>
-			<div className="container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center">
-				<div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+		<article className={classNames('', className)}>
+			<div
+				className={classNames(
+					'container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center',
+					{
+						'py-16 md:py-24': !hasFollowingContent,
+						'pt-16 pb-4 md:pt-24': hasFollowingContent,
+					}
+				)}
+			>
+				<div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-8 md:mb-0 items-center text-center">
+					{badge && <Badge className="mb-2">{badge}</Badge>}
 					<Heading level="1" className="mb-4">
 						{title}
 					</Heading>
@@ -28,7 +49,7 @@ export const Hero: FC<HeroProps> = ({ title, text, image, className, primaryCta,
 						</p>
 					))}
 					<ButtonGroup>
-						<Button {...primaryCta} />
+						{primaryCta && <Button {...primaryCta} />}
 						{secondaryCta && <Button {...secondaryCta} type="secondary" />}
 					</ButtonGroup>
 				</div>

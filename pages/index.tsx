@@ -9,8 +9,10 @@ import { Button } from '../components/Button';
 import { ButtonGroup } from '../components/ButtonGroup';
 import { ContentConstraint } from '../components/ContentConstraint';
 import { EventExcerpt } from '../components/EventExcerpt';
+import { Heading } from '../components/Heading';
 import { Hero } from '../components/Hero';
 import { PageLayout } from '../components/layouts/PageLayout';
+import { RecommendedContentHero } from '../components/RecommendedContentHero';
 import { getContextualContentProviderFetcher, ContentProvider } from '../components/utils/ContentProvider';
 import { ErrorBoundary } from '../components/utils/ErrorBoundary';
 import { useTranslation } from '../hooks/useTranslation';
@@ -50,32 +52,51 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					{pageData.eventShowcase && (
+					{pageData.heroTitle && pageData.heroText && (
 						<Hero
-							title={pageData.eventShowcase.title}
-							text={[pageData.eventShowcase.excerpt]}
-							image={pageData.eventShowcase.image?.path}
-							primaryCta={{
-								link: {
-									href: `${StaticRoutes.EVENT_DETAIL}/${pageData.eventShowcase.slug}`,
-									children: translate('common.action.moreInformation'),
-								},
-							}}
-							secondaryCta={
-								pageData.eventShowcase.ticketingUrl
+							// hasFollowingContent={!!pageData.eventShowcase}
+							title={pageData.heroTitle}
+							text={[pageData.heroText]}
+							image={pageData.heroImage?.path}
+							primaryCta={
+								pageData.heroPrimaryCta && pageData.heroPrimaryCta.link && pageData.heroPrimaryCta.title
 									? {
 											link: {
-												href: pageData.eventShowcase.ticketingUrl,
-												children: translate('common.action.buyTickets'),
-												icon: <TicketIcon className="ml-2 inline-block h-5 align-text-top" />,
+												href: `${pageData.heroPrimaryCta!.link}`,
+												children: <>{`${pageData.heroPrimaryCta.title}`}</>,
+											},
+									  }
+									: undefined
+							}
+							secondaryCta={
+								pageData.heroSecondaryCta &&
+								pageData.heroSecondaryCta.link &&
+								pageData.heroSecondaryCta.title
+									? {
+											link: {
+												href: `${pageData.heroSecondaryCta.link}`,
+												children: <>{`${pageData.heroSecondaryCta.title}`}</>,
 											},
 									  }
 									: undefined
 							}
 						/>
 					)}
-					<div className="bg-sea-green-200 md:py-16">
+					{pageData.eventShowcase && (
+						<div className="mb-8 md:mb-16">
+							<RecommendedContentHero
+								label={translate('common.heading.nextEvent')}
+								title={pageData.eventShowcase.title}
+								text={[pageData.eventShowcase.excerpt]}
+								date={pageData.eventShowcase.date}
+							/>
+						</div>
+					)}
+					<div className="bg-gray-100 md:py-16">
 						<ContentConstraint>
+							<Heading level="2" className="text-center mb-12">
+								{translate('common.heading.latestArticles')}
+							</Heading>
 							<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-8">
 								{latestArticles.map((article) => (
 									<ArticleExcerpt
