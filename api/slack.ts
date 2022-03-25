@@ -1,4 +1,4 @@
-import type { Block, KnownBlock, MrkdwnElement } from '@slack/types';
+import type { Block, KnownBlock, MrkdwnElement, PlainTextElement } from '@slack/types';
 import { IncomingWebhook } from '@slack/webhook';
 import Cookies from 'js-cookie';
 import { CookieConsents } from '../utils/cookies';
@@ -16,6 +16,22 @@ const reportHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_REPORTING_W
  * IncomingWebhook to send contact submissions
  */
 const contactHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL);
+
+const transformFieldValueType = <T>(value: T): string => {
+	if (typeof value === 'string') {
+		return value;
+	}
+
+	if (typeof value === 'boolean') {
+		return value ? 'Yes' : 'No';
+	}
+
+	if (Array.isArray(value)) {
+		return value.join(', ');
+	}
+
+	return JSON.stringify(value);
+};
 
 const getMetaBlocks = (): (Block | KnownBlock)[] => {
 	const now = new Date();
@@ -87,7 +103,7 @@ export async function sendReport(err?: any, scope = 'unknown') {
 				fields: [
 					{
 						type: 'plain_text',
-						text: `${scope},`,
+						text: `${scope}`,
 					},
 				],
 			},
@@ -96,4 +112,35 @@ export async function sendReport(err?: any, scope = 'unknown') {
 	});
 }
 
-export async function sendContactSubmission(fields: any) {}
+export async function sendContactSubmission(formIdentifier: string, fields: Record<string, number | string | boolean>) {
+	const readableFields = Object.entries(fields).map(([key, value]): [string, string] => [
+		key,
+		transformFieldValueType(value),
+	]);
+
+	const fieldSubmissions = readableFields.reduce(
+		(prev, [key, value]) => [
+			...prev,
+			{
+				type: 'mrkdwn' as const,
+				text: `*${key}*`,
+			},
+			{
+				type: 'plain_text' as const,
+				text: `${value}`,
+			},
+		],
+		[] as Array<MrkdwnElement | PlainTextElement>
+	);
+
+	await contactHook.send({
+		text: `New form submission from ${formIdentifier}`,
+		blocks: [
+			{
+				type: 'section',
+				fields: fieldSubmissions,
+			},
+			...getMetaBlocks(),
+		],
+	});
+}

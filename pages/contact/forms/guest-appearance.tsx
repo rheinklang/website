@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { getAvailableEventsForSubmission } from '../../../api/forms';
 import { ContentConstraint } from '../../../components/ContentConstraint';
 import { ContentHeader } from '../../../components/ContentHeader';
-import { FestivalGuestSubmissionForm } from '../../../components/forms/FestivalGuestSubmissionForm';
+import { GuestAppearanceForm } from '../../../components/forms/GuestAppearanceForm';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
@@ -42,7 +42,7 @@ const ContactGuestAppearancePage: NextPage<Awaited<ReturnType<typeof getStaticPr
 						constraintClassName="lg:max-w-4xl"
 					/>
 					<ContentConstraint className="lg:max-w-4xl">
-						<FestivalGuestSubmissionForm options={availableEvents} />
+						<GuestAppearanceForm options={availableEvents} />
 					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
