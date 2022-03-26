@@ -103,8 +103,8 @@ export const SupportForm: FC = () => {
 			{!error && isSubmitted && (
 				<SubmissionNotification
 					type="success"
-					title="Danke für deine Bewerbung"
-					text="Wir werden uns nach Ablauf der jeweiligen Frist bei dir melden"
+					title="Danke für deine Anfrage"
+					text="Wir werden uns in kürze bei dir melden"
 				/>
 			)}
 		</div>
