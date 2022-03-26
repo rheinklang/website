@@ -2,10 +2,10 @@ import { ArrowRightIcon, TicketIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { formatDate } from '../utils/date';
 import { StaticRoutes } from '../utils/routes';
 import { Badge } from './Badge';
 import { Button } from './Button';
-import { ButtonGroup } from './ButtonGroup';
 import { Image } from './Image';
 
 export interface EventTeaserProps {
@@ -16,6 +16,7 @@ export interface EventTeaserProps {
 	isCanceled?: boolean | null;
 	description: string;
 	className?: string;
+	date?: string | null;
 	ticketingUrl?: string | null;
 }
 
@@ -25,6 +26,7 @@ export const EventTeaser: FC<EventTeaserProps> = ({
 	image,
 	category,
 	slug,
+	date,
 	ticketingUrl,
 	className,
 	isCanceled = false,
@@ -61,12 +63,15 @@ export const EventTeaser: FC<EventTeaserProps> = ({
 			<div className={classNames('p-6 sm:p-4 md:p-6 w-full flex flex-col h-full')}>
 				{category && <Badge>{translate(`event.type.${category}`)}</Badge>}
 				<h2
-					className={classNames('sm:text-3xl text-2xl title-font font-medium mt-4 mb-4', {
+					className={classNames('sm:text-3xl text-2xl title-font font-medium mt-4', {
 						'line-through': isCanceled,
+						'mb-4': !date,
+						'mb-1': !!date,
 					})}
 				>
 					{title}
 				</h2>
+				{date && <p className="text-sm mb-4 text-sea-green-200">{formatDate(date)}</p>}
 				<p
 					className={classNames('leading-relaxed mb-8', {
 						'line-through': isCanceled,

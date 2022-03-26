@@ -94,6 +94,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							{upcomingEvents.map((event) => (
 								<EventTeaser
 									key={event._id}
+									date={event.date}
 									title={event.title}
 									image={event.image!.path}
 									description={event.excerpt}
