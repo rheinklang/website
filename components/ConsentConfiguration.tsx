@@ -1,9 +1,10 @@
 import { ShieldCheckIcon } from '@heroicons/react/outline';
 import Cookies from 'js-cookie';
 import { FC } from 'react';
-import { FormState, useForm, UseFormGetFieldState, UseFormGetValues } from 'react-hook-form';
+import { Controller, FormState, useForm, UseFormGetFieldState, UseFormGetValues } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
+import { keys } from '../utils/structs';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
 
@@ -38,7 +39,9 @@ export interface ConsentConfigurationProps {
 
 export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleConsented }) => {
 	const translate = useTranslation();
-	const { register, handleSubmit, getValues, formState } = useForm<ConsentConfigurationForm>({
+	const initialCookies = Cookies.get();
+	console.log(initialCookies);
+	const { handleSubmit, control, getValues, formState } = useForm<ConsentConfigurationForm>({
 		mode: 'onSubmit',
 		defaultValues: {
 			// required
@@ -47,29 +50,53 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 			[CookieConsents.CONTENT_DELIVERY]: true,
 			[CookieConsents.DEVICE_INFORMATION]: true,
 			// not required
-			[CookieConsents.FUNCTIONAL]: false,
-			[CookieConsents.MARKETING]: false,
-			[CookieConsents.DEVICE_STORAGE]: false,
-			[CookieConsents.PERSONALIZATION]: false,
-			[CookieConsents.ANLAYTICS]: false,
-			[CookieConsents.EXTERNAL_CONTENT]: false,
+			[CookieConsents.FUNCTIONAL]: Cookies.get(CookieConsents.FUNCTIONAL) === CookieValues.TRUE,
+			[CookieConsents.MARKETING]: Cookies.get(CookieConsents.MARKETING) === CookieValues.TRUE,
+			[CookieConsents.DEVICE_STORAGE]: Cookies.get(CookieConsents.DEVICE_STORAGE) === CookieValues.TRUE,
+			[CookieConsents.PERSONALIZATION]: Cookies.get(CookieConsents.PERSONALIZATION) === CookieValues.TRUE,
+			[CookieConsents.ANLAYTICS]: Cookies.get(CookieConsents.ANLAYTICS) === CookieValues.TRUE,
+			[CookieConsents.EXTERNAL_CONTENT]: Cookies.get(CookieConsents.EXTERNAL_CONTENT) === CookieValues.TRUE,
 		},
 	});
+
+	const onSubmit = (values: ConsentConfigurationForm) => {
+		console.log(values);
+		keys(values).forEach((cookieKey) => {
+			const value = values[cookieKey] ? CookieValues.TRUE : CookieValues.FALSE;
+			console.log('set %s to %s', cookieKey, value);
+			Cookies.set(cookieKey, value, {
+				expires: 365,
+				sameSite: 'strict',
+			});
+		});
+
+		Cookies.set(CookieConsents.CONSENTED, CookieValues.TRUE, {
+			expires: 365,
+			sameSite: 'strict',
+		});
+
+		handleConsented(getValues(), formState);
+	};
 
 	return (
 		<div>
 			<p className="text-xs">{translate('consents.configure.text')}</p>
 			<div className="my-4">
 				{CONFIGURABLE_COOKIES.map((key) => (
-					<Checkbox
+					<Controller
+						control={control}
 						key={key}
-						id={key}
-						title={translate(`cookies.${key}`)}
-						register={register}
-						options={{
-							disabled: REQUIRED_COOKIES.includes(key),
-							required: REQUIRED_COOKIES.includes(key),
-						}}
+						name={key}
+						render={({ field, fieldState }) => (
+							<Checkbox
+								{...field}
+								hookState={fieldState}
+								isDisabled={REQUIRED_COOKIES.includes(key)}
+								isRequired={REQUIRED_COOKIES.includes(key)}
+								id={`consentConfigurationField-${key}`}
+								title={translate(`cookies.${key}`)}
+							/>
+						)}
 					/>
 				))}
 			</div>
@@ -81,23 +108,7 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 				<Button
 					iconPosition="post"
 					icon={<ShieldCheckIcon className="inline-block align-top h-6 ml-2" />}
-					onClick={() => {
-						handleSubmit(() => {
-							Object.keys(getValues()).forEach((cookieKey) => {
-								Cookies.set(cookieKey, CookieValues.TRUE, {
-									expires: 365,
-									sameSite: 'strict',
-								});
-							});
-
-							Cookies.set(CookieConsents.CONSENTED, CookieValues.TRUE, {
-								expires: 365,
-								sameSite: 'strict',
-							});
-
-							handleConsented(getValues(), formState);
-						});
-					}}
+					onClick={handleSubmit(onSubmit)}
 				>
 					Speichern
 				</Button>

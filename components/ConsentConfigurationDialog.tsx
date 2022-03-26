@@ -12,11 +12,7 @@ export const ConsentConfigurationDialog: FC<ConsentConfigurationDialogProps> = (
 
 	return (
 		<Dialog state={state} title={translate('consents.configure.title')}>
-			<ConsentConfiguration
-				handleConsented={() => {
-					/* noop */
-				}}
-			/>
+			<ConsentConfiguration handleConsented={handleConsented} />
 		</Dialog>
 	);
 };
