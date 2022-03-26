@@ -1,5 +1,6 @@
 import type { Block, KnownBlock, MrkdwnElement, PlainTextElement } from '@slack/types';
-import { IncomingWebhook } from '@slack/webhook';
+// import { IncomingWebhook } from '@slack/webhook';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { CookieConsents } from '../utils/cookies';
 
@@ -7,15 +8,18 @@ if (!process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL || !process.env.NEXT_PU
 	throw new Error('Missing Slack webhook URLs for contact and reporting');
 }
 
+const SLACK_REPORTING_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL;
+const SLACK_CONTACT_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL;
+
 /**
  * IncomingWebhook to send reports to Slack
  */
-const reportHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL);
+// const reportHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL);
 
 /**
  * IncomingWebhook to send contact submissions
  */
-const contactHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL);
+// const contactHook = new IncomingWebhook(process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL);
 
 const transformFieldValueType = <T>(value: T): string => {
 	if (typeof value === 'string') {
@@ -95,8 +99,8 @@ const getMetaBlocks = (): (Block | KnownBlock)[] => {
 export async function sendReport(err?: any, scope = 'unknown') {
 	const report = err instanceof Error ? err.message : `${err}`;
 
-	await reportHook.send({
-		text: report,
+	await axios.post(SLACK_REPORTING_WEBHOOK_URL, {
+		text: `:warning: Received new error report: ${report}`,
 		blocks: [
 			{
 				type: 'section',
@@ -133,8 +137,8 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 		[] as Array<MrkdwnElement | PlainTextElement>
 	);
 
-	await contactHook.send({
-		text: `New form submission from ${formIdentifier}`,
+	await axios.post(SLACK_CONTACT_WEBHOOK_URL, {
+		text: `:mailbox: New form submission from ${formIdentifier}`,
 		blocks: [
 			{
 				type: 'section',

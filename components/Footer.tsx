@@ -6,7 +6,7 @@ import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';
 import { StaticExternalUrls, StaticRoutes } from '../utils/routes';
 import { EventType } from '../graphql';
-import { Link } from './Link';
+import { Link, RawLink } from './Link';
 import { CorporateLogo } from './static/CorporateLogo';
 
 export const Footer: FC = () => {
@@ -16,11 +16,15 @@ export const Footer: FC = () => {
 		<footer className="z-30">
 			<div className="md:py-20 bg-black text-white">
 				<ContentConstraint>
-					<div className="flex flex-col lg:flex-row align-top md:justify-between">
-						<Link href={StaticRoutes.HOME} title="Homepage" className="pb-12 lg:mr-8 lg:pb-0 xl:mr-28">
-							<CorporateLogo className="h-36 w-36" />
-						</Link>
-						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8 lg:gap-12 lg:grid-cols-4 lg:ml-auto">
+					<div className="flex flex-col xl:flex-row align-top justify-center xl:justify-between">
+						<RawLink
+							href={StaticRoutes.HOME}
+							title="Homepage"
+							className="pb-12 w-full xl:w-auto lg:pb-0 xl:mr-28"
+						>
+							<CorporateLogo className="block h-32 w-32 mb-8 mx-auto xl:mx-0 xl:mb-0 xl:inline xl:h-36 xl:w-36" />
+						</RawLink>
+						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:gap-12 2xl:gap-20 lg:grid-cols-4 xl:ml-auto">
 							<FooterNavigation
 								title={translate('footer.navigationSection.events')}
 								items={[
