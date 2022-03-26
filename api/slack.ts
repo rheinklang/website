@@ -99,21 +99,35 @@ const getMetaBlocks = (): (Block | KnownBlock)[] => {
 export async function sendReport(err?: any, scope = 'unknown') {
 	const report = err instanceof Error ? err.message : `${err}`;
 
-	await axios.post(SLACK_REPORTING_WEBHOOK_URL, {
-		text: `:warning: Received new error report: ${report}`,
-		blocks: [
-			{
-				type: 'section',
-				fields: [
-					{
-						type: 'plain_text',
-						text: `${scope}`,
-					},
-				],
-			},
-			...getMetaBlocks(),
-		],
-	});
+	await axios.post(
+		SLACK_REPORTING_WEBHOOK_URL,
+		{
+			text: `:warning: Received new error report: ${report}`,
+			blocks: [
+				{
+					type: 'section',
+					fields: [
+						{
+							type: 'plain_text',
+							text: `${scope}`,
+						},
+					],
+				},
+				...getMetaBlocks(),
+			],
+		},
+		{
+			withCredentials: false,
+			transformRequest: [
+				(data, headers) => {
+					if (headers) {
+						delete headers['Content-Type'];
+					}
+					return data;
+				},
+			],
+		}
+	);
 }
 
 export async function sendContactSubmission(formIdentifier: string, fields: Record<string, number | string | boolean>) {
@@ -137,14 +151,28 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 		[] as Array<MrkdwnElement | PlainTextElement>
 	);
 
-	await axios.post(SLACK_CONTACT_WEBHOOK_URL, {
-		text: `:mailbox: New form submission from ${formIdentifier}`,
-		blocks: [
-			{
-				type: 'section',
-				fields: fieldSubmissions,
-			},
-			...getMetaBlocks(),
-		],
-	});
+	await axios.post(
+		SLACK_CONTACT_WEBHOOK_URL,
+		{
+			text: `:mailbox: New form submission from ${formIdentifier}`,
+			blocks: [
+				{
+					type: 'section',
+					fields: fieldSubmissions,
+				},
+				...getMetaBlocks(),
+			],
+		},
+		{
+			withCredentials: false,
+			transformRequest: [
+				(data, headers) => {
+					if (headers) {
+						delete headers['Content-Type'];
+					}
+					return data;
+				},
+			],
+		}
+	);
 }

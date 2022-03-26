@@ -2,9 +2,7 @@ import { BriefcaseIcon, InboxIcon, MusicNoteIcon, NewspaperIcon, SupportIcon } f
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ContentConstraint } from '../../components/ContentConstraint';
-import { ContentHeader } from '../../components/ContentHeader';
 import { Feature } from '../../components/Feature';
-import { SupportForm } from '../../components/forms/SupportForm';
 import { PageLayout } from '../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
@@ -12,7 +10,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { StaticRoutes } from '../../utils/routes';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('contact');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {
