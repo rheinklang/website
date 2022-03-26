@@ -22,6 +22,8 @@ const slackClientConfig: AxiosRequestConfig = {
 			if (headers) {
 				delete headers['Content-Type'];
 			}
+
+			return data;
 		},
 	],
 };
@@ -125,7 +127,7 @@ export async function sendReport(err?: any, scope = 'unknown') {
 
 	await axios.post(
 		SLACK_REPORTING_WEBHOOK_URL,
-		{
+		JSON.stringify({
 			blocks: [
 				getMessageBlock(`:warning: *Received new error report*\n${report}`),
 				{
@@ -139,7 +141,7 @@ export async function sendReport(err?: any, scope = 'unknown') {
 				},
 				...getMetaBlocks(),
 			],
-		},
+		}),
 		slackClientConfig
 	);
 }
@@ -167,7 +169,7 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 
 	await axios.post(
 		SLACK_CONTACT_WEBHOOK_URL,
-		{
+		JSON.stringify({
 			blocks: [
 				getMessageBlock(`:mailbox: New form submission from ${formIdentifier}`),
 				{
@@ -176,7 +178,7 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 				},
 				...getMetaBlocks(),
 			],
-		},
+		}),
 		slackClientConfig
 	);
 }
