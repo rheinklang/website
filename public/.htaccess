@@ -29,7 +29,7 @@ Options -Indexes
 	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
 	# we always allow our own domains as well as twitch for iframes
-	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; connect-src: 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events player.twitch.tv hooks.slack.com; style-src-elem 'self' 'unsafe-inline' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' 'unsafe-inline' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src 'self' *.rheinklang-festival.ch *.rheinklang.events facebook.net *.facebook.net; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data:  https:"
+	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; connect-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events player.twitch.tv hooks.slack.com; style-src-elem 'self' 'unsafe-inline' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' 'unsafe-inline' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv; script-src 'self' *.rheinklang-festival.ch *.rheinklang.events facebook.net *.facebook.net; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data:  https:"
 
 	# disable all client-side features as long as we don't use it
 	Header set Feature-Policy: "fullscreen 'self' https://player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' https://player.twitch.tv; gyroscope 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
