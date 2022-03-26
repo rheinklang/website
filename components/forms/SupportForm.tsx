@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';
 import { useTranslation } from '../../hooks/useTranslation';
+import { VALIDATE_EMAIL } from '../../utils/validation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
@@ -48,7 +49,13 @@ export const SupportForm: FC = () => {
 			/>
 			<Controller
 				control={control}
-				rules={{ required: true }}
+				rules={{
+					required: true,
+					pattern: {
+						value: VALIDATE_EMAIL,
+						message: 'Invalid format',
+					},
+				}}
 				name="email"
 				render={({ field, fieldState }) => (
 					<Input type="email" placeholder="E-Mail" icon={MailIcon} {...field} hookState={fieldState} />
