@@ -1,6 +1,6 @@
 import type { Block, KnownBlock, MrkdwnElement, PlainTextElement } from '@slack/types';
 // import { IncomingWebhook } from '@slack/webhook';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import { CookieConsents } from '../utils/cookies';
 
@@ -9,7 +9,24 @@ if (!process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL || !process.env.NEXT_PU
 }
 
 const SLACK_REPORTING_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL;
+
 const SLACK_CONTACT_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL;
+
+/**
+ * @see https://github.com/slackapi/node-slack-sdk/issues/982
+ */
+const slackClientConfig: AxiosRequestConfig = {
+	withCredentials: false,
+	transformRequest: [
+		(data, headers) => {
+			if (headers) {
+				delete headers['Content-Type'];
+			}
+
+			return JSON.stringify(data);
+		},
+	],
+};
 
 /**
  * IncomingWebhook to send reports to Slack
@@ -116,17 +133,7 @@ export async function sendReport(err?: any, scope = 'unknown') {
 				...getMetaBlocks(),
 			],
 		},
-		{
-			withCredentials: false,
-			transformRequest: [
-				(data, headers) => {
-					if (headers) {
-						delete headers['Content-Type'];
-					}
-					return data;
-				},
-			],
-		}
+		slackClientConfig
 	);
 }
 
@@ -163,16 +170,6 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 				...getMetaBlocks(),
 			],
 		},
-		{
-			withCredentials: false,
-			transformRequest: [
-				(data, headers) => {
-					if (headers) {
-						delete headers['Content-Type'];
-					}
-					return data;
-				},
-			],
-		}
+		slackClientConfig
 	);
 }
