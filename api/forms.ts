@@ -35,7 +35,7 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 			if (process.env.NODE_ENV === 'development') {
 				console.error(error);
 			} else {
-				sendReport(error, `submitForm->${formId}->slack(localhost)`);
+				await sendReport(error, `${formId}`);
 			}
 		}
 	} catch (error) {

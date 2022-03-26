@@ -152,20 +152,22 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 		transformFieldValueType(value),
 	]);
 
-	const fieldSubmissions = readableFields.reduce(
-		(prev, [key, value]) => [
-			...prev,
-			{
-				type: 'mrkdwn' as const,
-				text: `*${key}*`,
-			},
-			{
-				type: 'plain_text' as const,
-				text: `${value}`,
-			},
-		],
-		[] as Array<MrkdwnElement | PlainTextElement>
-	);
+	const fieldSubmissions = readableFields
+		.filter(([key]) => key !== 'gotcha')
+		.reduce(
+			(prev, [key, value]) => [
+				...prev,
+				{
+					type: 'mrkdwn' as const,
+					text: `*${key}*`,
+				},
+				{
+					type: 'plain_text' as const,
+					text: `${value || '–'}`,
+				},
+			],
+			[] as Array<MrkdwnElement | PlainTextElement>
+		);
 
 	await axios.post(
 		SLACK_CONTACT_WEBHOOK_URL,
