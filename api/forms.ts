@@ -40,7 +40,7 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 		}
 	} catch (error) {
 		// send error report to slack
-		await sendReport(error, `submitForm->${formId}`);
+		await sendReport(error, `${formId} submission`);
 	}
 };
 
