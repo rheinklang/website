@@ -2,7 +2,7 @@ import { ArrowRightIcon, TicketIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { formatDate } from '../utils/date';
+import { formatDate, formatDateRange } from '../utils/date';
 import { StaticRoutes } from '../utils/routes';
 import { Badge } from './Badge';
 import { Button } from './Button';
@@ -17,6 +17,7 @@ export interface EventTeaserProps {
 	description: string;
 	className?: string;
 	date?: string | null;
+	endDate?: string | null;
 	ticketingUrl?: string | null;
 }
 
@@ -27,6 +28,7 @@ export const EventTeaser: FC<EventTeaserProps> = ({
 	category,
 	slug,
 	date,
+	endDate,
 	ticketingUrl,
 	className,
 	isCanceled = false,
@@ -71,7 +73,11 @@ export const EventTeaser: FC<EventTeaserProps> = ({
 				>
 					{title}
 				</h2>
-				{date && <p className="text-sm mb-4 text-sea-green-200">{formatDate(date)}</p>}
+				{date && (
+					<p className="text-sm mb-4 text-sea-green-200">
+						{date && endDate ? formatDateRange(date, endDate) : `Am ${formatDate(date)}`}
+					</p>
+				)}
 				<p
 					className={classNames('leading-relaxed mb-8', {
 						'line-through': isCanceled,
