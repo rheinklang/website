@@ -22,8 +22,6 @@ const slackClientConfig: AxiosRequestConfig = {
 			if (headers) {
 				delete headers['Content-Type'];
 			}
-
-			return JSON.stringify(data);
 		},
 	],
 };
@@ -53,6 +51,14 @@ const transformFieldValueType = <T>(value: T): string => {
 
 	return JSON.stringify(value);
 };
+
+const getMessageBlock = (message: string): KnownBlock => ({
+	type: 'section',
+	text: {
+		type: 'mrkdwn',
+		text: message,
+	},
+});
 
 const getMetaBlocks = (): (Block | KnownBlock)[] => {
 	const now = new Date();
@@ -95,21 +101,22 @@ const getMetaBlocks = (): (Block | KnownBlock)[] => {
 				},
 			],
 		},
-		{
-			type: 'section',
-			fields: [
-				{
-					type: 'mrkdwn',
-					text: '*Cookies*',
-				},
-				...Object.values(CookieConsents).map(
-					(consent): MrkdwnElement => ({
-						type: 'mrkdwn',
-						text: `*${consent}* ${Cookies.get(consent) ? '✅' : '❌'}`,
-					})
-				),
-			],
-		},
+		// Too many fields for Slack (10)
+		// {
+		// 	type: 'section',
+		// 	fields: [
+		// 		{
+		// 			type: 'mrkdwn',
+		// 			text: '*Cookies*',
+		// 		},
+		// 		...Object.values(CookieConsents).map(
+		// 			(consent): MrkdwnElement => ({
+		// 				type: 'mrkdwn',
+		// 				text: `*${consent}* ${Cookies.get(consent) ? '✅' : '❌'}`,
+		// 			})
+		// 		),
+		// 	],
+		// },
 	];
 };
 
@@ -119,8 +126,8 @@ export async function sendReport(err?: any, scope = 'unknown') {
 	await axios.post(
 		SLACK_REPORTING_WEBHOOK_URL,
 		{
-			text: `:warning: Received new error report: ${report}`,
 			blocks: [
+				getMessageBlock(`:warning: *Received new error report*\n${report}`),
 				{
 					type: 'section',
 					fields: [
@@ -161,8 +168,8 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 	await axios.post(
 		SLACK_CONTACT_WEBHOOK_URL,
 		{
-			text: `:mailbox: New form submission from ${formIdentifier}`,
 			blocks: [
+				getMessageBlock(`:mailbox: New form submission from ${formIdentifier}`),
 				{
 					type: 'section',
 					fields: fieldSubmissions,
