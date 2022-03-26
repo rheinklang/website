@@ -20,6 +20,8 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<meta property="og:type" content="website" />
 				<meta property="og:locale" content="de_CH" />
 				<meta property="og:site_name" content="Rheinklang" />
+				<meta name="apple-mobile-web-app-title" content="Rheinklang" />
+				<meta name="apple-mobile-web-app-capable" content="yes" />
 			</Head>
 			<div className="bg-white overflow-x-hidden">
 				<Component {...pageProps} />
