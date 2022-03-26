@@ -18,6 +18,7 @@ export enum StaticRoutes {
 	PRESS_INQUIRY = '/contact/forms/press-inquiry',
 	SPONSOR_INQUIRY = '/contact/forms/sponsor',
 	SUPPORT_INQUIRY = '/contact/forms/support',
+	CONSULTING_INQUIRY = '/contact/forms/consulting',
 	FESTIVAL_GUEST_APPEARANCE_INQUIRY = '/contact/forms/guest-appearance',
 	FAQ = '/services/faq',
 	LIVESTREAM = '/services/livestream',

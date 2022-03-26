@@ -33,7 +33,8 @@ export const Dropdown: FC<DropdownProps> = ({ placeholder, value, onChange, hook
 						className={classNames(
 							'w-full h-12 border-2 text-left border-gray-100 py-2 px-4 rounded-lg bg-gray-50 ring-sea-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2',
 							{
-								'bg-slightly-rose-100 border-slightly-rose-500': hookState && !!hookState.error,
+								'bg-slightly-rose-100 border-slightly-rose-500 ring-slightly-rose-200':
+									hookState && !!hookState.error,
 							}
 						)}
 					>

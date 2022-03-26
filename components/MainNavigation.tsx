@@ -2,7 +2,6 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
-	CameraIcon,
 	FlagIcon,
 	InboxIcon,
 	LightningBoltIcon,
@@ -100,6 +99,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					title: translate('navigation.contact.festivalGuestAppearance'),
 					href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
 					icon: MusicNoteIcon,
+				},
+				{
+					title: translate('navigation.contact.consulting'),
+					href: StaticRoutes.CONSULTING_INQUIRY,
+					icon: BriefcaseIcon,
 				},
 				{
 					title: translate('navigation.contact.press'),

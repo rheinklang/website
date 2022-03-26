@@ -40,7 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 							{
 								'pr-6': !!icon,
 								'text-gray-400 cursor-not-allowed': isDisabled,
-								'bg-slightly-rose-100 border-slightly-rose-500 text-slightly-rose-900':
+								'bg-slightly-rose-100 border-slightly-rose-500 text-slightly-rose-900 ring-slightly-rose-200':
 									hookState && !!hookState.error,
 							},
 							className

@@ -7,9 +7,7 @@ export interface FooterNavigationProps {
 	items: LinkProps[];
 }
 
-const defaultItemsForTesting: LinkProps[] = [{ href: '/', children: 'Home' }];
-
-export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = defaultItemsForTesting }) => {
+export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = [] }) => {
 	return (
 		<div className="w-fit">
 			<Heading level="3" className="mb-4">
@@ -27,3 +25,5 @@ export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = def
 		</div>
 	);
 };
+
+FooterNavigation.displayName = 'FooterNavigation';

@@ -10,6 +10,7 @@ export type FormId =
 	| 'partnerInquiry'
 	| 'eventBookingInquiry'
 	| 'artistBookingInquiry'
+	| 'consultingInquiry'
 	| 'guestAppearanceInquiry';
 
 export const submitForm = async (formId: FormId, data: Record<string, any>) => {

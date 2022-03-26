@@ -68,16 +68,20 @@ export const Footer: FC = () => {
 										children: translate('navigation.contact.eventBooking'),
 									},
 									{
+										href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
+										children: translate('navigation.contact.support'),
+									},
+									{
+										href: StaticRoutes.CONSULTING_INQUIRY,
+										children: translate('navigation.contact.consulting'),
+									},
+									{
 										href: StaticRoutes.PRESS_INQUIRY,
 										children: translate('navigation.contact.festivalGuestAppearance'),
 									},
 									{
 										href: StaticRoutes.SPONSOR_INQUIRY,
 										children: translate('navigation.contact.press'),
-									},
-									{
-										href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
-										children: translate('navigation.contact.support'),
 									},
 									{ href: '/services/settings', children: translate('navigation.services.settings') },
 								]}

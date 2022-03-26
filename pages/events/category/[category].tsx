@@ -64,7 +64,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
-	events,
 	upcomingEvents,
 	pastEvents,
 	nextRelevantEvent,

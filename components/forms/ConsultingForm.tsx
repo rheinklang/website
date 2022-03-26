@@ -1,44 +1,44 @@
-import { CashIcon, LocationMarkerIcon, MailIcon, UserGroupIcon } from '@heroicons/react/outline';
+import { LocationMarkerIcon, MailIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { EventType } from '../../graphql';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';
 import { useTranslation } from '../../hooks/useTranslation';
-import { keys } from '../../utils/structs';
 import { VALIDATE_EMAIL } from '../../utils/validation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
 import { Input } from '../Input';
+import { Textarea } from '../Textarea';
 import { SubmissionNotification } from './SubmissionNotification';
 
-export interface EventBookingFormState {
+export interface ConsultingFormState {
 	email: string;
 	name: string;
-	location: string;
-	eventType: string;
-	guestCount: number;
-	averageEntryFee: number;
+	message: string;
+	requestType: string;
+	customRequestType: string;
 	contactAgreement: boolean;
 }
 
-export const EventBookingForm: FC = () => {
+export const ConsultingForm: FC = () => {
 	const translate = useTranslation();
 	const { submit, error, isSubmitted, isSubmitting } = useFormSubmissionState();
-	const { control, handleSubmit } = useForm<EventBookingFormState>({
+	const { control, handleSubmit, watch } = useForm<ConsultingFormState>({
 		reValidateMode: 'onChange',
 		defaultValues: {
 			contactAgreement: true,
 			email: '',
-			location: '',
+			message: '',
 			name: '',
-			eventType: '',
+			requestType: '',
+			customRequestType: '',
 		},
 	});
+	const watchRequestType = watch('requestType', '');
 
-	const onSubmit = (data: EventBookingFormState) => {
-		submit('eventBookingInquiry', data);
+	const onSubmit = (data: ConsultingFormState) => {
+		submit('consultingInquiry', data);
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);
@@ -49,7 +49,7 @@ export const EventBookingForm: FC = () => {
 				control={control}
 				rules={{ required: true }}
 				name="name"
-				render={({ field, fieldState }) => <Input placeholder="Dein Name" {...field} hookState={fieldState} />}
+				render={({ field, fieldState }) => <Input placeholder="Ihr Name" {...field} hookState={fieldState} />}
 			/>
 			<Controller
 				control={control}
@@ -68,65 +68,48 @@ export const EventBookingForm: FC = () => {
 			<Controller
 				control={control}
 				rules={{ required: true }}
-				name="eventType"
+				name="requestType"
 				render={({ field, fieldState }) => (
 					<Dropdown
 						{...field}
-						placeholder="Art des Events"
+						placeholder="Art der Anfrage"
 						hookState={fieldState}
-						options={keys(EventType)
-							.map((item) => EventType[item])
-							.map((key) => ({
-								id: key,
-								label: translate(`event.type.${key}`),
-							}))}
+						options={[
+							{
+								id: 'event-support',
+								label: 'Unterstützung für einen Event',
+							},
+							{
+								id: 'event-planning',
+								label: 'Planung eines Events',
+							},
+							{
+								id: 'strategy-support',
+								label: 'Strategie- und Marketingunterstützung',
+							},
+							{
+								id: 'other',
+								label: 'Sonstiges',
+							},
+						]}
 					/>
 				)}
 			/>
+			{watchRequestType === 'other' && (
+				<Controller
+					control={control}
+					name="customRequestType"
+					render={({ field, fieldState }) => (
+						<Input placeholder="Um was handelt es sich genau?" {...field} hookState={fieldState} />
+					)}
+				/>
+			)}
 			<Controller
 				control={control}
 				rules={{ required: true }}
-				name="location"
+				name="message"
 				render={({ field, fieldState }) => (
-					<Input
-						icon={LocationMarkerIcon}
-						placeholder="Ort der Veranstaltung"
-						{...field}
-						hookState={fieldState}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				rules={{ required: true }}
-				name="guestCount"
-				render={({ field, fieldState }) => (
-					<Input
-						{...field}
-						type="number"
-						placeholder="Anzahl der Gäste"
-						className="appearance-none"
-						icon={UserGroupIcon}
-						value={`${field.value || ''}`}
-						onChange={(value) => field.onChange(Number.parseInt(value))}
-						hookState={fieldState}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				rules={{ required: true }}
-				name="averageEntryFee"
-				render={({ field, fieldState }) => (
-					<Input
-						type="number"
-						placeholder="Durchschnittlicher Eintrittspreis in CHF"
-						icon={CashIcon}
-						{...field}
-						value={`${field.value || ''}`}
-						hookState={fieldState}
-						onChange={(value) => field.onChange(Number.parseInt(value))}
-					/>
+					<Textarea rows={8} placeholder="Ihre Nachricht" {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller
@@ -160,4 +143,4 @@ export const EventBookingForm: FC = () => {
 	);
 };
 
-EventBookingForm.displayName = 'EventBookingForm';
+ConsultingForm.displayName = 'ConsultingForm';

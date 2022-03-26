@@ -30,7 +30,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 							'w-full block border-2 placeholder:text-gray-300 border-gray-100 py-2 px-4 rounded-lg bg-gray-50 ring-sea-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2',
 							{
 								'pr-6': !!icon,
-								'bg-slightly-rose-100 border-slightly-rose-500 text-slightly-rose-900':
+								'bg-slightly-rose-100 border-slightly-rose-500 text-slightly-rose-900 ring-slightly-rose-200':
 									hookState && !!hookState.error,
 							}
 						)}
