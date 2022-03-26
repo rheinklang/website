@@ -32,7 +32,11 @@ const ContactPressInquiryPage: NextPage<Awaited<ReturnType<typeof getStaticProps
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<ContentHeader title={translate('forms.pressInquiry.title')} constraintClassName="lg:max-w-4xl" />
+					<ContentHeader
+						title={translate('forms.pressInquiry.title')}
+						text={translate('forms.pressInquiry.text')}
+						constraintClassName="lg:max-w-4xl"
+					/>
 					<ContentConstraint className="lg:max-w-4xl">
 						<PressInquiryForm />
 					</ContentConstraint>

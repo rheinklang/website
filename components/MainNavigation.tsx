@@ -87,7 +87,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 	},
 	{
 		title: translate('navigation.contact.title'),
-		href: StaticRoutes.EVENT_INQUIRY, // TODO: build index page
+		href: StaticRoutes.CONTACT, // TODO: build index page
 		expansion: {
 			items: [
 				{
