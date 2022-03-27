@@ -18,14 +18,16 @@ import { ContentHeader } from '../../../components/ContentHeader';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
-	const getContentProviderProps = getContextualContentProviderFetcher('eventCategory', {
-		category: category ? `translate:navigation.events.${category}s` : 'Unbekannt', // TODO: We need to fix that "s"
-	});
-	const contentProviderProps = await getContentProviderProps();
 	const events = await getEventsByType(`${category}`);
 	const nextRelevantEvents = await getUpcomingEvents(1, {
 		type: category,
 	});
+
+	// Main provider information
+	const getContentProviderProps = getContextualContentProviderFetcher('eventCategory', {
+		category: category ? `translate:navigation.events.${category}s` : 'Unbekannt', // TODO: We need to fix that "s"
+	});
+	const contentProviderProps = await getContentProviderProps();
 
 	// Aggregation of partial content
 

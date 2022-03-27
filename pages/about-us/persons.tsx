@@ -12,10 +12,11 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { Image } from '../../components/Image';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
-	const contentProviderProps = await getContentProviderProps();
 	const teamMembers = await getTeamMembersList();
 	const pageData = await getPortraitPage();
+
+	const getContentProviderProps = getContextualContentProviderFetcher('portrait');
+	const contentProviderProps = await getContentProviderProps();
 
 	return {
 		props: {

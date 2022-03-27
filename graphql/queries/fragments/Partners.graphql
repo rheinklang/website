@@ -1,7 +1,6 @@
 query PartnerOverview {
-	partnersCollection {
+	partnersCollection(filter: { "isActive": true }) {
 		title
-		# slug
 		logo {
 			path
 		}
@@ -13,5 +12,14 @@ query PartnerOverview {
 		since
 		left
 		backgroundFillColor
+	}
+}
+
+query InactivePartnerOverview {
+	partnersCollection(filter: { "isActive": false }) {
+		title
+		homepage
+		since
+		left
 	}
 }

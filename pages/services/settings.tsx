@@ -1,12 +1,6 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 import { PageLayout } from '../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
-import { TwitchStream } from '../../components/TwitchStream';
-import { Button } from '../../components/Button';
-import { ContentConstraint } from '../../components/ContentConstraint';
-import { Heading } from '../../components/Heading';
-import { useApolloClient } from '@apollo/client';
 import { Settings } from '../../components/utils/Settings';
 
 export async function getStaticProps() {

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getPartnerPage } from '../../api/pages';
-import { getLevelClusteredPartners } from '../../api/partners';
+import { getLevelClusteredPartners, getPartnerHallOfFame } from '../../api/partners';
 import { getTeamMembersList } from '../../api/team';
 import { ContentConstraint } from '../../components/ContentConstraint';
 import { ContentHeader } from '../../components/ContentHeader';
@@ -17,16 +17,19 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { CURRENT_YEAR } from '../../utils/date';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
-	const contentProviderProps = await getContentProviderProps();
 	const partners = await getLevelClusteredPartners();
+	const hallOfFame = await getPartnerHallOfFame();
 	const pageData = await getPartnerPage();
+
+	const getContentProviderProps = getContextualContentProviderFetcher('partners');
+	const contentProviderProps = await getContentProviderProps();
 
 	return {
 		props: {
 			contentProviderProps,
 			pageData,
 			partners,
+			hallOfFame,
 		},
 	};
 }
@@ -42,6 +45,7 @@ const LEVEL_ORDER = [
 const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	partners,
+	hallOfFame,
 	pageData,
 }) => {
 	const router = useRouter();
@@ -102,11 +106,11 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							<Heading level="2" className="text-sea-green-700 text-center uppercase mb-4">
 								Ehemalige
 							</Heading>
-							<ul className="text-sm">
-								{partners.inactive.map((partner) => (
+							<ul className="text-sm text-sea-green-500">
+								{hallOfFame.map((partner) => (
 									<li key={partner.title} className="mb-2">
-										<Link href={partner.homepage} className="hover:text-sea-green-500">
-											<span className="mr-2">{partner.title}</span>
+										<Link href={partner.homepage} className="hover:text-sea-green-400">
+											<span className="font-semibold mr-2">{partner.title}</span>
 											{partner.left && partner.since === partner.left && (
 												<span>({partner.since})</span>
 											)}

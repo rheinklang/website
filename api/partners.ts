@@ -1,4 +1,11 @@
-import { client, PartnerLevel, PartnerOverviewDocument, PartnerOverviewQuery } from '../graphql';
+import {
+	client,
+	InactivePartnerOverviewDocument,
+	InactivePartnerOverviewQuery,
+	PartnerLevel,
+	PartnerOverviewDocument,
+	PartnerOverviewQuery,
+} from '../graphql';
 import { nonNullish } from '../utils/filter';
 
 export const getPartners = async () => {
@@ -10,7 +17,7 @@ export const getPartners = async () => {
 };
 
 const sortPartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {
-	return partners.sort((a, b) => (a.since < b.since ? -1 : 1)).filter((partner) => !!partner.isActive);
+	return partners.sort((a, b) => (a.since < b.since ? -1 : 1));
 };
 
 export const getLevelClusteredPartners = async () => {
@@ -27,6 +34,14 @@ export const getLevelClusteredPartners = async () => {
 		},
 		inactive: getInactivePartners(partners),
 	};
+};
+
+export const getPartnerHallOfFame = async () => {
+	const result = await client.query<InactivePartnerOverviewQuery>({
+		query: InactivePartnerOverviewDocument,
+	});
+
+	return result.data.partnersCollection.filter(nonNullish);
 };
 
 export const getInactivePartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {

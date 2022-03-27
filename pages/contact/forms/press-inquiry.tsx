@@ -9,7 +9,10 @@ import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { useTranslation } from '../../../hooks/useTranslation';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('form', {
+		title: 'translate:forms.pressInquiry.title',
+		text: 'translate:forms.pressInquiry.text',
+	});
 	const contentProviderProps = await getContentProviderProps();
 
 	return {
