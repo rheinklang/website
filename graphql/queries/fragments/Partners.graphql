@@ -1,5 +1,5 @@
 query PartnerOverview {
-	partnersCollection(filter: { "isActive": true }) {
+	partnersCollection(filter: { isActive: true }) {
 		title
 		logo {
 			path
@@ -16,7 +16,7 @@ query PartnerOverview {
 }
 
 query InactivePartnerOverview {
-	partnersCollection(filter: { "isActive": false }) {
+	partnersCollection(filter: { isActive: false }) {
 		title
 		homepage
 		since
