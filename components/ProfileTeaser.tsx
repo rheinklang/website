@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { FC } from 'react';
 import { Button } from './Button';
 import { Image } from './Image';
+import { RawLink } from './Link';
 
 export interface ProfileTeaserProps {
 	className?: string;
@@ -13,6 +14,8 @@ export interface ProfileTeaserProps {
 	description?: string;
 	starred?: boolean;
 	isActive?: boolean;
+	imageBackgroundColor?: string;
+	imageMode?: 'cover' | 'contain';
 }
 
 export const ProfileTeaser: FC<ProfileTeaserProps> = ({
@@ -23,6 +26,8 @@ export const ProfileTeaser: FC<ProfileTeaserProps> = ({
 	href,
 	description,
 	starred,
+	imageMode = 'cover',
+	imageBackgroundColor = '#ffffff',
 	isActive = true,
 }) => {
 	return (
@@ -36,9 +41,22 @@ export const ProfileTeaser: FC<ProfileTeaserProps> = ({
 			)}
 		>
 			<div className="w-full pt-1 text-center -mt-24 mx-auto">
-				<a href="#" className="block relative">
-					<Image alt={name} src={image} className="mx-auto object-cover rounded-full h-40 w-40" />
-				</a>
+				<RawLink
+					href={href || `#${name}`}
+					className={classNames('relative rounded-full overflow-hidden inline-block shadow-sm', {
+						'p-4': imageMode === 'contain',
+					})}
+					style={{ backgroundColor: imageBackgroundColor }}
+				>
+					<Image
+						alt={name}
+						src={image}
+						className={classNames('mx-auto h-40 w-40', {
+							'object-contain p-1': imageMode === 'contain',
+							'object-cover': imageMode === 'cover',
+						})}
+					/>
+				</RawLink>
 			</div>
 			<div className="text-center mb-6 mt-4 grow basis-auto shrink-0">
 				<p className="text-gray-800 dark:text-white text-xl font-medium">{name}</p>

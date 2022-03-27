@@ -8,13 +8,13 @@ import { ContentConstraint } from '../../components/ContentConstraint';
 import { ContentHeader } from '../../components/ContentHeader';
 import { Heading } from '../../components/Heading';
 import { PageLayout } from '../../components/layouts/PageLayout';
+import { Link } from '../../components/Link';
 import { ProfileTeaser } from '../../components/ProfileTeaser';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { PartnerLevel } from '../../graphql';
 import { useTranslation } from '../../hooks/useTranslation';
 import { CURRENT_YEAR } from '../../utils/date';
-import { keys } from '../../utils/structs';
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('http500');
@@ -58,9 +58,9 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					{/* border-t border-b border-gray-800 */}
 					<section className="bg-gray-50 py-12 lg:py-12">
 						{LEVEL_ORDER.map((level, levelIndex) =>
-							partners[level].length === 0 ? null : (
+							partners.cluster[level].length === 0 ? null : (
 								<div
-									key={level + partners[level].length}
+									key={level + partners.cluster[level].length}
 									className={classNames('border-gray-100 py-12', {
 										'border-b': levelIndex !== LEVEL_ORDER.length - 1,
 									})}
@@ -72,7 +72,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 											</Heading>
 										</hgroup>
 										<div className="flex flex-row flex-wrap items-stretch justify-evenly">
-											{partners[level].map((partner) => (
+											{partners.cluster[level].map((partner) => (
 												<article
 													key={`${level}-${partner.title}`}
 													className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
@@ -82,6 +82,8 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 														role={translate(`partner.type.${partner.type}`)}
 														description={partner.role}
 														image={partner.logo?.path || 'TODO_FALLBACK_IMAGE'}
+														imageMode="contain"
+														imageBackgroundColor={partner.backgroundFillColor || undefined}
 														isActive={
 															partner.left && partner.left < CURRENT_YEAR ? false : true
 														}
@@ -94,6 +96,30 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								</div>
 							)
 						)}
+					</section>
+					<section className="bg-sea-green-200 py-12 lg:py-12">
+						<ContentConstraint className="text-center">
+							<Heading level="2" className="text-sea-green-700 text-center uppercase mb-4">
+								Ehemalige
+							</Heading>
+							<ul className="text-sm">
+								{partners.inactive.map((partner) => (
+									<li key={partner.title} className="mb-2">
+										<Link href={partner.homepage} className="hover:text-sea-green-500">
+											<span className="mr-2">{partner.title}</span>
+											{partner.left && partner.since === partner.left && (
+												<span>({partner.since})</span>
+											)}
+											{partner.left && partner.since !== partner.left && (
+												<span>
+													({partner.since} – {partner.left})
+												</span>
+											)}
+										</Link>
+									</li>
+								))}
+							</ul>
+						</ContentConstraint>
 					</section>
 				</PageLayout>
 			</ContentProvider>

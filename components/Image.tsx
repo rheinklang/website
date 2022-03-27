@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, useMemo } from 'react';
+import { FC, HTMLProps, useMemo } from 'react';
 import {
 	Breakpoint,
 	BREAKPOINTS,
@@ -14,9 +14,8 @@ export type ImageFilter = 'blur' | 'sharpen' | 'sketch' | 'emboss' | 'invert';
 
 export type ImageMask = 'crop' | 'thumbnail';
 
-export interface ImageProps {
+export interface ImageProps extends Pick<HTMLProps<HTMLImageElement>, 'style' | 'alt'> {
 	src: string;
-	alt: string;
 	preset?: ImageSourceProps['preset'];
 	options?: CockpitImagerOptions;
 	isObjectFitCover?: boolean;
@@ -98,7 +97,15 @@ const ImageSource: FC<ImageSourceProps> = ({ src, breakpoint, preset = 'teaser',
 	);
 };
 
-export const Image: FC<ImageProps> = ({ src, alt, isObjectFitCover, preset, className, options }) => {
+export const Image: FC<ImageProps> = ({
+	src,
+	alt,
+	isObjectFitCover,
+	preset,
+	className,
+	options,
+	...nativeHtmlProps
+}) => {
 	const fallbackParams = useMemo(
 		() =>
 			getCockpitImagerParams(src || '', {
@@ -127,6 +134,7 @@ export const Image: FC<ImageProps> = ({ src, alt, isObjectFitCover, preset, clas
 			<ImageSource preset={preset} src={src} options={options} />
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
+				{...nativeHtmlProps}
 				data-sizes="auto"
 				className={classNames(
 					'h-full lazyload',

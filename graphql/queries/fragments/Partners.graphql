@@ -12,5 +12,6 @@ query PartnerOverview {
 		homepage
 		since
 		left
+		backgroundFillColor
 	}
 }

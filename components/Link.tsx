@@ -63,12 +63,13 @@ export const RawLink: FC<RawLinkProps> = ({
 
 	return (
 		<a
+			{...nativeHtmlAttributes}
 			data-action={action}
 			rel="noopener noreferrer"
 			target="_blank"
 			href={`${href}?${utmParams.toString()}`}
 			title={title}
-			{...nativeHtmlAttributes}
+			className={className}
 			onClick={() => {
 				trackExternalLinkLeap(href, `${children}`);
 			}}

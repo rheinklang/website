@@ -10,7 +10,7 @@ export const getPartners = async () => {
 };
 
 const sortPartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {
-	return partners.sort((a, b) => (a.since < b.since ? 1 : -1));
+	return partners.sort((a, b) => (a.since < b.since ? -1 : 1)).filter((partner) => !!partner.isActive);
 };
 
 export const getLevelClusteredPartners = async () => {
@@ -18,10 +18,17 @@ export const getLevelClusteredPartners = async () => {
 	const sortedPartners = sortPartners(partners);
 
 	return {
-		[PartnerLevel.Bronze]: sortedPartners.filter((p) => p.level === PartnerLevel.Bronze),
-		[PartnerLevel.Silver]: sortedPartners.filter((p) => p.level === PartnerLevel.Silver),
-		[PartnerLevel.Gold]: sortedPartners.filter((p) => p.level === PartnerLevel.Gold),
-		[PartnerLevel.Platinum]: sortedPartners.filter((p) => p.level === PartnerLevel.Platinum),
-		[PartnerLevel.Diamond]: sortedPartners.filter((p) => p.level === PartnerLevel.Diamond),
+		cluster: {
+			[PartnerLevel.Bronze]: sortedPartners.filter((p) => p.level === PartnerLevel.Bronze),
+			[PartnerLevel.Silver]: sortedPartners.filter((p) => p.level === PartnerLevel.Silver),
+			[PartnerLevel.Gold]: sortedPartners.filter((p) => p.level === PartnerLevel.Gold),
+			[PartnerLevel.Platinum]: sortedPartners.filter((p) => p.level === PartnerLevel.Platinum),
+			[PartnerLevel.Diamond]: sortedPartners.filter((p) => p.level === PartnerLevel.Diamond),
+		},
+		inactive: getInactivePartners(partners),
 	};
+};
+
+export const getInactivePartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {
+	return partners.filter((partner) => !partner.isActive);
 };

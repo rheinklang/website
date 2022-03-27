@@ -282,6 +282,7 @@ type Partner {
 	homepage: String!
 	since: Int!
 	left: Int
+	backgroundFillColor: String
 }
 
 # Locations
