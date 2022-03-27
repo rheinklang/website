@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { Controller, FormState, useForm, UseFormGetFieldState, UseFormGetValues } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
+import { tagManagerPush } from '../utils/matomo';
 import { keys } from '../utils/structs';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
@@ -40,7 +41,7 @@ export interface ConsentConfigurationProps {
 export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleConsented }) => {
 	const translate = useTranslation();
 	const initialCookies = Cookies.get();
-	console.log(initialCookies);
+
 	const { handleSubmit, control, getValues, formState } = useForm<ConsentConfigurationForm>({
 		mode: 'onSubmit',
 		defaultValues: {
@@ -60,10 +61,9 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 	});
 
 	const onSubmit = (values: ConsentConfigurationForm) => {
-		console.log(values);
 		keys(values).forEach((cookieKey) => {
 			const value = values[cookieKey] ? CookieValues.TRUE : CookieValues.FALSE;
-			console.log('set %s to %s', cookieKey, value);
+
 			Cookies.set(cookieKey, value, {
 				expires: 365,
 				sameSite: 'strict',
@@ -73,6 +73,12 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 		Cookies.set(CookieConsents.CONSENTED, CookieValues.TRUE, {
 			expires: 365,
 			sameSite: 'strict',
+		});
+
+		tagManagerPush({
+			event: 'consented',
+			hasConsented: true,
+			mode: 'custom',
 		});
 
 		handleConsented(getValues(), formState);

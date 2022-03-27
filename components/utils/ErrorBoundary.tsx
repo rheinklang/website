@@ -1,5 +1,6 @@
 import { Component, ErrorInfo } from 'react';
 import { Logger } from '../../utils/logger';
+import { tagManagerPush } from '../../utils/matomo';
 
 export interface ErrorBoundaryProps {
 	route?: string;
@@ -24,6 +25,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		this.logger.error(error, {
 			context: errorInfo.componentStack || 'ErrorBoundary',
+			route: this.props.route,
+		});
+
+		tagManagerPush({
+			event: 'errorBoundaryCaught',
+			error: error.message,
+			errorStack: errorInfo.componentStack || '',
 			route: this.props.route,
 		});
 	}

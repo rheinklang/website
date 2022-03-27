@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { client, EventsForGuestSubmissionDocument, EventsForGuestSubmissionQuery } from '../graphql';
 import { nonNullish } from '../utils/filter';
+import { tagManagerPush } from '../utils/matomo';
 import { sendContactSubmission, sendReport } from './slack';
 
 export type FormId =
@@ -27,6 +28,12 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 				},
 			}
 		);
+
+		tagManagerPush({
+			event: 'formSubmission',
+			formId,
+			formData: data,
+		});
 
 		// send notification to slack
 		try {

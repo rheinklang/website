@@ -2,6 +2,7 @@ import { ArrowRightIcon, SpeakerphoneIcon, XIcon } from '@heroicons/react/outlin
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { storage } from '../utils/localstorage';
+import { tagManagerPush } from '../utils/matomo';
 import { Button } from './Button';
 import { ContentConstraint } from './ContentConstraint';
 import { Link } from './Link';
@@ -22,7 +23,11 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 	const handleDismiss = useCallback(() => {
 		storage.set(`${MARKETING_BANNER_STORAGE_KEY}.${id}`, true);
 		setIsDismissed(true);
-		// TODO: Add tracking
+
+		tagManagerPush({
+			event: 'marketingBannerDismissed',
+			marketingBannerId: id,
+		});
 	}, [id, setIsDismissed]);
 
 	useEffect(() => {
@@ -49,7 +54,14 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 				<p className="my-2 mr-2 lg:mr-auto text-sm">
 					{text}
 					{link && (
-						<span>
+						<span
+							onClick={() => {
+								tagManagerPush({
+									event: 'marketingBannerLinkClicked',
+									id,
+								});
+							}}
+						>
 							&nbsp;–&nbsp;
 							<Link className="w-auto underline text-sm" href={link} title={text}>
 								{translate('common.action.learnMore')}

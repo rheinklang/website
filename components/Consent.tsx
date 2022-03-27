@@ -5,6 +5,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { useCookie } from '../hooks/useCookie';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
+import { tagManagerPush } from '../utils/matomo';
 import { Button } from './Button';
 import { ConsentConfigurationDialog } from './ConsentConfigurationDialog';
 import { Heading } from './Heading';
@@ -81,11 +82,27 @@ export const Consent: FC<ConsentProps> = ({ variant }) => {
 							onClick={() => {
 								quickAcceptConsents();
 								handleConsented();
+								tagManagerPush({
+									event: 'consented',
+									hasConsented: true,
+									mode: 'acceptAll',
+								});
 							}}
 						>
 							{translate('consents.action.accept')}
 						</Button>
-						<Button type="danger" className="flex-grow" onClick={handleConsented}>
+						<Button
+							type="danger"
+							className="flex-grow"
+							onClick={() => {
+								handleConsented();
+								tagManagerPush({
+									event: 'consented',
+									hasConsented: true,
+									mode: 'reject',
+								});
+							}}
+						>
 							{translate('consents.action.reject')}
 						</Button>
 					</div>

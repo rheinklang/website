@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import { FC } from 'react';
-import { CookieConsents } from '../../utils/cookies';
+import { tagManagerPush } from '../../utils/matomo';
 import { Button } from '../Button';
 import { ConsentConfiguration } from '../ConsentConfiguration';
 import { ContentConstraint } from '../ContentConstraint';
@@ -19,6 +19,10 @@ export const Settings: FC = () => {
 					<ConsentConfiguration
 						handleConsented={() => {
 							// TODO: Show notification?
+							tagManagerPush({
+								event: 'updateConsents',
+								source: 'settings',
+							});
 						}}
 					/>
 				</div>
@@ -33,6 +37,11 @@ export const Settings: FC = () => {
 					onClick={() => {
 						if (client && client.cache) {
 							client.resetStore();
+
+							tagManagerPush({
+								event: 'resetCacheStore',
+							});
+
 							window.location.reload();
 						}
 					}}

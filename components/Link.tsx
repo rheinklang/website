@@ -1,6 +1,7 @@
 import { AriaAttributes, FC, HTMLAttributes, PropsWithChildren, useMemo } from 'react';
 import NextLink from 'next/link';
 import classNames from 'classnames';
+import { tagManagerPush } from '../utils/matomo';
 
 export type LinkProps = PropsWithChildren<{
 	href: string;
@@ -29,6 +30,15 @@ export const DEFAULT_UTM_PARAMS = new URLSearchParams();
 DEFAULT_UTM_PARAMS.append('utm_source', 'rheinklang-website');
 DEFAULT_UTM_PARAMS.append('utm_medium', 'link');
 DEFAULT_UTM_PARAMS.append('utm_campaign', 'referral');
+
+const trackExternalLinkLeap = (url: string, title: string) => {
+	tagManagerPush({
+		url,
+		title,
+		event: 'externalLinkLeap',
+		source: window.location.href,
+	});
+};
 
 export const RawLink: FC<RawLinkProps> = ({
 	href,
@@ -59,6 +69,9 @@ export const RawLink: FC<RawLinkProps> = ({
 			href={`${href}?${utmParams.toString()}`}
 			title={title}
 			{...nativeHtmlAttributes}
+			onClick={() => {
+				trackExternalLinkLeap(href, `${children}`);
+			}}
 		>
 			{children}
 		</a>
@@ -140,6 +153,9 @@ export const Link: FC<LinkProps> = ({
 			href={`${href}?${utmParams.toString()}`}
 			title={title}
 			{...ariaAttributes}
+			onClick={() => {
+				trackExternalLinkLeap(href, `${children}`);
+			}}
 		>
 			<span className="whitespace-nowrap">
 				{icon && iconPositon === 'pre' && icon}
