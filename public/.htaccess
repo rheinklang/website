@@ -47,9 +47,9 @@ Options -Indexes
 		Header set Cache-Control "public, max-age=31536000, no-transform"
 	</FilesMatch>
 
-	# caching set to 6 months for compiled assets (which contain a content hash)
+	# caching set to 1 hour for compiled assets (which contain a content hash)
 	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "public, max-age=15768000, no-transform"
+		Header set Cache-Control "public, max-age=3600, no-transform"
 	</FilesMatch>
 
 	# caching set to 1 hour

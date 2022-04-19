@@ -27,6 +27,9 @@ export interface CockpitImagerOptions {
 	output?: 0 | 1;
 }
 
+/**
+ * @see https://github.com/aFarkas/lazysizes#broken-image-symbol
+ */
 export const EMPTY_PLACEHOLDER_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 export const COCKPIT_IMAGER_URL = `${process.env.NEXT_PUBLIC_CMS_REST_API_URL}/cockpit/image`;

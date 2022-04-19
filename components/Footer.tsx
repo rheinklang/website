@@ -57,11 +57,15 @@ export const Footer: FC = () => {
 							<FooterNavigation
 								title={translate('footer.navigationSection.information')}
 								items={[
-									{ href: StaticRoutes.ABOUT_US, children: translate('navigation.about.title') },
+									{
+										href: `${StaticRoutes.BLOG_PAGE}/1`,
+										children: translate('navigation.blog.title'),
+									},
+									// { href: StaticRoutes.ABOUT_US, children: translate('navigation.about.title') },
 									{ href: StaticRoutes.PORTRAIT, children: translate('navigation.about.team') },
 									{ href: StaticRoutes.PARTNERS, children: translate('navigation.about.partners') },
-									{ href: '/about-us/impressions', children: 'Impressionen' },
-									{ href: StaticRoutes.FAQ, children: translate('navigation.about.faq') },
+									// TODO: { href: '/about-us/impressions', children: 'Impressionen' },
+									// { href: StaticRoutes.FAQ, children: translate('navigation.about.faq') },
 								]}
 							/>
 							<FooterNavigation

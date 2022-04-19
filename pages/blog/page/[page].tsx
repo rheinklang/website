@@ -1,5 +1,4 @@
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { getAllArticleSlugs, getPaginatedArticles } from '../../../api/articles';
 import { getBlogPage } from '../../../api/pages';
@@ -13,6 +12,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const page = params && params.page ? parseInt(`${params.page}`, 10) : INITIAL_PAGE_START;
 	const slugs = await getAllArticleSlugs();
 	const pagination = getPaginationArray(slugs, ARTICLE_PER_PAGE);
+	console.log(pagination);
 	const articles = await getPaginatedArticles(page, ARTICLE_PER_PAGE);
 	const pageData = await getBlogPage();
 

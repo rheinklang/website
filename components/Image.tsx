@@ -137,7 +137,7 @@ export const Image: FC<ImageProps> = ({
 				{...nativeHtmlProps}
 				data-sizes="auto"
 				className={classNames(
-					'h-full lazyload',
+					'transition h-full lazyload',
 					{
 						'w-full object-cover object-center h-full inline-block': isObjectFitCover,
 					},

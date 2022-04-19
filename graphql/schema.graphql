@@ -19,7 +19,7 @@ type Query {
 	portraitPageSingleton: PortraitPage!
 	partnerPageSingleton: PartnerPage!
 	# Collections
-	teamMembersCollection(filter: JsonType): [TeamMember]!
+	teamMembersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
 	eventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Event]!
 	eventOverviewCollection: [EventOverview]!
@@ -140,6 +140,15 @@ enum TeamMemberActivityArea {
 	communication
 }
 
+type TeamMemberLink {
+	url: String
+	label: String
+}
+
+type TeamMemberLinkCollection {
+	value: TeamMemberLink
+}
+
 input TeamMembersCollectionFilter {
 	_id: String
 	fullName: String
@@ -155,12 +164,17 @@ type TeamMember implements CockpitField {
 	_modified: Int!
 	image: CockpitAsset
 	fullName: String!
+	slug: String!
 	primaryActivityArea: TeamMemberActivityArea!
 	role: String
 	isFounder: Boolean!
 	isActive: Boolean!
 	entryDate: String!
 	exitDate: String
+	bio: String
+	favoriteDrink: String
+	favoriteGenre: String
+	links: [TeamMemberLinkCollection]
 }
 
 enum ArticleCategory {

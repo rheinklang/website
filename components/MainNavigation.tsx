@@ -77,11 +77,12 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					href: StaticRoutes.PARTNERS,
 					icon: BriefcaseIcon,
 				},
-				{
-					title: translate('navigation.about.faq'),
-					href: StaticRoutes.FAQ,
-					icon: QuestionMarkCircleIcon,
-				},
+				// TODO: This section
+				// {
+				// 	title: translate('navigation.about.faq'),
+				// 	href: StaticRoutes.FAQ,
+				// 	icon: QuestionMarkCircleIcon,
+				// },
 			],
 		},
 	},

@@ -11,7 +11,7 @@ export enum BlogSort {
 	DESCENDING = 'desc',
 }
 
-export const ARTICLE_PER_PAGE = 3;
+export const ARTICLE_PER_PAGE = 6;
 export const INITIAL_PAGE_START = 1;
 
 export interface BlogProps {

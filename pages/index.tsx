@@ -118,7 +118,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 								<Button
 									type="black"
 									link={{
-										href: StaticRoutes.BLOG,
+										href: `${StaticRoutes.BLOG}/page/1`,
 										icon: <ArrowRightIcon className="inline ml-2 h-5 align-text-top" />,
 										children: translate('common.action.toAllArticles'),
 									}}

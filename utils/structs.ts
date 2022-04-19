@@ -6,5 +6,11 @@ export const getPaginationArray = <T>(entries: T[], entiresPerPage: number) => {
 	}
 
 	const pages = Math.ceil(entries.length / entiresPerPage);
-	return new Array(pages, null).map((_, index) => index + 1);
+	const paginationArray: number[] = [];
+
+	for (let i = 1; i <= pages; i++) {
+		paginationArray.push(i);
+	}
+
+	return paginationArray;
 };

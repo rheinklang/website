@@ -1,0 +1,28 @@
+query MemberPortraitSlugs {
+	teamMembersCollection(filter: { isActive: true }) {
+		slug
+	}
+}
+
+query SingleMemberPortrait($filter: JsonType) {
+	teamMembersCollection(filter: $filter, limit: 1) {
+		image {
+			path
+			title
+		}
+		fullName
+		primaryActivityArea
+		role
+		isFounder
+		entryDate
+		bio
+		favoriteDrink
+		favoriteGenre
+		links {
+			value {
+				url
+				label
+			}
+		}
+	}
+}
