@@ -21,7 +21,6 @@ const nextConfig = {
 		loader: 'custom',
 	},
 	// build settings
-	assetPrefix: '.',
 	compress: true,
 	distDir: 'build',
 	generateBuildId: async () => {
