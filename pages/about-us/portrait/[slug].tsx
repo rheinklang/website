@@ -49,10 +49,9 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
-					<p>{pageData.fullName}</p>
 					<MemberPortraitPageComponent
 						image={pageData.image}
-						links={pageData.links?.value || []}
+						links={pageData.links}
 						name={pageData.fullName}
 						bio={pageData.bio}
 						isFounder={pageData.isFounder}

@@ -1,5 +1,6 @@
-import { BadgeCheckIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, BadgeCheckIcon, ThumbUpIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
+import { getTeamMemberPortrait } from '../../api/team';
 import { CockpitAsset, Maybe, TeamMemberLink, TeamMemberLinkCollection } from '../../graphql';
 import { useTranslation } from '../../hooks/useTranslation';
 import { ContentConstraint } from '../ContentConstraint';
@@ -17,7 +18,7 @@ export interface MemberPortraitPageComponentProps {
 	favoriteDrink?: string | null;
 	favoriteGenre?: string | null;
 	bio?: string | null;
-	links?: TeamMemberLinkCollection['value'] | null;
+	links?: Awaited<ReturnType<typeof getTeamMemberPortrait>>['links'];
 }
 
 export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> = ({
@@ -31,10 +32,11 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 	primaryActivityArea,
 }) => {
 	const translate = useTranslation();
+	console.log(links);
 
 	return (
 		<div>
-			<ContentConstraint>
+			<ContentConstraint useCustomYSpace className="max-w-6xl my-16">
 				<article className="flex flex-col">
 					<header className="text-center md:text-left md:flex md:flex-row md:flex-nowrap md:items-center">
 						<div className="rounded-full w-64 h-64 mx-auto md:mx-0">
@@ -52,34 +54,51 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 							</p>
 						</div>
 					</header>
+					{bio && (
+						<div className="mt-8">
+							<Heading level="4">Über mich</Heading>
+							<p className="mt-2 text-lg md:w-5/6">{bio}</p>
+						</div>
+					)}
 					<div className="mt-8">
 						<ul>
-							<li className="mb-2">
-								<b className="block sm:inline-block sm:w-1/2 md:w-44">Bereich</b>
-								{translate(`team.roles.${primaryActivityArea}`)}
+							<li className="mb-8">
+								<Heading level="4">Mein Arbeitsbereich</Heading>
+								<p className="mt-2 text-lg">{translate(`team.roles.${primaryActivityArea}`)}</p>
 							</li>
-							<li className="mb-2">
-								<b className="block sm:inline-block sm:w-1/2 md:w-44">Heimgenre</b>
-								{favoriteGenre}
-							</li>
-							<li>
-								<b className="block sm:inline-block sm:w-1/2 md:w-44">Lieblingsgetränk</b>
-								{favoriteDrink}
-							</li>
-						</ul>
-					</div>
-					<div className="mt-8">
-						<p className="text-lg">{bio}</p>
-					</div>
-					<div className="mt-8">
-						<ul>
-							{links?.map((link) => (
-								<li key={link?.url}>
-									<Link href={link?.url || '#'}>{link?.label}</Link>
+							{favoriteGenre && (
+								<li className="mb-8">
+									<Heading level="4">Mein Heimgenre</Heading>
+									<p className="mt-2 text-lg">{favoriteGenre}</p>
 								</li>
-							))}
+							)}
+							{favoriteDrink && (
+								<li>
+									<Heading level="4">Mein Lieblingsgetränk ist</Heading>
+									<p className="mt-2 text-lg">{favoriteDrink}</p>
+								</li>
+							)}
 						</ul>
 					</div>
+					{links && (
+						<div className="mt-8">
+							<Heading level="4">Weiterführende Links</Heading>
+							<ul className="mt-2">
+								{links.map((link) => (
+									<li key={link?.value?.url} className="my-1">
+										<Link
+											isStandalone
+											className="text-sea-green-500"
+											href={link?.value?.url || '#'}
+											icon={<ArrowRightIcon className="ml-1 h-5 inline-block" />}
+										>
+											{link?.value?.label}
+										</Link>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
 				</article>
 			</ContentConstraint>
 		</div>
