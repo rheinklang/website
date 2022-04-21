@@ -47,14 +47,14 @@ Options -Indexes
 		Header set Cache-Control "public, max-age=31536000, no-transform"
 	</FilesMatch>
 
-	# caching set to 1 hour for compiled assets (which contain a content hash)
+	# caching set to 6 months for compiled assets (which contain a content hash)
 	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "public, max-age=3600, no-transform"
+		Header set Cache-Control "public, max-age=15552000, no-transform"
 	</FilesMatch>
 
-	# caching set to 1 hour
+	# disable caching for html
 	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-		Header set Cache-Control "public, max-age=3600, must-revalidate"
+		Header set Cache-Control "no-cache, no-store"
 	</FilesMatch>
 
 	# no cache for the following files
@@ -64,7 +64,7 @@ Options -Indexes
 
 	# no cache for certain service pages
 	<FilesMatch "services\/(twitch)">
-		Header set Cache-Control "no-store, max-age=0"
+		Header set Cache-Control "no-cache, no-store"
   	</FilesMatch>
 
 </IfModule>
