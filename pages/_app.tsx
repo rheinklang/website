@@ -9,6 +9,8 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 		<>
 			<Head>
 				<meta charSet="utf-8" />
+				<meta httpEquiv="x-ua-compatible" content="IE=edge" />
+				<meta httpEquiv="content-type" content="text/html; charset=utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 				<meta
 					key="seo-description"
@@ -17,11 +19,13 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				/>
 				<link rel="icon" type="image/png" href="/favicon-corporate.png" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="theme-color" content="#000000" />
+				<meta name="apple-mobile-web-app-title" content="Rheinklang" />
+				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta property="og:type" content="website" />
 				<meta property="og:locale" content="de_CH" />
 				<meta property="og:site_name" content="Rheinklang" />
-				<meta name="apple-mobile-web-app-title" content="Rheinklang" />
-				<meta name="apple-mobile-web-app-capable" content="yes" />
+				<meta name="twitter:card" content="summary_large_image" />
 			</Head>
 			<div className="bg-white overflow-x-hidden">
 				<Component {...pageProps} />

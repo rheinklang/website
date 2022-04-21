@@ -59,6 +59,9 @@ const ArticleBySlugPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pr
 
 	return (
 		<ErrorBoundary route={router.asPath}>
+			<Head>
+				<meta property="og:type" content="article" />
+			</Head>
 			<ContentProvider {...contentProviderProps}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}

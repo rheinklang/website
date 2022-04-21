@@ -6,7 +6,7 @@ import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';
 import { StaticExternalUrls, StaticRoutes } from '../utils/routes';
 import { EventType } from '../graphql';
-import { Link, RawLink } from './Link';
+import { RawLink } from './Link';
 import { CorporateLogo } from './static/CorporateLogo';
 
 export const Footer: FC = () => {
@@ -127,7 +127,7 @@ export const Footer: FC = () => {
 					</div>
 				</ContentConstraint>
 			</div>
-			<div className="text-xs bg-black uppercase text-gray-100 border-t border-t-gray-800">
+			<div data-nosnippet className="text-xs bg-black uppercase text-gray-100 border-t border-t-gray-800">
 				<ContentConstraint tag="section" className="flex flex-col md:flex-row md:justify-between">
 					<p className="block w-full text-center md:w-1/3 md:text-left">
 						&copy; {new Date().getFullYear()} Rheinklang

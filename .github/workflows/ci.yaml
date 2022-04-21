@@ -72,6 +72,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
           server-dir: website/staging/
+          state-name: out/meta/deployment.json
           exclude: |
             **/.DS_Store
             **/.vscode

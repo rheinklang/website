@@ -64,26 +64,39 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 					<>
 						<title>Rheinklang - {seo.title}</title>
 						<meta key="seo-og-title" property="og:title" content={seo.title} />
+						<meta key="seo-twitter-title" property="twitter:title" content={seo.title} />
 					</>
 				)}
 				{seo.description && (
 					<>
 						<meta key="seo-description" name="description" content={seo.description} />
 						<meta key="seo-og-description" property="og:description" content={seo.description} />
+						<meta key="seo-twitter-description" property="twitter:description" content={seo.description} />
 					</>
 				)}
 				{seo.keywords && <meta key="seo-keywords" name="keywords" content={seo.keywords} />}
 				{seo.crawler && <meta key="seo-robots" name="robots" content={seo.crawler} />}
 				{seo.image && seo.image.path && (
-					<meta
-						key="seo-og-image"
-						property="og:image"
-						content={`${COCKPIT_IMAGER_URL}?${getCockpitImagerParams(seo.image.path, {
-							width: 1200,
-							height: 630,
-							mask: 'crop',
-						})}`}
-					/>
+					<>
+						<meta
+							key="seo-og-image"
+							property="og:image"
+							content={`${COCKPIT_IMAGER_URL}?${getCockpitImagerParams(seo.image.path, {
+								width: 1200,
+								height: 630,
+								mask: 'crop',
+							})}`}
+						/>
+						<meta
+							key="seo-twitter-image"
+							property="twitter:image"
+							content={`${COCKPIT_IMAGER_URL}?${getCockpitImagerParams(seo.image.path, {
+								width: 1600,
+								height: 800,
+								mask: 'crop',
+							})}`}
+						/>
+					</>
 				)}
 			</Head>
 			<TranslationContext.Provider value={translations}>

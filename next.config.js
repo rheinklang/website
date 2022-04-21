@@ -21,6 +21,8 @@ const nextConfig = {
 		loader: 'custom',
 	},
 	// build settings
+	assetPrefix: '.',
+	compress: true,
 	distDir: 'build',
 	generateBuildId: async () => {
 		return v5(`${Date.now()}`, BUILD_ID_NAMESPACE);

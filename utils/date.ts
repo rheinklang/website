@@ -8,6 +8,10 @@ export const FORMAT_OPTIONS = {
 	weekStartsOn: 1,
 } as const;
 
+export function getRevisionDateForIndexing(): string {
+	return format(new Date(), 'dd-MM-YYY', FORMAT_OPTIONS);
+}
+
 export function formatCreationDate(date: number): string {
 	// we multiply by 1000 to get the timestamp in milliseconds (from unix epoch)
 	return formatRelative(date * 1000, Date.now(), FORMAT_OPTIONS);
