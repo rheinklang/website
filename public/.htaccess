@@ -52,6 +52,11 @@ Options -Indexes
 		Header set Cache-Control "public, max-age=15552000, no-transform"
 	</FilesMatch>
 
+	# disable caching for generated json data
+	<FilesMatch "\.(json)$">
+		Header set Cache-Control "public, max-age=0, must-revalidate"
+	</FilesMatch>
+
 	# disable caching for html
 	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
 		Header set Cache-Control "no-cache, no-store"
