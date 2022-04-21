@@ -49,7 +49,17 @@ Options -Indexes
 
 	# caching set to 6 months for compiled assets (which contain a content hash)
 	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "public, max-age=15552000, no-transform"
+		Header set Cache-Control "public, max-age=15552000, immutable"
+	</FilesMatch>
+
+	# disable caching for the main workbox service-worker
+	<FilesMatch "sw.js">
+		Header set Cache-Control "public, max-age=0, must-revalidate"
+	</FilesMatch>
+
+	# disable caching for the workbox scripts
+	<FilesMatch "workbox-*.js">
+		Header set Cache-Control "public, max-age=0, must-revalidate"
 	</FilesMatch>
 
 	# disable caching for generated json data
@@ -59,7 +69,7 @@ Options -Indexes
 
 	# disable caching for html
 	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-		Header set Cache-Control "no-cache, no-store"
+		Header set Cache-Control "public, max-age=0, must-revalidate"
 	</FilesMatch>
 
 	# no cache for the following files

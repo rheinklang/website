@@ -1,6 +1,6 @@
 import { ApolloProvider, NormalizedCacheObject } from '@apollo/client';
 import Head from 'next/head';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { getHeaderConfiguration } from '../../api/header';
 import { getMarketingBanner } from '../../api/marketing';
 import { getSeoMetaData } from '../../api/seo';
@@ -48,6 +48,8 @@ export function getContextualContentProviderFetcher(pageId: string, seoVariables
 	};
 }
 
+// let isServiceWorkerRegistered = false;
+
 export const ContentProvider: FC<ContentProviderProps> = ({
 	children,
 	translations,
@@ -56,6 +58,15 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 	__APOLLO_CACHE__,
 }) => {
 	client.cache.restore(__APOLLO_CACHE__);
+
+	// useEffect(() => {
+	// 	if (!isServiceWorkerRegistered && process.env.NODE_ENV === 'production') {
+	// 		isServiceWorkerRegistered = true;
+	// 		window.addEventListener('load', () => {
+	// 			navigator.serviceWorker.register('/sw.js');
+	// 		});
+	// 	}
+	// }, []);
 
 	return (
 		<ApolloProvider client={client}>

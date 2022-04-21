@@ -43,3 +43,9 @@ yarn-error.log*
 
 # outputs
 styleguide
+
+# build cache
+.rollup.cache
+
+# service-worker (generated)
+public/sw.js

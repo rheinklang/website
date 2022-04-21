@@ -61,6 +61,8 @@ jobs:
           NEXT_PUBLIC_MATOMO_CONTAINER_ID: ${{ secrets.MATOMO_CONTAINER_ID }}
           NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL: ${{ secrets.SLACK_CONTACT_WEBHOOK_URL }}
           NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL: ${{ secrets.SLACK_REPORTING_WEBHOOK_URL }}
+          WORKBOX_APP_ID: ${{ secrets.WORKBOX_APP_ID }}
+          WORKBOX_APP_VERSION: ${{ secrets.WORKBOX_APP_VERSION }}
           BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
 
@@ -72,7 +74,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
           server-dir: website/staging/
-          state-name: out/meta/deployment.json
+          state-name: meta/deployment.json
           exclude: |
             **/.DS_Store
             **/.vscode

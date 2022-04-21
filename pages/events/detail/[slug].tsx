@@ -1,12 +1,9 @@
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
 import { useMemo } from 'react';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { isPast } from 'date-fns';
 import { PageLayout } from '../../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
-import { compileStringTemplate } from '../../../utils/templating';
 import { getAllEventSlugs, getEventBySlug } from '../../../api/events';
 import { Richtext } from '../../../components/Richtext';
 import { ContentConstraint } from '../../../components/ContentConstraint';
@@ -79,7 +76,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					<ContentConstraint tag="article" className="py-12 md:py-16 lg:py-20 lg:max-w-7xl">
 						<Link
 							className="text-sea-green-400"
-							href={StaticRoutes.EVENTS}
+							href={`${StaticRoutes.EVENT_CATEGORY}/${event.type}`}
 							icon={<ArrowLeftIcon className="inline-block h-4 mr-2 align-text-top" />}
 							iconPositon="pre"
 						>
