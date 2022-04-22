@@ -24,7 +24,7 @@
     "classnames": "2.3.1",
     "date-fns": "2.28.0",
     "dompurify": "2.3.6",
-    "focus-trap": "6.8.0",
+    "focus-trap": "6.8.1",
     "graphql": "16.3.0",
     "js-cookie": "3.0.1",
     "jsdom": "19.0.0",
