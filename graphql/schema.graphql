@@ -18,6 +18,7 @@ type Query {
 	blogPageSingleton: BlogPage!
 	portraitPageSingleton: PortraitPage!
 	partnerPageSingleton: PartnerPage!
+	privacyPageSingleton: PrivacyPage!
 	# Collections
 	teamMembersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
@@ -314,4 +315,10 @@ type GuestAppearanceEvent {
 	id: String!
 	label: String!
 	isActive: String!
+}
+
+# Privacy
+
+type PrivacyPage {
+	content: String!
 }

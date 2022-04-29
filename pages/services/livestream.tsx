@@ -1,7 +1,5 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useMemo } from 'react';
-import { getTwitchPlayerUrl } from '../../utils/twitch';
 import { PageLayout } from '../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { TwitchStream } from '../../components/TwitchStream';

@@ -22,6 +22,7 @@ export enum StaticRoutes {
 	FESTIVAL_GUEST_APPEARANCE_INQUIRY = '/contact/forms/guest-appearance',
 	FAQ = '/services/faq',
 	LIVESTREAM = '/services/livestream',
+	DATA_PROTECTION = '/services/legal/privacy',
 }
 
 export enum StaticExternalUrls {
