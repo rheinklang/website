@@ -23,7 +23,7 @@ export const EventCategoryCard: FC<EventCategoryCardProps> = ({ title, href, ima
 						src="https://dummyimage.com/1920x1080"
 					/> */}
 				</div>
-				<div className="transition-all transform-gpu flex flex-col items-center justify-center m-8 lg:m-8 absolute top-0 left-0 right-0 bottom-0 backdrop-blur-md hover:backdrop-blur-sm rounded-xl shadow-sm">
+				<div className="transition-all flex flex-col items-center justify-center m-8 lg:m-8 absolute top-0 left-0 right-0 bottom-0 backdrop-blur-sm rounded-xl shadow-sm">
 					<Heading level="2">{title}</Heading>
 				</div>
 			</Link>
