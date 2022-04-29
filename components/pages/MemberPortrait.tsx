@@ -1,7 +1,6 @@
-import { ArrowRightIcon, BadgeCheckIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, BadgeCheckIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { getTeamMemberPortrait } from '../../api/team';
-import { CockpitAsset, Maybe, TeamMemberLink, TeamMemberLinkCollection } from '../../graphql';
 import { useTranslation } from '../../hooks/useTranslation';
 import { ContentConstraint } from '../ContentConstraint';
 import { Heading } from '../Heading';
@@ -32,7 +31,6 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 	primaryActivityArea,
 }) => {
 	const translate = useTranslation();
-	console.log(links);
 
 	return (
 		<div>

@@ -26,7 +26,7 @@ const defaultOptions: IFilterXSSOptions = {
 		em: [],
 		b: [],
 		i: [],
-		a: [],
+		a: ['href', 'alt'],
 		ul: [],
 		ol: [],
 		dl: [],
@@ -36,6 +36,13 @@ const defaultOptions: IFilterXSSOptions = {
 		blockquote: [],
 		br: [],
 		li: [],
+		img: ['src', 'alt'],
+		table: [],
+		thead: [],
+		tbody: [],
+		tr: [],
+		td: [],
+		th: [],
 	},
 };
 
