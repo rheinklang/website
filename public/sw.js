@@ -3207,7 +3207,7 @@ class ExpirationPlugin {
 }
 setCacheNameDetails({
 	prefix: 'rheinklang-dev',
-	suffix: '1650531777038',
+	suffix: '1651191577685',
 });
 
 // Cache page navigations (html) with a Network First strategy

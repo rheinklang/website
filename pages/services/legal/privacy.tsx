@@ -3,8 +3,9 @@ import { getPrivacyPageData } from '../../../api/privacy';
 import { ContentConstraint } from '../../../components/ContentConstraint';
 import { ContentHeader } from '../../../components/ContentHeader';
 import { PageLayout } from '../../../components/layouts/PageLayout';
-import { Richtext } from '../../../components/Richtext';
+import { Richtext, richtextWithIdMarksXSSFilter } from '../../../components/Richtext';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
+import { useHashScroller } from '../../../hooks/useHashScroller';
 import { useTranslation } from '../../../hooks/useTranslation';
 
 export async function getStaticProps() {
@@ -26,6 +27,9 @@ const PrivacyPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']>
 }) => {
 	const translate = useTranslation(contentProviderProps.translations);
 
+	// we want to support hash links
+	useHashScroller();
+
 	return (
 		<ContentProvider {...contentProviderProps}>
 			<PageLayout
@@ -40,7 +44,7 @@ const PrivacyPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']>
 				/>
 				<div className="bg-gray-50">
 					<ContentConstraint className="py-12 md:py-16 lg:py-20 lg:max-w-7xl">
-						<Richtext as="article" content={pageData.content} />
+						<Richtext as="article" filter={richtextWithIdMarksXSSFilter} content={pageData.content} />
 					</ContentConstraint>
 				</div>
 			</PageLayout>

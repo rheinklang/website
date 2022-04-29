@@ -19,15 +19,7 @@ export interface EventExcerptProps {
 	className?: string;
 }
 
-export const EventExcerpt: FC<EventExcerptProps> = ({
-	title,
-	date,
-	category,
-	description,
-	location,
-	slug,
-	className,
-}) => {
+export const EventExcerpt: FC<EventExcerptProps> = ({ title, date, category, description, location, slug }) => {
 	const translate = useTranslation();
 
 	return (
