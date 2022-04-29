@@ -7,7 +7,8 @@ export const useHashScroller = (debouncedOffset = 100) => {
 	useEffect(() => {
 		if (window && document) {
 			const currentUrlHash = window.location.hash;
-			if (currentUrlHash) {
+
+			if (currentUrlHash && currentUrlHash.trim().length > 0) {
 				const tid = setTimeout(() => {
 					const targetElement = document.querySelector(currentUrlHash);
 					if (targetElement) {

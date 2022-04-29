@@ -81,7 +81,7 @@ export const Footer: FC = () => {
 									},
 									{
 										href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
-										children: translate('navigation.contact.support'),
+										children: translate('navigation.contact.festivalGuestAppearance'),
 									},
 									{
 										href: StaticRoutes.CONSULTING_INQUIRY,
@@ -89,11 +89,11 @@ export const Footer: FC = () => {
 									},
 									{
 										href: StaticRoutes.PRESS_INQUIRY,
-										children: translate('navigation.contact.festivalGuestAppearance'),
+										children: translate('navigation.contact.press'),
 									},
 									{
-										href: StaticRoutes.SPONSOR_INQUIRY,
-										children: translate('navigation.contact.press'),
+										href: StaticRoutes.SUPPORT_INQUIRY,
+										children: translate('navigation.contact.support'),
 									},
 									{ href: '/services/settings', children: translate('navigation.services.settings') },
 								]}

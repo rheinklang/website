@@ -25,6 +25,10 @@ export interface LogPayload {
 export class Logger {
 	constructor(private context = 'global') {}
 
+	public info(message: string): void {
+		console.log(`[${this.context}:${this.env}] ${message} [${process.env.CONFIG_BUILD_ID}]`);
+	}
+
 	public error(error: Error, opts: LogOptions = {}): void {
 		StackTrace.fromError(error, { offline: false }).then((stackFrames) => {
 			const payload = this.getPayload(error.message, error.name, {

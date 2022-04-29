@@ -6,8 +6,10 @@ interface LocalStorageAPI {
 }
 
 export enum LocalStorageKeys {
-	COLOR_SCHEME = 'colorScheme',
-	SWR_CACHE = 'swrCache',
+	COLOR_SCHEME = 'application-color-scheme',
+	SWR_CACHE = 'application-swr-cache',
+	BUILD_ID = 'application-build-identifier',
+	TIMETSTAMP = 'storage-update-timestamp',
 }
 
 export class LocalStorage {

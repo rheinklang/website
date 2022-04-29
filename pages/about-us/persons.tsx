@@ -43,7 +43,8 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
 					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
-					<div className="bg-sea-green-300 py-12">
+					{/* TODO: Add back once we have the group image! */}
+					{/* <div className="bg-sea-green-300 py-12">
 						<ContentConstraint>
 							<div className="mx-auto flex flex-row flex-wrap lg:flex-nowrap gap-12">
 								<div className="lg:w-3/4 xl:w-8/12">
@@ -59,7 +60,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								</div>
 							</div>
 						</ContentConstraint>
-					</div>
+					</div> */}
 					<div className="bg-black border-t border-b border-gray-800 py-12 lg:py-24">
 						<ContentConstraint>
 							<div className="flex flex-row flex-wrap sm:justify-evenly">

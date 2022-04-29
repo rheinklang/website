@@ -13,6 +13,7 @@ import { TranslationContext } from '../../hooks/useTranslation';
 import { COCKPIT_IMAGER_URL, getCockpitImagerParams } from '../../utils/images';
 import { getCurrentMaintenance } from '../../api/maintenance';
 import { MaintenancePage } from '../pages/Maintenance';
+import { useMemoryCacheUpdater } from '../../hooks/useMemoryCacheUpdater';
 
 export interface ContentProviderProps {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
@@ -67,6 +68,9 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 	// 		});
 	// 	}
 	// }, []);
+
+	// automatically reset apollo cache if new build was deployed
+	useMemoryCacheUpdater(client);
 
 	return (
 		<ApolloProvider client={client}>

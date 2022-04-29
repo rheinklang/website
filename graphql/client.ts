@@ -90,7 +90,7 @@ export function createApolloClient() {
 		defaultOptions,
 		ssrMode: typeof window === 'undefined',
 		link: ApolloLink.from([consoleDebugLink, errorLink, retryLink, connectionLink]),
-		cache: new InMemoryCache(),
+		cache: new InMemoryCache({}),
 		connectToDevTools: process.env.NODE_ENV !== 'production',
 	});
 }
