@@ -27,6 +27,9 @@ query EventByFilter($filter: JsonType, $limit: Int, $sort: JsonType) {
 		ticketingUrl
 		facebookEventUrl
 		isCanceled
+		image {
+			path
+		}
 		location {
 			name
 			city

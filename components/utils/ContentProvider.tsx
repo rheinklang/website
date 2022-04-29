@@ -24,7 +24,11 @@ export interface ContentProviderProps {
 	__APOLLO_CACHE__: NormalizedCacheObject;
 }
 
-export function getContextualContentProviderFetcher(pageId: string, seoVariables?: Record<string, string>) {
+export enum ContentProviderStaticSEOVariables {
+	OG_IMAGE = '__OG_IMAGE__',
+}
+
+export function getContextualContentProviderFetcher(pageId: string, seoVariables?: Record<string, string | undefined>) {
 	/**
 	 * Basic content provider for all pages.
 	 *
@@ -37,6 +41,10 @@ export function getContextualContentProviderFetcher(pageId: string, seoVariables
 		const headerConfiguration = await getHeaderConfiguration();
 		const seo = await getSeoMetaData(pageId, seoVariables, translations);
 		const maintenance = await getCurrentMaintenance();
+
+		// if (seoVariables && seoVariables[ContentProviderStaticSEOVariables.OG_IMAGE]) {
+		// 	seo.image.path = seoVariables[ContentProviderStaticSEOVariables.OG_IMAGE];
+		// }
 
 		return {
 			translations,

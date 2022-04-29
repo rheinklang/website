@@ -1,4 +1,8 @@
 import {
+	ContentProviderStaticSEOVariables,
+	getContextualContentProviderFetcher,
+} from '../components/utils/ContentProvider';
+import {
 	client,
 	SeoDefaultValuesDocument,
 	SeoDefaultValuesQuery,
@@ -44,7 +48,7 @@ export interface SeoMetaData {
 // THIS IS THE FINAL IMPL!
 export const getSeoMetaData = async (
 	pageId: string,
-	variables: Record<string, string> = {},
+	variables: Record<string, string | undefined> = {},
 	translations: Record<string, string> = {}
 ): Promise<SeoMetaData> => {
 	const result = await client.query<SeoMetaDataQuery>({
@@ -59,9 +63,15 @@ export const getSeoMetaData = async (
 	};
 
 	for (const variable in templateCompilerVariables) {
+		const templateVarValue = templateCompilerVariables[variable];
+
+		if (!templateVarValue) {
+			continue;
+		}
+
 		// we support i18n keys directly, so we need to replace the i18n keys with the corresponding label
-		if (templateCompilerVariables[variable].startsWith('translate:')) {
-			const [, translationKey] = templateCompilerVariables[variable].split(':');
+		if (templateVarValue.startsWith('translate:')) {
+			const [, translationKey] = templateVarValue.split(':');
 			templateCompilerVariables[variable] = translations[translationKey];
 
 			if (!translations[translationKey]) {
@@ -80,8 +90,12 @@ export const getSeoMetaData = async (
 		title: specific?.title || defaults?.title || '',
 		description: specific?.description || defaults?.description || '',
 		image: {
-			path: specific?.image?.path || defaults?.image?.path || '',
-			title: specific?.image?.title || defaults?.image?.title || '',
+			path:
+				variables[ContentProviderStaticSEOVariables.OG_IMAGE] ||
+				specific?.image?.path ||
+				defaults?.image?.path ||
+				'',
+			title: specific?.image?.title || specific?.title || defaults?.image?.title || '',
 		},
 		crawler: specific?.crawler || defaults?.crawler || null,
 		author: specific?.author || defaults?.author || 'Verein Rheinklang',
