@@ -35,7 +35,7 @@ export const EventExcerpt: FC<EventExcerptProps> = ({
 			<div className="w-16 mt-10 mr-2 flex-shrink-0 flex flex-col text-center leading-none rounded-xl bg-white">
 				<TinyCalendarIndicator date={date} />
 			</div>
-			<div className="flex-grow pl-6">
+			<div className="flex-grow flex flex-col h-full pl-6">
 				<Badge type="secondary" className="mb-3">
 					{translate(`event.type.${category}`)}
 				</Badge>
@@ -44,25 +44,27 @@ export const EventExcerpt: FC<EventExcerptProps> = ({
 				</Heading>
 				{/* <h1 className="title-font text-xl font-medium text-gray-900 mb-3">Event Title</h1> */}
 				<p className="leading-relaxed mb-2 text-white">{description}</p>
-				<p className="inline-flex items-center text-sea-green-900">
-					<LocationMarkerIcon className="inline-block h-4 " />
-					<span className="flex-grow flex flex-col pl-3">
-						{location && (
-							<span className="title-font font-medium">
-								{location.name}, {location.country}
-							</span>
-						)}
-					</span>
-				</p>
-				<div className="flex mt-4">
-					<Button
-						type="black"
-						link={{
-							href: `${StaticRoutes.EVENT_DETAIL}/${slug}`,
-							children: 'Details',
-							icon: <ArrowRightIcon className="inline ml-2 h-4" />,
-						}}
-					/>
+				<div className="mt-auto">
+					<p className="inline-flex items-center text-sea-green-900">
+						<LocationMarkerIcon className="inline-block h-4 " />
+						<span className="flex-grow flex flex-col pl-3">
+							{location && (
+								<span className="title-font font-medium">
+									{location.name}, {location.country}
+								</span>
+							)}
+						</span>
+					</p>
+					<div className="flex mt-4">
+						<Button
+							type="black"
+							link={{
+								href: `${StaticRoutes.EVENT_DETAIL}/${slug}`,
+								children: 'Details',
+								icon: <ArrowRightIcon className="inline ml-2 h-4" />,
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		</article>

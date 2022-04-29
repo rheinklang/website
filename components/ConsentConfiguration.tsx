@@ -1,13 +1,15 @@
-import { ShieldCheckIcon } from '@heroicons/react/outline';
+import { LinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import Cookies from 'js-cookie';
 import { FC } from 'react';
 import { Controller, FormState, useForm, UseFormGetFieldState, UseFormGetValues } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
 import { tagManagerPush } from '../utils/matomo';
+import { StaticRoutes } from '../utils/routes';
 import { keys } from '../utils/structs';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
+import { Link } from './Link';
 
 export type ConsentConfigurationForm = Record<CookieConsents, boolean>;
 
@@ -87,6 +89,10 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 	return (
 		<div>
 			<p className="text-xs">{translate('consents.configure.text')}</p>
+			<p className="text-xs mt-2">
+				<span className="text-slightly-rose-500">*</span>&nbsp;
+				{translate('consents.configure.requiredDescription')}
+			</p>
 			<div className="my-4">
 				{CONFIGURABLE_COOKIES.map((key) => (
 					<Controller
@@ -106,10 +112,18 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 					/>
 				))}
 			</div>
-			<p className="text-xs">
-				<span className="text-slightly-rose-500">*</span>&nbsp;
-				{translate('consents.configure.requiredDescription')}
-			</p>
+
+			<div className="mt-4 text-xs">
+				<Link
+					isStandalone
+					className="text-sea-green-400"
+					iconPositon="pre"
+					icon={<LinkIcon className="inline-block align-top h-3 mr-1" />}
+					href={StaticRoutes.DATA_PROTECTION}
+				>
+					Details zur Datenschutzerklärung
+				</Link>
+			</div>
 			<div className="mt-8">
 				<Button
 					iconPosition="post"

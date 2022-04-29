@@ -64,6 +64,10 @@ export const Footer: FC = () => {
 									// { href: StaticRoutes.ABOUT_US, children: translate('navigation.about.title') },
 									{ href: StaticRoutes.PORTRAIT, children: translate('navigation.about.team') },
 									{ href: StaticRoutes.PARTNERS, children: translate('navigation.about.partners') },
+									{
+										href: StaticRoutes.DATA_PROTECTION,
+										children: translate('navigation.privacy.title'),
+									},
 									// TODO: { href: '/about-us/impressions', children: 'Impressionen' },
 									// { href: StaticRoutes.FAQ, children: translate('navigation.about.faq') },
 								]}

@@ -19,7 +19,7 @@ export const Richtext: FC<RichtextProps> = ({ as = 'div', content, className }) 
 
 	return (
 		<Tag
-			className={classNames('prose lg:prose-xl', className)}
+			className={classNames('prose lg:prose-lg xl:prose-xl', className)}
 			dangerouslySetInnerHTML={{ __html: sanitizedContent.toString() }}
 		/>
 	);

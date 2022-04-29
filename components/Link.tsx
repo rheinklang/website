@@ -15,6 +15,7 @@ export type LinkProps = PropsWithChildren<{
 	isUnstyled?: boolean;
 	isPureContent?: boolean;
 	isStandalone?: boolean;
+	onClick?: () => void;
 }> &
 	Partial<AriaAttributes>;
 

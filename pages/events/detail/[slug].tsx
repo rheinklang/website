@@ -80,7 +80,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							icon={<ArrowLeftIcon className="inline-block h-4 mr-2 align-text-top" />}
 							iconPositon="pre"
 						>
-							Alle Events
+							Zurück zu den Events
 						</Link>
 						<header className="my-8">
 							<Heading level="1" className="mb-1">

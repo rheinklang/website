@@ -66,7 +66,7 @@ export const Blog: FC<BlogProps> = ({
 				</ContentConstraint>
 				<ContentConstraint className="pt-2 pb-0 flex justify-center">
 					<Pagination
-						count={articles.length}
+						count={templateVariables.articleWithPreviousCount}
 						totalCount={totalArticleCount}
 						pages={pagination}
 						currentPage={currentPage}
