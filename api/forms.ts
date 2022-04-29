@@ -48,6 +48,11 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 	} catch (error) {
 		// send error report to slack
 		await sendReport(error, `${formId} submission`);
+		await submitForm('logs', {
+			...data,
+			formId,
+			errorMessage: error instanceof Error ? error.message : `${error}`,
+		});
 	}
 };
 

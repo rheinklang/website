@@ -3,6 +3,7 @@ import type { Block, KnownBlock, MrkdwnElement, PlainTextElement } from '@slack/
 import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import { CookieConsents } from '../utils/cookies';
+import { getReadableTimestamp } from '../utils/date';
 
 if (!process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL || !process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL) {
 	throw new Error('Missing Slack webhook URLs for contact and reporting');
@@ -82,7 +83,7 @@ const getMetaBlocks = (): (Block | KnownBlock)[] => {
 					text: `*Location*`,
 				},
 				{
-					type: 'plain_text',
+					type: 'mrkdwn',
 					text: `${document.location.href}`,
 				},
 				{
@@ -98,8 +99,8 @@ const getMetaBlocks = (): (Block | KnownBlock)[] => {
 					text: '*Build ID*',
 				},
 				{
-					type: 'plain_text',
-					text: `${process.env.BUILD_ID},`,
+					type: 'mrkdwn',
+					text: `\`${process.env.CONFIG_BUILD_ID}\``,
 				},
 			],
 		},

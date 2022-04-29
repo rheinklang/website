@@ -67,7 +67,7 @@ export const getUpcomingEvents = async (limit: number = 5, filter?: Record<strin
 
 	const computedResult = safeResult
 		.filter((ev) => {
-			const eventDate = parseCockpitDate(ev.date);
+			const eventDate = ev.endDate ? parseCockpitDate(ev.endDate) : parseCockpitDate(ev.date);
 
 			if (eventDate < new Date()) {
 				return false;

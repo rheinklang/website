@@ -16,7 +16,6 @@ import { RecommendedContentHero } from '../components/RecommendedContentHero';
 import { getContextualContentProviderFetcher, ContentProvider } from '../components/utils/ContentProvider';
 import { ErrorBoundary } from '../components/utils/ErrorBoundary';
 import { useTranslation } from '../hooks/useTranslation';
-import { parseCockpitDate } from '../utils/date';
 import { StaticRoutes } from '../utils/routes';
 
 export async function getStaticProps() {

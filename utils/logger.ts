@@ -1,5 +1,7 @@
 import { isBrowser } from './ssr';
 import StackTrace from 'stacktrace-js';
+import { submitForm } from '../api/forms';
+import { sendReport } from '../api/slack';
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'trace';
 
@@ -59,7 +61,8 @@ export class Logger {
 		if (process.env.NODE_ENV !== 'production') {
 			console.log(`[${payload.context}:${payload.env}] ${payload.message} [${payload.buildId}]`);
 		} else {
-			// TODO: Send logs to Cockpit and/or Slack
+			submitForm('logs', payload);
+			sendReport(payload.message, payload.context);
 		}
 	}
 }

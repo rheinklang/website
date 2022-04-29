@@ -4,6 +4,7 @@ query EventsPreview($limit: Int, $filter: JsonType) {
 		title
 		type
 		date
+		endDate
 		excerpt
 		image {
 			path

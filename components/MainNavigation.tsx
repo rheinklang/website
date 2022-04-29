@@ -134,10 +134,6 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 		setIsExpanded(false);
 	}, [setIsExpanded]);
 
-	useEffect(() => {
-		console.log('MainNavigation: useEffect', isExpanded);
-	}, [isExpanded]);
-
 	return (
 		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-2">
 			<ul

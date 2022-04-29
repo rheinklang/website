@@ -17,10 +17,6 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 	const isActive = useMemo(() => router.asPath !== '/' && router.asPath.startsWith(href), [router.asPath, href]);
 	const [isExpanded, setIsExpanded] = useState(false);
 
-	useEffect(() => {
-		console.log('MainNavigationItem: useEffect', isExpanded);
-	}, [isExpanded]);
-
 	return (
 		<div className="relative" onMouseOver={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)}>
 			<Link

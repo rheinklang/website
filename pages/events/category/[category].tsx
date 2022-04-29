@@ -36,7 +36,8 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
 	const maybeNextRelevantEvent = nextRelevantEvents.length > 0 ? nextRelevantEvents[0] : undefined;
 	const nextRelevantEvent =
-		maybeNextRelevantEvent && parseCockpitDate(maybeNextRelevantEvent.date) > new Date()
+		maybeNextRelevantEvent &&
+		parseCockpitDate(maybeNextRelevantEvent.endDate || maybeNextRelevantEvent.date) > new Date()
 			? maybeNextRelevantEvent
 			: null;
 

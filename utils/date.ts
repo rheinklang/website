@@ -8,6 +8,10 @@ export const FORMAT_OPTIONS = {
 	weekStartsOn: 1,
 } as const;
 
+export function getReadableTimestamp(): string {
+	return format(new Date(), 'dd.MM.YYY hh:MM:ss', FORMAT_OPTIONS);
+}
+
 export function getRevisionDateForIndexing(): string {
 	return format(new Date(), 'dd-MM-YYY', FORMAT_OPTIONS);
 }
