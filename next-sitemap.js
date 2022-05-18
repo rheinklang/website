@@ -4,6 +4,8 @@ module.exports = {
 	sourceDir: 'build',
 	siteUrl: process.env.SITE_URL || 'https://rheinklang.events',
 	generateRobotsTxt: true,
+	sitemapSize: 100 * 1000,
+	changefreq: 'weekly',
 	exclude: [
 		'/services/livestream',
 		'/services/settings',
