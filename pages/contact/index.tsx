@@ -10,7 +10,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import { StaticRoutes } from '../../utils/routes';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('contact');
+	const getContentProviderProps = getContextualContentProviderFetcher('contactIndex');
 	const contentProviderProps = await getContentProviderProps();
 
 	return {
