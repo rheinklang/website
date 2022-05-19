@@ -151,15 +151,17 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 		transformFieldValueType(value),
 	]);
 
+	console.log(readableFields);
+
 	const fieldSubmissions = readableFields
-		.filter((key) => typeof key === 'string')
+		.filter(([key]) => typeof key === 'string')
 		.filter(([key]) => !FIELD_BLACKLIST.includes(key))
 		.reduce(
 			(prev, [key, value]) => [
 				...prev,
 				{
 					type: 'mrkdwn' as const,
-					text: `*${key.charAt(0).toUpperCase() + key.slice(1)}* ${value}`,
+					text: `*${key.charAt(0).toUpperCase() + key.slice(1)}*\n${value}\n\n`,
 				},
 			],
 			[] as Array<MrkdwnElement | PlainTextElement>
