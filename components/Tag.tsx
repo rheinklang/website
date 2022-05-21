@@ -15,7 +15,7 @@ export const Tag: FC<TagProps> = ({ className, title, prefix }) => (
 			className
 		)}
 	>
-		{prefix && <span className="rounded-full bg-white text-gray-500 px-2 mr-2">prefix</span>}
+		{prefix && <span className="rounded-full bg-white text-gray-500 px-2 mr-2">{prefix}</span>}
 		<span
 			className={classNames('pr-2', {
 				'pl-2': !prefix,

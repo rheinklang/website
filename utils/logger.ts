@@ -31,6 +31,10 @@ export class Logger {
 		console.log(`[${this.context}:${this.env}] ${message} [${process.env.CONFIG_BUILD_ID}]`);
 	}
 
+	public warn(message: string): void {
+		console.warn(`[${this.context}:${this.env}] ${message} [${process.env.CONFIG_BUILD_ID}]`);
+	}
+
 	public error(error: Error, opts: LogOptions = {}): void {
 		StackTrace.fromError(error, { offline: false }).then((stackFrames) => {
 			const payload = this.getPayload(error.message, error.name, {
