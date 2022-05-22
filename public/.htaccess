@@ -36,14 +36,14 @@ Options -Indexes
 
 	# cross-site scripting whitelisting
 	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
-    Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
+    	Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
 
 	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js|css)$">
 		Header append Vary: Accept-Encoding
 	</FilesMatch>
 
 	# caching set to 1 year for "static-ish" files
-	<FilesMatch "\.(ico|jpg|jpeg|gif|png|mp3|mp4)$">
+	<FilesMatch "\.(ico|jpg|jpeg|gif|png|mp3|mp4|woff|woff2)$">
 		Header set Cache-Control "public, max-age=31536000, no-transform"
 	</FilesMatch>
 
