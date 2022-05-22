@@ -8,7 +8,7 @@ import { ContentProvider, getContextualContentProviderFetcher } from '../../comp
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('eventTimeline');
 	const contentProviderProps = await getContentProviderProps();
 	const allEventSlugs = await getAllEventSlugs();
 	const upcomingEvents = await getUpcomingEvents(100);
