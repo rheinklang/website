@@ -52,6 +52,10 @@ export const Footer: FC = () => {
 										href: StaticRoutes.LIVESTREAM,
 										children: translate('navigation.events.livestream'),
 									},
+									{
+										href: StaticRoutes.EVENT_TIMELINE,
+										children: translate('navigation.events.timeline'),
+									},
 								]}
 							/>
 							<FooterNavigation

@@ -308,6 +308,8 @@ type Location {
 	address: String
 	country: String!
 	link: String
+	lng: Int
+	lat: Int
 }
 
 # Guest Appearance

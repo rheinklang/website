@@ -3,6 +3,7 @@ export enum StaticRoutes {
 	EVENTS = '/events',
 	EVENT_DETAIL = '/events/detail',
 	EVENT_CATEGORY = '/events/category',
+	EVENT_TIMELINE = '/events/timeline',
 	FESTIVALS = '/events/festival',
 	DAYDANCES = '/events/daydance',
 	COOPERATIONS = '/events/cooperation',

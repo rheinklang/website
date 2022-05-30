@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
+	CalendarIcon,
 	FlagIcon,
 	InboxIcon,
 	LightningBoltIcon,
@@ -54,6 +55,11 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					title: translate('navigation.events.livestream'),
 					href: StaticRoutes.LIVESTREAM,
 					icon: VideoCameraIcon,
+				},
+				{
+					title: translate('navigation.events.timeline'),
+					href: StaticRoutes.EVENT_TIMELINE,
+					icon: CalendarIcon,
 				},
 			],
 		},

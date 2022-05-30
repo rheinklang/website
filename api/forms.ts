@@ -37,6 +37,11 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 
 		// send notification to slack
 		try {
+			if (formId === 'logs') {
+				// we don't want log notifications
+			  	return;
+			}
+			
 			await sendContactSubmission(formId, data);
 		} catch (error) {
 			if (process.env.NODE_ENV === 'development') {
