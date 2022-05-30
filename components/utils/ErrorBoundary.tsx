@@ -37,13 +37,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 	}
 
 	render() {
-		if (this.state.hasError) {
-			return (
-				<div className="bg-black text-white">
-					<h1>Error Caught, should be handled later - see console for details</h1>
-				</div>
-			);
-		}
+		// if (this.state.hasError) {
+		// TODO: Proper error handling with nofication!
+		// 	{this.props.children}
+		// }
 
 		return this.props.children;
 	}

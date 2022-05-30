@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { Logger } from '../../utils/logger';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiamFuYmlhc2kiLCJhIjoiY2wzZnI5b28yMG9sOTNqbnI0czRrb21mMCJ9.0xk7yylYC4tlVhUxbSDthg';
+mapboxgl.accessToken = `${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`;
 
 export interface MapProps {
 	title?: string;
@@ -69,7 +69,7 @@ export const Map: FC<MapProps> = ({ title, zoom = 14, coordinates }) => {
 			setCurrentMap(map);
 			setCurrentMarker(marker);
 		},
-		[]
+		[title]
 	);
 
 	useEffect(() => {
