@@ -37,6 +37,8 @@ query EventByFilter($filter: JsonType, $limit: Int, $sort: JsonType) {
 			address
 			country
 			link
+			lat
+			lng
 		}
 	}
 }

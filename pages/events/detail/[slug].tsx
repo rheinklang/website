@@ -18,6 +18,7 @@ import { StaticRoutes } from '../../../utils/routes';
 import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, TicketIcon } from '@heroicons/react/outline';
 import { ButtonGroup } from '../../../components/ButtonGroup';
 import { Button } from '../../../components/Button';
+import { Map } from '../../../components/maps/Map';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -49,7 +50,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	};
 };
 
-const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
+const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	event,
 	contentProviderProps,
 }) => {
@@ -99,7 +100,7 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							)}
 						</header>
 						<Richtext as="section" content={event.content} />
-						<footer>
+						<section>
 							<ButtonGroup className="md:w-fit mt-8 items-start">
 								{event.ticketingUrl && (
 									<Button
@@ -123,7 +124,14 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 									</Button>
 								)}
 							</ButtonGroup>
-						</footer>
+						</section>
+						{event.location && event.location.lat && event.location.lng && (
+							<section className="mt-12">
+								<div className="h-96 w-full rounded-xl overflow-clip shadow-xl">
+									<Map coordinates={[event.location.lng, event.location.lat]} title={event.title} />
+								</div>
+							</section>
+						)}
 					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
@@ -131,6 +139,6 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 	);
 };
 
-EventsCategoryPage.displayName = 'EventsPage';
+EVentDetailPage.displayName = 'EventsPage';
 
-export default EventsCategoryPage;
+export default EVentDetailPage;

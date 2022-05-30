@@ -1,4 +1,3 @@
-import { EventType } from 'react-hook-form';
 import {
 	client,
 	EventsPreviewDocument,

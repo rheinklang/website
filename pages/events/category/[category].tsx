@@ -9,7 +9,6 @@ import { getEventsByType, getUpcomingEvents } from '../../../api/events';
 import { ContentConstraint } from '../../../components/ContentConstraint';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { StaticRoutes } from '../../../utils/routes';
-import { Link } from '../../../components/Link';
 import { Heading } from '../../../components/Heading';
 import { RecommendedContentHero } from '../../../components/RecommendedContentHero';
 import { parseCockpitDate } from '../../../utils/date';
@@ -92,23 +91,41 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 						/>
 					)}
 
-					<ContentConstraint>
-						<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
-							{upcomingEvents.map((event) => (
-								<EventTeaser
-									key={event._id}
-									date={event.date}
-									endDate={event.endDate}
-									title={event.title}
-									image={event.image!.path}
-									description={event.excerpt}
-									slug={event.slug}
-									isCanceled={event.isCanceled}
-									ticketingUrl={event.ticketingUrl}
-								/>
-							))}
-						</div>
-					</ContentConstraint>
+					{upcomingEvents && upcomingEvents.length > 0 && (
+						<ContentConstraint>
+							<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8">
+								{upcomingEvents.map((event) => (
+									<EventTeaser
+										key={event._id}
+										date={event.date}
+										endDate={event.endDate}
+										title={event.title}
+										image={event.image!.path}
+										description={event.excerpt}
+										slug={event.slug}
+										isCanceled={event.isCanceled}
+										ticketingUrl={event.ticketingUrl}
+									/>
+								))}
+							</div>
+						</ContentConstraint>
+					)}
+
+					{!upcomingEvents ||
+						(upcomingEvents.length === 0 && (
+							<ContentConstraint>
+								<div className="text-center sm:text-left py-16">
+									<Heading level="4" className="text-gray-600">
+										{translate('events.category.noPendingEventsInCategoryTitle')}
+									</Heading>
+									<p className="mt-2 max-w-lg text-gray-400">
+										{translate('events.category.noPendingEventsInCategoryText', {
+											category: translate(`event.type.${category}`),
+										})}
+									</p>
+								</div>
+							</ContentConstraint>
+						))}
 
 					<div className="bg-gray-100">
 						<ContentConstraint useCustomYSpace className="py-16 lg:py-24 border-b border-gray-800">

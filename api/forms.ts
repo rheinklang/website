@@ -37,6 +37,11 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 
 		// send notification to slack
 		try {
+			if (formId === 'logs') {
+				// we don't want log notifications
+			  	return;
+			}
+			
 			await sendContactSubmission(formId, data);
 		} catch (error) {
 			if (process.env.NODE_ENV === 'development') {
@@ -46,13 +51,8 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 			}
 		}
 	} catch (error) {
-		// send error report to slack
+		// send error report to slack as we can't send the log entry to the CMS
 		await sendReport(error, `${formId} submission`);
-		await submitForm('logs', {
-			...data,
-			formId,
-			errorMessage: error instanceof Error ? error.message : `${error}`,
-		});
 	}
 };
 

@@ -1,9 +1,5 @@
 import type { Block, KnownBlock, MrkdwnElement, PlainTextElement } from '@slack/types';
-// import { IncomingWebhook } from '@slack/webhook';
 import axios, { AxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
-import { CookieConsents } from '../utils/cookies';
-import { getReadableTimestamp } from '../utils/date';
 
 if (!process.env.NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL || !process.env.NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL) {
 	throw new Error('Missing Slack webhook URLs for contact and reporting');
@@ -147,24 +143,25 @@ export async function sendReport(err?: any, scope = 'unknown') {
 	);
 }
 
+const FIELD_BLACKLIST = ['email', 'gotcha'];
+
 export async function sendContactSubmission(formIdentifier: string, fields: Record<string, number | string | boolean>) {
 	const readableFields = Object.entries(fields).map(([key, value]): [string, string] => [
 		key,
 		transformFieldValueType(value),
 	]);
 
+	console.log(readableFields);
+
 	const fieldSubmissions = readableFields
-		.filter(([key]) => key !== 'gotcha')
+		.filter(([key]) => typeof key === 'string')
+		.filter(([key]) => !FIELD_BLACKLIST.includes(key))
 		.reduce(
 			(prev, [key, value]) => [
 				...prev,
 				{
 					type: 'mrkdwn' as const,
-					text: `*${key}*`,
-				},
-				{
-					type: 'plain_text' as const,
-					text: `${value || '–'}`,
+					text: `*${key.charAt(0).toUpperCase() + key.slice(1)}*\n${value}\n\n`,
 				},
 			],
 			[] as Array<MrkdwnElement | PlainTextElement>

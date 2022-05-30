@@ -2,6 +2,7 @@ import { AriaAttributes, FC, HTMLAttributes, PropsWithChildren, useMemo } from '
 import NextLink from 'next/link';
 import classNames from 'classnames';
 import { tagManagerPush } from '../utils/matomo';
+import { DEFAULT_EXTERNAL_CAMPAIGNER_PARAMS } from '../utils/campaigner';
 
 export type LinkProps = PropsWithChildren<{
 	href: string;
@@ -27,11 +28,6 @@ export interface RawLinkProps extends HTMLAttributes<HTMLAnchorElement> {
 	utmParams?: URLSearchParams;
 }
 
-export const DEFAULT_UTM_PARAMS = new URLSearchParams();
-DEFAULT_UTM_PARAMS.append('utm_source', 'rheinklang-website');
-DEFAULT_UTM_PARAMS.append('utm_medium', 'link');
-DEFAULT_UTM_PARAMS.append('utm_campaign', 'referral');
-
 const trackExternalLinkLeap = (url: string, title: string) => {
 	tagManagerPush({
 		url,
@@ -47,7 +43,7 @@ export const RawLink: FC<RawLinkProps> = ({
 	className,
 	children,
 	action,
-	utmParams = DEFAULT_UTM_PARAMS,
+	utmParams = DEFAULT_EXTERNAL_CAMPAIGNER_PARAMS,
 	...nativeHtmlAttributes
 }) => {
 	const isInternal = useMemo(() => href.startsWith('/') || href.startsWith('http') === false, [href]);
