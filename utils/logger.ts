@@ -25,6 +25,8 @@ export interface LogPayload {
 }
 
 export class Logger {
+	private caughtErrors: string[] = [];
+
 	constructor(private context = 'global') {}
 
 	public info(message: string): void {
@@ -36,6 +38,13 @@ export class Logger {
 	}
 
 	public error(error: Error, opts: LogOptions = {}): void {
+		const errorSignature = `${error.message}#${error.stack}`;
+		if (this.caughtErrors.includes(errorSignature)) {
+			return;
+		}
+
+		this.caughtErrors.push(errorSignature);
+
 		StackTrace.fromError(error, { offline: false }).then((stackFrames) => {
 			const payload = this.getPayload(error.message, error.name, {
 				...opts,

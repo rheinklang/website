@@ -16,6 +16,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 		hasError: false,
 	};
 
+	private lastCaughtErrorHash = '';
 	private logger = new Logger('ErrorBoundary');
 
 	static getDerivedStateFromError(error: Error) {
@@ -23,6 +24,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+		if (this.lastCaughtErrorHash === `${error.stack}`) {
+			return;
+		}
+
+		this.lastCaughtErrorHash = `${error.stack}`;
+
 		this.logger.error(error, {
 			context: errorInfo.componentStack || 'ErrorBoundary',
 			route: this.props.route,
