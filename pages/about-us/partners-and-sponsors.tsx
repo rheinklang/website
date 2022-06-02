@@ -103,6 +103,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 															imageBackgroundColor={
 																partner.backgroundFillColor || undefined
 															}
+															starred={partner.type === PartnerType.Mainsponsor}
 															isActive={
 																partner.left && partner.left < CURRENT_YEAR
 																	? false
