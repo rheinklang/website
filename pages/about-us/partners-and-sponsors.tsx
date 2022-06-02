@@ -12,7 +12,7 @@ import { Link } from '../../components/Link';
 import { ProfileTeaser } from '../../components/ProfileTeaser';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
-import { PartnerLevel } from '../../graphql';
+import { PartnerLevel, PartnerType } from '../../graphql';
 import { useTranslation } from '../../hooks/useTranslation';
 import { CURRENT_YEAR } from '../../utils/date';
 
@@ -76,25 +76,42 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 											</Heading>
 										</hgroup>
 										<div className="flex flex-row flex-wrap items-stretch justify-evenly">
-											{partners.cluster[level].map((partner) => (
-												<article
-													key={`${level}-${partner.title}`}
-													className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
-												>
-													<ProfileTeaser
-														name={partner.title}
-														role={translate(`partner.type.${partner.type}`)}
-														description={partner.role}
-														image={partner.logo?.path || 'TODO_FALLBACK_IMAGE'}
-														imageMode="contain"
-														imageBackgroundColor={partner.backgroundFillColor || undefined}
-														isActive={
-															partner.left && partner.left < CURRENT_YEAR ? false : true
-														}
-														href={partner.homepage}
-													/>
-												</article>
-											))}
+											{partners.cluster[level]
+												.sort((a, b) => {
+													const textA = a.title.toUpperCase();
+													const textB = b.title.toUpperCase();
+													return textA < textB ? -1 : textA > textB ? 1 : 0;
+												})
+												.sort((entry) => (entry.type === PartnerType.Mainsponsor ? -1 : 1))
+												.map((partner) => (
+													<article
+														key={`${level}-${partner.title}`}
+														className={classNames(
+															'basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8',
+															{
+																'sm:basis-full':
+																	partner.type === PartnerType.Mainsponsor,
+															}
+														)}
+													>
+														<ProfileTeaser
+															name={partner.title}
+															role={translate(`partner.type.${partner.type}`)}
+															description={partner.role}
+															image={partner.logo?.path || 'TODO_FALLBACK_IMAGE'}
+															imageMode="contain"
+															imageBackgroundColor={
+																partner.backgroundFillColor || undefined
+															}
+															isActive={
+																partner.left && partner.left < CURRENT_YEAR
+																	? false
+																	: true
+															}
+															href={partner.homepage}
+														/>
+													</article>
+												))}
 										</div>
 									</ContentConstraint>
 								</div>

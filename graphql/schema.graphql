@@ -276,6 +276,7 @@ enum PartnerType {
 	partner
 	supplier
 	sponsor
+	mainsponsor
 }
 
 enum PartnerLevel {
