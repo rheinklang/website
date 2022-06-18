@@ -22,7 +22,7 @@ const Error403: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 			cta={contentProviderProps.headerConfiguration.cta}
 		>
 			<ErrorPage
-				statusCode={404}
+				statusCode={403}
 				title="Oh, darauf hast du wohl kein Zugriff"
 				message="Bist du dir sicher dass du autorisiert bist die Seite aufzurufen?"
 			/>
@@ -30,6 +30,6 @@ const Error403: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 	</ContentProvider>
 );
 
-Error403.displayName = 'Error404';
+Error403.displayName = 'Error403';
 
 export default Error403;
