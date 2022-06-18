@@ -10,7 +10,7 @@ import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { StaticRoutes } from '../../utils/routes';
 
 export async function getStaticProps() {
-	const getContentProviderProps = getContextualContentProviderFetcher('http500');
+	const getContentProviderProps = getContextualContentProviderFetcher('eventsOverview');
 	const contentProviderProps = await getContentProviderProps();
 	const allEventSlugs = await getAllEventSlugs();
 	const eventOverviews = await getEventOverview();
