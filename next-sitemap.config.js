@@ -2,7 +2,7 @@
 
 module.exports = {
 	sourceDir: 'build',
-	siteUrl: process.env.SITE_URL || 'https://rheinklang.events',
+	siteUrl: process.env.SITE_URL || 'https://www.rheinklang.events',
 	generateRobotsTxt: true,
 	generateIndexSitemap: false,
 	changefreq: 'weekly',
