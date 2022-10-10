@@ -10,8 +10,8 @@ import {
 import { nonNullish } from '../utils/filter';
 
 export const getPaginatedArticles = async (page: number, amountToLoad: number) => {
-	const limit = amountToLoad;
-	const skip = (page - 1) * limit; // we want to start at 0, not 1
+	const limit = amountToLoad * 2; /* workaround to get enough articles */
+	const skip = (page - 1) * amountToLoad; // we want to start at 0, not 1
 
 	const result = await client.query<ArticlesQuery>({
 		query: ArticlesDocument,
@@ -22,7 +22,7 @@ export const getPaginatedArticles = async (page: number, amountToLoad: number) =
 		},
 	});
 
-	return result.data.articlesCollection.filter(nonNullish);
+	return result.data.articlesCollection.filter(nonNullish).slice(0, amountToLoad);
 };
 
 export const getAllArticleSlugs = async () => {
