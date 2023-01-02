@@ -48,9 +48,9 @@ Options -Indexes
 	</FilesMatch>
 
 	# caching set to 6 months for compiled assets (which contain a content hash)
-	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "public, max-age=15552000, immutable"
-	</FilesMatch>
+	# <FilesMatch "\.(css|js)$">
+	# 	Header set Cache-Control "public, max-age=15552000, immutable"
+	# </FilesMatch>
 
 	# disable caching for the main workbox service-worker
 	<FilesMatch "sw.js">
