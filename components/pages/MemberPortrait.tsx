@@ -87,8 +87,8 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 			<ContentConstraint useCustomYSpace className="max-w-6xl my-16">
 				<article className="flex flex-col">
 					<header className="text-center md:text-left md:flex md:flex-row md:flex-nowrap md:items-center">
-						<div className="rounded-full w-64 h-64 mx-auto md:mx-0">
-							<Image isObjectFitCover src={image?.path || '#'} alt={name} className="rounded-full" />
+						<div className="rounded-lg w-64 h-64 mx-auto md:mx-0">
+							<Image isObjectFitCover src={image?.path || '#'} alt={name} className="rounded-lg" />
 						</div>
 						<div className="mt-8 md:mt-0 md:ml-8">
 							<p className="text-gray-600 mb-1">

@@ -1,12 +1,11 @@
 import { FC, PropsWithChildren } from 'react';
 import dynamic from 'next/dynamic';
 import { Footer } from '../Footer';
-import { Header, HeaderProps } from '../Header';
-import { MarketingBanner } from '../MarketingBanner';
+import { Header } from '../Header';
 import { Matomo } from '../utils/Matomo';
 import type { ContentProviderProps } from '../utils/ContentProvider';
-import { useTranslation } from '../../hooks/useTranslation';
 import type { ConsentProps } from '../Consent';
+import { ScrollTop } from '../ScrollTop';
 
 // TODO: Refactor to React.lazy once React 18 stable is released
 const Consent = dynamic<ConsentProps>(
@@ -23,16 +22,12 @@ interface PageLayoutProps extends PropsWithChildren {
 }
 
 export const PageLayout: FC<PageLayoutProps> = ({ children, marketingBanner, cta, isDarkOnly = false }) => {
-	const translate = useTranslation();
-
 	return (
 		<>
-			{marketingBanner && (
-				<MarketingBanner text={marketingBanner.message} id={marketingBanner.id} link={marketingBanner.link} />
-			)}
-			<Header cta={cta} />
+			<Header marketingBanner={marketingBanner} cta={cta} />
 			<div>{children}</div>
 			<Footer />
+			<ScrollTop />
 			<Consent variant={isDarkOnly ? 'light' : 'dark'} />
 			<Matomo />
 		</>

@@ -32,7 +32,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<meta property="og:site_name" content="Rheinklang" />
 				<meta name="twitter:card" content="summary_large_image" />
 			</Head>
-			<div className="bg-white overflow-x-hidden">
+			<div className="bg-white ">
 				<Component {...pageProps} />
 			</div>
 		</>

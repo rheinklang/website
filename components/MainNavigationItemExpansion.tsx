@@ -30,7 +30,7 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 	}
 
 	return (
-		<div className="lg:pt-7 overflow-hidden">
+		<div className="lg:pt-6 overflow-hidden">
 			<ul
 				className={classNames(
 					'transition-all ease-in-out overflow-hidden py-2 shadow-md text-white',

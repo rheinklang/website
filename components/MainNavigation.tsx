@@ -140,7 +140,7 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 	}, [setIsExpanded]);
 
 	return (
-		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-2">
+		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-1">
 			<ul
 				className={classNames(
 					'transition-all transform-gpu absolute left-0 top-28 w-full overscroll-auto',
