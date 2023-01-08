@@ -1,9 +1,8 @@
-import { ArrowRightIcon, SpeakerphoneIcon, XIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { storage } from '../utils/localstorage';
 import { tagManagerPush } from '../utils/matomo';
-import { Button } from './Button';
 import { ContentConstraint } from './ContentConstraint';
 import { Link } from './Link';
 
@@ -49,7 +48,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 		<article role="banner" className="bg-slightly-rose-400 text-slightly-rose-900">
 			<ContentConstraint useCustomYSpace className="flex flex-row flex-nowrap justify-between py-4 px-2 lg:py-2">
 				<div className="bg-white bg-opacity-20 rounded-lg flex flex-col justify-center items-center p-2 mr-2 flex-grow-0">
-					<SpeakerphoneIcon className="text-slightly-rose-600 h-4" />
+					<MegaphoneIcon className="text-slightly-rose-600 h-4" />
 				</div>
 				<p className="my-2 mr-2 lg:mr-auto text-sm">
 					{text}
@@ -71,7 +70,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 				</p>
 
 				<div className="w-6 flex flex-col flex-grow-0 justify-center items-center">
-					<XIcon className="cursor-pointer h-4" onClick={handleDismiss} />
+					<XMarkIcon className="cursor-pointer h-4" onClick={handleDismiss} />
 				</div>
 			</ContentConstraint>
 		</article>

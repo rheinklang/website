@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ComponentProps, FC } from 'react';
-import { Heading } from './Heading';
 
 export interface MainNavigationItemExpansionItemProps {
 	icon?: (props: ComponentProps<'svg'>) => JSX.Element;
@@ -48,7 +47,7 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 
 						return (
 							<li key={title}>
-								<Link href={href}>
+								<Link legacyBehavior href={href}>
 									<a
 										tabIndex={isVisible ? 0 : -1}
 										className={classNames(

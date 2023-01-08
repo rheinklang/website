@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import type { FC } from 'react';
 import { StaticRoutes } from '../utils/routes';
 import { ContentConstraint } from './ContentConstraint';
 import { RawLink } from './Link';
 import { MainNavigation } from './MainNavigation';
-import { CorporateLogo } from './static/CorporateLogo';
 import type { ContentProviderProps } from './utils/ContentProvider';
 
 export interface HeaderProps {

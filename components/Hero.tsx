@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FC } from 'react';
-import { Badge, BadgeProps } from './Badge';
+import { Badge } from './Badge';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 import { Heading } from './Heading';

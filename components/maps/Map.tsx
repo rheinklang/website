@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { Logger } from '../../utils/logger';
 import classNames from 'classnames';
 import { Heading } from '../Heading';
-import { MapIcon } from '@heroicons/react/outline';
+import { MapIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '../../hooks/useTranslation';
 
 import 'mapbox-gl/dist/mapbox-gl.css';

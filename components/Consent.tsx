@@ -1,4 +1,4 @@
-import { CogIcon } from '@heroicons/react/outline';
+import { CogIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import Cookies from 'js-cookie';
 import { FC, useCallback, useEffect, useState } from 'react';

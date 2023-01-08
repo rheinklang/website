@@ -1,11 +1,11 @@
-import type { EventHandler, FC, MouseEvent } from 'react';
+import type { EventHandler, FC, MouseEvent, PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { Link, LinkProps } from './Link';
-import { RefreshIcon } from '@heroicons/react/outline';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 export type ButtonType = 'primary' | 'secondary' | 'black' | 'danger';
 
-export interface ButtonProps {
+export interface ButtonProps extends PropsWithChildren {
 	type?: ButtonType;
 	icon?: JSX.Element;
 	id?: string;
@@ -78,7 +78,7 @@ export const Button: FC<ButtonProps> = ({
 				</span>
 			)}
 
-			{!link && isLoading && <RefreshIcon className="animate-spin h-6" />}
+			{!link && isLoading && <ArrowPathIcon className="animate-spin h-6" />}
 		</button>
 	);
 };

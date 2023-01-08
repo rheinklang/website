@@ -1,4 +1,4 @@
-import { ArrowRightIcon, LinkIcon, StarIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, StarIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { FC } from 'react';
 import { Button } from './Button';

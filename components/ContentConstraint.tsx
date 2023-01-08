@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-interface ContentConstraintProps {
+interface ContentConstraintProps extends PropsWithChildren {
 	tag?: string;
 	useCustomYSpace?: boolean;
 	className?: string;

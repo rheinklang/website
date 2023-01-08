@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-export interface ButtonGroupProps {
+export interface ButtonGroupProps extends PropsWithChildren {
 	className?: string;
 }
 

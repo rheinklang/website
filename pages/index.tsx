@@ -1,4 +1,4 @@
-import { ArrowRightIcon, TicketIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, TicketIcon } from '@heroicons/react/24/outline';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getPaginatedArticles } from '../api/articles';

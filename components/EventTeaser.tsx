@@ -1,4 +1,4 @@
-import { ArrowRightIcon, TicketIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, TicketIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import { useTranslation } from '../hooks/useTranslation';

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { HeartIcon } from '@heroicons/react/solid';
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/24/solid';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FooterNavigation } from './FooterNavigation';
 import { ContentConstraint } from './ContentConstraint';
 import { useTranslation } from '../hooks/useTranslation';

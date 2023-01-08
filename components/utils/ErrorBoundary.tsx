@@ -1,8 +1,8 @@
-import { Component, ErrorInfo } from 'react';
+import { Component, ErrorInfo, PropsWithChildren } from 'react';
 import { Logger } from '../../utils/logger';
 import { tagManagerPush } from '../../utils/matomo';
 
-export interface ErrorBoundaryProps {
+export interface ErrorBoundaryProps extends PropsWithChildren {
 	route?: string;
 }
 

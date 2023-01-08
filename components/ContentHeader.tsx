@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { ContentConstraint } from './ContentConstraint';
 import { Heading } from './Heading';
 
-export interface ContentHeaderProps {
+export interface ContentHeaderProps extends PropsWithChildren {
 	title: JSX.Element | string;
 	text?: JSX.Element | string;
 	className?: string;

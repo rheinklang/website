@@ -1,7 +1,7 @@
-import { LinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
+import { LinkIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 import Cookies from 'js-cookie';
 import { FC } from 'react';
-import { Controller, FormState, useForm, UseFormGetFieldState, UseFormGetValues } from 'react-hook-form';
+import { Controller, FormState, useForm } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
 import { tagManagerPush } from '../utils/matomo';

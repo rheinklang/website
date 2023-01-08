@@ -1,8 +1,13 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../styles/fonts.css';
 import '../styles/globals.css';
+
+// See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
+config.autoAddCss = false;
 
 function RheinklangApp({ Component, pageProps }: AppProps) {
 	return (

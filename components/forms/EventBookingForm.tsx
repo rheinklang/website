@@ -1,4 +1,4 @@
-import { CashIcon, LocationMarkerIcon, MailIcon, UserGroupIcon } from '@heroicons/react/outline';
+import { CashIcon, LocationMarkerIcon, MailIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { EventType } from '../../graphql';

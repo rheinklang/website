@@ -15,7 +15,7 @@ import { formatDate, formatDateRange, parseCockpitDate } from '../../../utils/da
 import { Heading } from '../../../components/Heading';
 import { Link } from '../../../components/Link';
 import { StaticRoutes } from '../../../utils/routes';
-import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, TicketIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, TicketIcon } from '@heroicons/react/24/outline';
 import { ButtonGroup } from '../../../components/ButtonGroup';
 import { Button } from '../../../components/Button';
 import { Map } from '../../../components/maps/Map';
