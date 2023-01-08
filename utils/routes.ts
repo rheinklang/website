@@ -13,6 +13,7 @@ export enum StaticRoutes {
 	ARTICLE = '/blog/view',
 	ABOUT_US = '/about-us',
 	PORTRAIT = '/about-us/persons',
+	MEMBER_PORTRAIT = '/about-us/portrait',
 	PARTNERS = '/about-us/partners-and-sponsors',
 	CONTACT = '/contact',
 	EVENT_INQUIRY = '/contact/forms/event-booking',
@@ -29,5 +30,7 @@ export enum StaticRoutes {
 export enum StaticExternalUrls {
 	FACEBOOK = 'https://facebook.com/rhnklng',
 	INSTAGRAM = 'https://instagram.com/rheinklang',
+	SOUNDCLOUD = 'https://soundcloud.com/rhnklng',
 	GITHUB = 'https://github.com/rheinklang',
+	UPPTIME = 'https://status.rheinklang.events',
 }

@@ -15,6 +15,7 @@ export interface RecommendedContentHeroProps {
 	link?: string;
 	date?: string;
 	className?: string;
+	isEmbeddedInSameColor?: boolean;
 }
 
 export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
@@ -24,6 +25,7 @@ export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
 	className,
 	date,
 	link = '#',
+	isEmbeddedInSameColor = false,
 }) => {
 	const translate = useTranslation();
 	const labelOrDefault = useMemo(() => label || translate('common.badge.recommended'), [translate, label]);
@@ -33,8 +35,11 @@ export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
 			<Link isPureContent isUnstyled isFlex={false} href={link} className="group">
 				<div
 					className={classNames(
-						'flex transition-colors shadow-sm bg-sea-green-200 rounded-xl group-hover:bg-sea-green-300 p-4 gap-2 md:p-8 md:gap-8 md:items-center lg:p-16',
-						className
+						'flex transition-colors bg-sea-green-200 rounded-xl group-hover:bg-sea-green-300 p-4 gap-2 md:p-8 md:gap-8 md:items-center lg:p-16',
+						className,
+						{
+							'shadow-sm': !isEmbeddedInSameColor,
+						}
 					)}
 				>
 					<div className="xl:w-0 xl:flex-1">

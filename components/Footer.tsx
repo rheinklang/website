@@ -116,8 +116,24 @@ export const Footer: FC = () => {
 										),
 									},
 									{
+										href: StaticExternalUrls.SOUNDCLOUD,
+										children: 'Soundcloud',
+										isStandalone: true,
+										icon: (
+											<ArrowRightIcon className="inline transition-all align-text-top ml-2 h-4 group-hover:ml-3" />
+										),
+									},
+									{
 										href: StaticExternalUrls.GITHUB,
 										children: 'GitHub',
+										isStandalone: true,
+										icon: (
+											<ArrowRightIcon className="inline transition-all align-text-top ml-2 h-4 group-hover:ml-3" />
+										),
+									},
+									{
+										href: StaticExternalUrls.UPPTIME,
+										children: 'Service Status',
 										isStandalone: true,
 										icon: (
 											<ArrowRightIcon className="inline transition-all align-text-top ml-2 h-4 group-hover:ml-3" />

@@ -10,6 +10,7 @@ import { ContentProvider, getContextualContentProviderFetcher } from '../../comp
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { useTranslation } from '../../hooks/useTranslation';
 import { Image } from '../../components/Image';
+import { PersonTeaser } from '../../components/PersonTeaser';
 
 export async function getStaticProps() {
 	const teamMembers = await getTeamMembersList();
@@ -61,24 +62,25 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 							</div>
 						</ContentConstraint>
 					</div> */}
-					<div className="bg-black border-t border-b border-gray-800 py-12 lg:py-24">
+					<div className="py-12 lg:py-24">
 						<ContentConstraint>
 							<div className="flex flex-row flex-wrap sm:justify-evenly">
 								{teamMembers
 									.filter((member) => member.isActive === true)
 									.map((member) => (
 										<div
-											className="basis-full mb-8 sm:basis-1/2 sm:p-4 lg:basis-1/3 lg:py-6 xl:basis-1/4 xl:py-8"
+											className="basis-full mb-8 sm:p-4 lg:basis-1/2 lg:py-6 xl:basis-1/2 xl:py-8"
 											key={member.fullName}
 										>
-											<ProfileTeaser
+											<PersonTeaser
 												key={member.fullName}
 												name={member.fullName}
 												role={member.role || ''}
+												slug={member.slug}
 												description={translate(`team.roles.${member.primaryActivityArea}`)}
 												image={member.image!.path}
 												isActive={member.isActive}
-												starred={member.isFounder}
+												isFounder={member.isFounder}
 											/>
 										</div>
 									))}
