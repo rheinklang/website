@@ -29,7 +29,7 @@ export const Hero: FC<HeroProps> = ({
 	secondaryCta,
 }) => {
 	return (
-		<article className={classNames('relative bg-transparent', className)}>
+		<article className={classNames('', className)}>
 			<div
 				className={classNames(
 					'container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center bg-cover',
@@ -56,7 +56,7 @@ export const Hero: FC<HeroProps> = ({
 				</div>
 				{image && (
 					<div className="lg:max-w-xl lg:w-full max-w-lg md:pb-0 md:w-1/2 w-full pb-8">
-						<Image isObjectFitCover className="rounded-xl" src={image} alt={`${title}`} />
+						<Image isObjectFitCover src={image} alt={`${title}`} className="rounded-xl" />
 					</div>
 				)}
 			</div>
