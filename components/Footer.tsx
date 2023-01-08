@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import type { FC } from 'react';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FooterNavigation } from './FooterNavigation';
 import { ContentConstraint } from './ContentConstraint';
@@ -8,23 +7,18 @@ import { StaticExternalUrls, StaticRoutes } from '../utils/routes';
 import { EventType } from '../graphql';
 import { RawLink } from './Link';
 import { CorporateLogo } from './static/CorporateLogo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram, faSoundcloud } from '@fortawesome/free-brands-svg-icons';
 
 export const Footer: FC = () => {
 	const translate = useTranslation();
 
 	return (
 		<footer className="z-30">
-			<div className="md:py-20 bg-black text-white">
-				<ContentConstraint>
+			<div className="md:py-10 bg-black text-white">
+				<ContentConstraint tag="section">
 					<div className="flex flex-col xl:flex-row align-top justify-center xl:justify-between">
-						<RawLink
-							href={StaticRoutes.HOME}
-							title="Homepage"
-							className="pb-12 w-full xl:w-auto lg:pb-0 xl:mr-28"
-						>
-							<CorporateLogo className="block h-32 w-32 mb-8 mx-auto xl:mx-0 xl:mb-0 xl:inline xl:h-36 xl:w-36" />
-						</RawLink>
-						<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:gap-12 2xl:gap-20 lg:grid-cols-4 xl:ml-auto">
+						<div className="w-full grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:gap-12 2xl:gap-20 lg:grid-cols-4">
 							<FooterNavigation
 								title={translate('footer.navigationSection.events')}
 								items={[
@@ -135,16 +129,49 @@ export const Footer: FC = () => {
 					</div>
 				</ContentConstraint>
 			</div>
-			<div data-nosnippet className="text-xs bg-black uppercase text-gray-100 border-t border-t-gray-800">
-				<ContentConstraint tag="section" className="flex flex-col md:flex-row md:justify-between">
-					<p className="block w-full text-center md:w-1/3 md:text-left">
-						&copy; {new Date().getFullYear()} Rheinklang
-					</p>
-					<p className="block w-full text-center md:w-1/3 md:text-center">
+			<div data-nosnippet className="bg-black text-gray-100 border-t border-t-gray-800">
+				<ContentConstraint useCustomYSpace tag="section" className="flex flex-row justify-between py-4">
+					<div className="flex flex-row flex-nowrap justify-start items-center md:w-1/3">
+						<RawLink href={StaticRoutes.HOME} title="Homepage" className="">
+							<CorporateLogo className="block h-8 w-8" />
+						</RawLink>
+						<div className="ml-2 text-sm">
+							<p className="font-semibold">Rheinklang</p>
+							<p className="text-xs text-gray-300">Events, consulting & mehr.</p>
+						</div>
+					</div>
+					{/* <p className="block w-full text-center md:w-1/3 md:text-center uppercase text-xs text-gray-200">
 						Made with <HeartIcon className="inline align-text-top h-3 text-slightly-rose-700" /> in
 						Switzerland
-					</p>
-					<p className="block w-full text-center md:w-1/3 md:text-right">{process.env.CONFIG_BUILD_ID}</p>
+					</p> */}
+					<div>
+						<ul className="flex flex-row flex-wrap gap-4 text-2xl ">
+							<li>
+								<RawLink
+									href="https://instgram.com/rheinklag"
+									className="hover:text-sea-green-400 transition-colors"
+								>
+									<FontAwesomeIcon icon={faInstagram} />
+								</RawLink>
+							</li>
+							<li>
+								<RawLink
+									href="https://facebook.com/rhnklng"
+									className="hover:text-sea-green-400 transition-colors"
+								>
+									<FontAwesomeIcon icon={faFacebook} />
+								</RawLink>
+							</li>
+							<li>
+								<RawLink
+									href="https://soundcloud.com/rhnklng"
+									className="hover:text-sea-green-400 transition-colors"
+								>
+									<FontAwesomeIcon icon={faSoundcloud} />
+								</RawLink>
+							</li>
+						</ul>
+					</div>
 				</ContentConstraint>
 			</div>
 		</footer>

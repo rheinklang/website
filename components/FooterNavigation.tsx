@@ -10,7 +10,7 @@ export interface FooterNavigationProps {
 export const FooterNavigation: FC<FooterNavigationProps> = ({ title, items = [] }) => {
 	return (
 		<div className="w-fit">
-			<Heading level="3" className="mb-4">
+			<Heading level="3" visualLevel="6" className="mb-4 uppercase text-gray-300 tracking-wider">
 				{title}
 			</Heading>
 			<nav id="footer-navigation" aria-label="Footer">

@@ -5,6 +5,7 @@ export type HeadingLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
 export interface HeadingProps extends PropsWithChildren {
 	level?: HeadingLevel;
+	visualLevel?: HeadingLevel;
 	tag?: string;
 	className?: string;
 	useCorporateFont?: boolean;
@@ -19,16 +20,27 @@ const mapSizesToLevel: Record<HeadingLevel, string> = {
 	6: 'text-sm sm:text-md',
 };
 
-export const Heading: FC<HeadingProps> = ({ children, className, tag, useCorporateFont = false, level = '3' }) => {
+export const Heading: FC<HeadingProps> = ({
+	children,
+	className,
+	tag,
+	useCorporateFont = false,
+	level = '3',
+	visualLevel,
+}) => {
 	let Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 	if (tag) {
 		Tag = tag as 'h1';
 	}
 
+	if (!visualLevel) {
+		visualLevel = level;
+	}
+
 	return (
 		<Tag
-			className={classNames('font-bold', mapSizesToLevel[level], className, {
+			className={classNames('font-bold', mapSizesToLevel[visualLevel], className, {
 				'font-corporate': useCorporateFont,
 			})}
 		>

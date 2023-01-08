@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { FC } from 'react';
+import { Breakpoint, COCKPIT_IMAGER_URL, getCockpitImagerParams } from '../utils/images';
 import { Badge } from './Badge';
 import { Button, ButtonProps } from './Button';
 import { ButtonGroup } from './ButtonGroup';
@@ -28,10 +29,10 @@ export const Hero: FC<HeroProps> = ({
 	secondaryCta,
 }) => {
 	return (
-		<article className={classNames('', className)}>
+		<article className={classNames('relative bg-transparent', className)}>
 			<div
 				className={classNames(
-					'container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center',
+					'container mx-auto flex px-4 py-16 md:py-24 flex-col-reverse md:flex-row items-center bg-cover',
 					{
 						'py-16 md:py-24': !hasFollowingContent,
 						'pt-16 pb-4 md:pt-24': hasFollowingContent,
@@ -54,7 +55,7 @@ export const Hero: FC<HeroProps> = ({
 					</ButtonGroup>
 				</div>
 				{image && (
-					<div className="lg:max-w-lg lg:w-full md:pb-0 md:w-1/2 w-5/6 pb-8">
+					<div className="lg:max-w-xl lg:w-full max-w-lg md:pb-0 md:w-1/2 w-full pb-8">
 						<Image isObjectFitCover className="rounded-xl" src={image} alt={`${title}`} />
 					</div>
 				)}
