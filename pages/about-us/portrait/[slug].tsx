@@ -54,6 +54,7 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 						links={pageData.links}
 						name={pageData.fullName}
 						bio={pageData.bio}
+						entryDate={pageData.entryDate}
 						isFounder={pageData.isFounder}
 						favoriteDrink={pageData.favoriteDrink}
 						favoriteGenre={pageData.favoriteGenre}
