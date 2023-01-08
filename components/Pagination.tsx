@@ -1,11 +1,10 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { FC, useMemo } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { StaticRoutes } from '../utils/routes';
 import { compileStringTemplate } from '../utils/templating';
 import { Button } from './Button';
-import { ButtonGroup } from './ButtonGroup';
 import { Link } from './Link';
 
 export interface PaginationProps {

@@ -1,4 +1,4 @@
-import { ArrowRightIcon, ClockIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, ClockIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -50,11 +50,12 @@ export const ArticleExcerpt: FC<ArticleExcerptProps> = ({
 				<h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{title}</h2>
 				<p className="leading-relaxed mb-8">{description}</p>
 				<div className="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-					<Link href={`${StaticRoutes.ARTICLE}/${slug}`}>
-						<a className="group transition-all text-sea-green-400 inline-flex items-center hover:border-sea-green-600 hover:text-sea-green-600">
-							Weiterlesen
-							<ArrowRightIcon className="transition-all w-4 h-4 ml-1 group-hover:ml-2" />
-						</a>
+					<Link
+						href={`${StaticRoutes.ARTICLE}/${slug}`}
+						className="group transition-all text-sea-green-400 inline-flex items-center hover:border-sea-green-600 hover:text-sea-green-600"
+					>
+						Weiterlesen
+						<ArrowRightIcon className="transition-all w-4 h-4 ml-1 group-hover:ml-2" />
 					</Link>
 					<span className="text-gray-400 inline-flex items-center ml-auto leading-none text-sm py-1 ">
 						{/* mr-3 pr-3 border-r-2 border-gray-200 */}

@@ -1,6 +1,6 @@
 import { ApolloProvider, NormalizedCacheObject } from '@apollo/client';
 import Head from 'next/head';
-import { FC, useEffect } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { getHeaderConfiguration } from '../../api/header';
 import { getMarketingBanner } from '../../api/marketing';
 import { getSeoMetaData } from '../../api/seo';
@@ -15,7 +15,7 @@ import { getCurrentMaintenance } from '../../api/maintenance';
 import { MaintenancePage } from '../pages/Maintenance';
 import { useMemoryCacheUpdater } from '../../hooks/useMemoryCacheUpdater';
 
-export interface ContentProviderProps {
+export interface ContentProviderProps extends PropsWithChildren {
 	translations: ReturnType<typeof transformTranslationsIntoObject>;
 	seo: Awaited<ReturnType<typeof getSeoMetaData>>;
 	marketingBanner: ReturnType<typeof transformMarketingBanner>;

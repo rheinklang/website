@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FC, ComponentProps } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { Heading } from './Heading';

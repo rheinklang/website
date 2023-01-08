@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { getUpcomingEvents } from '../../api/events';
 import { useTranslation } from '../../hooks/useTranslation';

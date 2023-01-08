@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 export type BadgeType = 'primary' | 'secondary';
 
-export interface BadgeProps {
+export interface BadgeProps extends PropsWithChildren {
 	type?: BadgeType;
 	isUppercase?: boolean;
 	className?: string;

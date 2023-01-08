@@ -1,4 +1,4 @@
-import { MailIcon } from '@heroicons/react/outline';
+import { MailIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';

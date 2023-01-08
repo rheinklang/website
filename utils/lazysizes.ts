@@ -1,7 +1,7 @@
 const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
-export let lazySizes = null;
+export let lazySizes: unknown = null;
 
 if (canUseDOM && !lazySizes) {
-	lazySizes = require('lazysizes');
+	import(/* webpackChunkName: "lazysizes" */ 'lazysizes').then((mod) => (lazySizes = mod));
 }

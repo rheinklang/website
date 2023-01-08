@@ -1,13 +1,13 @@
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
-import { createRef, Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { createRef, Dispatch, FC, PropsWithChildren, SetStateAction, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Heading } from './Heading';
 import { createFocusTrap } from 'focus-trap';
 import { traceDeprecation } from 'process';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
-export interface DialogProps {
+export interface DialogProps extends PropsWithChildren {
 	title?: string | JSX.Element;
 	description?: string | JSX.Element;
 	state: [boolean, (isOpen: boolean) => void];
@@ -57,7 +57,7 @@ export const Dialog: FC<DialogProps> = ({ state, title, children }) => {
 							className="absolute right-4 top-4 cursor-pointer outline-none ring-slightly-rose-700 rounded-xl focus:ring-2"
 							onClick={() => setIsOpen(false)}
 						>
-							<XIcon className="text-slightly-rose-700 h-6" />
+							<XMarkIcon className="text-slightly-rose-700 h-6" />
 						</button>
 						{title && (
 							<div className="px-4 mb-2 mr-10 lg:px-8">

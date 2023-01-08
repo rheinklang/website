@@ -50,7 +50,7 @@ export const RawLink: FC<RawLinkProps> = ({
 
 	if (isInternal) {
 		return (
-			<NextLink href={href}>
+			<NextLink legacyBehavior href={href}>
 				<a className={className} title={title} {...nativeHtmlAttributes}>
 					{children}
 				</a>
@@ -97,7 +97,7 @@ export const Link: FC<LinkProps> = ({
 
 	if (isInternal) {
 		return (
-			<NextLink href={href}>
+			<NextLink legacyBehavior href={href}>
 				<a
 					className={classNames(
 						{

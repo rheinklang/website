@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ComponentProps, FC, forwardRef, HTMLInputTypeAttribute } from 'react';
+import { ComponentProps, forwardRef, HTMLInputTypeAttribute } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 

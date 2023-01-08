@@ -1,4 +1,4 @@
-import { BriefcaseIcon, InboxIcon, MusicNoteIcon, NewspaperIcon, SupportIcon } from '@heroicons/react/outline';
+import { BriefcaseIcon, InboxIcon, MusicNoteIcon, NewspaperIcon, SupportIcon } from '@heroicons/react/24/outline';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ContentConstraint } from '../../components/ContentConstraint';

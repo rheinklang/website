@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import dynamic from 'next/dynamic';
 import { Footer } from '../Footer';
 import { Header, HeaderProps } from '../Header';
@@ -16,7 +16,7 @@ const Consent = dynamic<ConsentProps>(
 	}
 );
 
-interface PageLayoutProps {
+interface PageLayoutProps extends PropsWithChildren {
 	marketingBanner: ContentProviderProps['marketingBanner'];
 	cta: ContentProviderProps['headerConfiguration']['cta'];
 	isDarkOnly?: boolean;

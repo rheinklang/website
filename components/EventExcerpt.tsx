@@ -1,4 +1,4 @@
-import { ArrowRightIcon, LocationMarkerIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { format } from 'date-fns';
 import { Location } from '../graphql';
@@ -38,7 +38,7 @@ export const EventExcerpt: FC<EventExcerptProps> = ({ title, date, category, des
 				<p className="leading-relaxed mb-2 text-white">{description}</p>
 				<div className="mt-auto">
 					<p className="inline-flex items-center text-sea-green-900">
-						<LocationMarkerIcon className="inline-block h-4 " />
+						<MapPinIcon className="inline-block h-4 " />
 						<span className="flex-grow flex flex-col pl-3">
 							{location && (
 								<span className="title-font font-medium">

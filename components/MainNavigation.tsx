@@ -1,22 +1,21 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
 	CalendarIcon,
 	FlagIcon,
 	InboxIcon,
-	LightningBoltIcon,
-	MenuIcon,
-	MusicNoteIcon,
+	BoltIcon,
+	Bars3Icon,
+	MusicalNoteIcon,
 	NewspaperIcon,
-	QuestionMarkCircleIcon,
 	SunIcon,
-	SupportIcon,
+	LifebuoyIcon,
 	UserGroupIcon,
 	UsersIcon,
 	VideoCameraIcon,
-	XIcon,
-} from '@heroicons/react/outline';
+	XMarkIcon,
+} from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { Button } from './Button';
 import { MainNavigationItem, MainNavigationItemProps } from './MainNavigationItem';
@@ -49,7 +48,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 				{
 					title: translate('navigation.events.showcases'),
 					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Showcase}`,
-					icon: LightningBoltIcon,
+					icon: BoltIcon,
 				},
 				{
 					title: translate('navigation.events.livestream'),
@@ -105,7 +104,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 				{
 					title: translate('navigation.contact.festivalGuestAppearance'),
 					href: StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY,
-					icon: MusicNoteIcon,
+					icon: MusicalNoteIcon,
 				},
 				{
 					title: translate('navigation.contact.consulting'),
@@ -120,7 +119,7 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 				{
 					title: translate('navigation.contact.support'),
 					href: StaticRoutes.SUPPORT_INQUIRY,
-					icon: SupportIcon,
+					icon: LifebuoyIcon,
 				},
 			],
 		},
@@ -197,8 +196,8 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 					setIsExpanded(!isExpanded);
 				}}
 			>
-				{!isExpanded && <MenuIcon className="inline-block h-10 align-text-top" />}
-				{isExpanded && <XIcon className="inline-block h-10 align-text-top" />}
+				{!isExpanded && <Bars3Icon className="inline-block h-10 align-text-top" />}
+				{isExpanded && <XMarkIcon className="inline-block h-10 align-text-top" />}
 			</div>
 		</nav>
 	);

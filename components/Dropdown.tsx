@@ -1,6 +1,6 @@
 import { ComponentProps, FC, Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, SelectorIcon } from '@heroicons/react/outline';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
@@ -21,7 +21,7 @@ export interface DropdownProps {
 }
 
 export const Dropdown: FC<DropdownProps> = ({ placeholder, value, onChange, hookState, icon, options = [] }) => {
-	const Icon = icon || SelectorIcon;
+	const Icon = icon || ChevronUpDownIcon;
 	const activeLabel = options.find((option) => option.id === value)?.label;
 	const translate = useTranslation();
 

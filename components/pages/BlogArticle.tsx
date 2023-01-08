@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ShareIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { getArticleBySlug } from '../../api/articles';
