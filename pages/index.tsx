@@ -1,4 +1,5 @@
 import { ArrowRightIcon, TicketIcon } from '@heroicons/react/24/outline';
+import classNames from 'classnames';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getPaginatedArticles } from '../api/articles';
@@ -82,8 +83,9 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 						/>
 					)}
 					{pageData.eventShowcase && (
-						<div className="mb-8 md:mb-16">
+						<div className="py-8 bg-sea-green-300 before:skew-y-3">
 							<RecommendedContentHero
+								isEmbeddedInSameColor
 								label={translate('common.heading.nextEvent')}
 								title={pageData.eventShowcase.title}
 								text={[pageData.eventShowcase.excerpt]}
@@ -98,9 +100,9 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 								{translate('common.heading.latestArticles')}
 							</Heading>
 							<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-8">
-								{latestArticles.map((article) => (
+								{latestArticles.map((article, index) => (
 									<ArticleExcerpt
-										key={article.slug}
+										key={index + article._created + article.slug}
 										slug={article.slug}
 										title={article.title}
 										description={article.excerpt}
@@ -127,7 +129,16 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 					</div>
 					<div className="bg-sea-green-400 md:py-16">
 						<ContentConstraint>
-							<div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
+							<div
+								className={classNames([
+									`grid grid-cols-1 gap-12 md:gap-16`,
+									// workaround for tailwinds' CSS purging with dynamic class names
+									{
+										'lg:grid-cols-3': nextEvents.length >= 3,
+										'lg:grid-cols-2': nextEvents.length === 2,
+									},
+								])}
+							>
 								{nextEvents.map((event) => (
 									<EventExcerpt
 										key={event.slug}
