@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import {
 	ArrowRightIcon,
 	BriefcaseIcon,
@@ -139,16 +139,26 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 		setIsExpanded(false);
 	}, [setIsExpanded]);
 
+	// TODO: Outsource to custom hook for body locking
+	useEffect(() => {
+		if (isExpanded && document.body.style.overflowY !== 'hidden') {
+			document.body.style.overflowY = 'hidden';
+		} else if (document.body.style.overflowY !== 'initial') {
+			document.body.style.overflowY = 'initial';
+		}
+	}, [isExpanded]);
+
 	return (
 		<nav role="main" className="flex flex-row flex-nowrap overflow-visible overscroll-auto lg:h-12 lg:mt-1">
 			<ul
 				className={classNames(
-					'transition-all transform-gpu absolute left-0 top-28 w-full overscroll-auto',
-					'bg-black border-gray-500 border-t shadow-xl',
-					'sm:shadow-none lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
+					'transition-all transform-gpu absolute left-0 top-24 overscroll-auto',
+					'bg-black border-gray-500 border-t',
+					'transition-all overflow-y-scroll h-[calc(100vh-theme(height.24))]',
+					'lg:w-full lg:opacity-100 lg:overflow-y-visible lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
-						'translate-x-full': !isExpanded,
-						'transform-none': isExpanded,
+						'w-0 opacity-0': !isExpanded,
+						'w-full opacity-100': isExpanded,
 					}
 				)}
 			>
