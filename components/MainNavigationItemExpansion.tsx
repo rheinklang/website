@@ -19,7 +19,7 @@ export interface MainNavigationItemExpansionProps {
 
 export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> = ({
 	className,
-	isVisible = false,
+	isVisible = true,
 	items = [],
 	handleClose,
 }) => {

@@ -1,5 +1,5 @@
 import Cookie, { CookieAttributes } from 'js-cookie';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useCookie = <T extends any | undefined = any>(
 	selector: string,
@@ -29,7 +29,7 @@ export const useCookie = <T extends any | undefined = any>(
 		(attributes: CookieAttributes) => {
 			if (value) {
 				setAttributes(attributes);
-				Cookie.set(selector, value as object, attributes);
+				Cookie.set(selector, value as any, attributes);
 			}
 		},
 		[selector, value]

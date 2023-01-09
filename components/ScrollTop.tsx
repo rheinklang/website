@@ -3,7 +3,11 @@ import classNames from 'classnames';
 import { FC, useCallback } from 'react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 
-export const ScrollTop: FC = () => {
+export interface ScrollTopProps {
+	threshold?: number;
+}
+
+export const ScrollTop: FC<ScrollTopProps> = ({ threshold = 500 }) => {
 	const scrollPosition = useScrollPosition();
 
 	const handleScrollTop = useCallback(() => {
@@ -21,8 +25,8 @@ export const ScrollTop: FC = () => {
 				'transition-all duration-500',
 				'hover:bg-slightly-rose-400',
 				{
-					'invisible opacity-0': scrollPosition <= 300,
-					'visible opacity-100': scrollPosition > 300,
+					'invisible opacity-0': scrollPosition <= threshold,
+					'visible opacity-100': scrollPosition > threshold,
 				}
 			)}
 			onClick={handleScrollTop}
