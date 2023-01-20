@@ -16,7 +16,7 @@ export const getPartners = async () => {
 	return result.data.partnersCollection.filter(nonNullish);
 };
 
-const sortPartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {
+export const sortPartners = (partners: Awaited<ReturnType<typeof getPartners>>) => {
 	return partners.sort((a, b) => (a.since < b.since ? -1 : 1));
 };
 

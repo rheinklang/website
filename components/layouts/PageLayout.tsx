@@ -18,15 +18,16 @@ const Consent = dynamic<ConsentProps>(
 interface PageLayoutProps extends PropsWithChildren {
 	marketingBanner: ContentProviderProps['marketingBanner'];
 	cta: ContentProviderProps['headerConfiguration']['cta'];
+	className?: string;
 	isDarkOnly?: boolean;
 }
 
-export const PageLayout: FC<PageLayoutProps> = ({ children, marketingBanner, cta, isDarkOnly = false }) => {
+export const PageLayout: FC<PageLayoutProps> = ({ children, className, marketingBanner, cta, isDarkOnly = false }) => {
 	return (
 		<>
 			<Header marketingBanner={marketingBanner} cta={cta} />
-			<div>{children}</div>
-			<Footer />
+			<div className={className}>{children}</div>
+			<Footer isDarkOnly={isDarkOnly} />
 			<ScrollTop />
 			<Consent variant={isDarkOnly ? 'light' : 'dark'} />
 			<Matomo />

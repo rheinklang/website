@@ -8,6 +8,8 @@ export enum StaticRoutes {
 	DAYDANCES = '/events/daydance',
 	COOPERATIONS = '/events/cooperation',
 	IMPRESSIONS = '/events/impressions',
+	FESTIVAL = '/festival',
+	FESTIVAL_YEAR = '/festival',
 	BLOG = '/blog',
 	BLOG_PAGE = '/blog/page',
 	ARTICLE = '/blog/view',

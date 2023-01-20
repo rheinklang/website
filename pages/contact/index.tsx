@@ -1,4 +1,4 @@
-import { BriefcaseIcon, InboxIcon, MusicNoteIcon, NewspaperIcon, SupportIcon } from '@heroicons/react/24/outline';
+import { BriefcaseIcon, InboxIcon, MusicalNoteIcon, NewspaperIcon, LifebuoyIcon } from '@heroicons/react/24/outline';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ContentConstraint } from '../../components/ContentConstraint';
@@ -45,7 +45,7 @@ const ContactLandingPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								title={translate('forms.guestAppearanceSubmission.title')}
 								text={translate('forms.guestAppearanceSubmission.text')}
 								href={StaticRoutes.FESTIVAL_GUEST_APPEARANCE_INQUIRY}
-								icon={MusicNoteIcon}
+								icon={MusicalNoteIcon}
 							/>
 							<Feature
 								title={translate('forms.consulting.title')}
@@ -63,7 +63,7 @@ const ContactLandingPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								title={translate('forms.support.title')}
 								text={translate('forms.support.text')}
 								href={StaticRoutes.SUPPORT_INQUIRY}
-								icon={SupportIcon}
+								icon={LifebuoyIcon}
 							/>
 						</div>
 					</ContentConstraint>

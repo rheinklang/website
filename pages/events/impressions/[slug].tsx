@@ -36,6 +36,8 @@ const EventsImperssionsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>
 	const router = useRouter();
 	const { category } = router.query;
 
+	console.log('Hello');
+
 	return (
 		<ErrorBoundary route={router.asPath}>
 			<ContentProvider {...contentProviderProps}>

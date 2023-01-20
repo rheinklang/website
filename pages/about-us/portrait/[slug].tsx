@@ -5,6 +5,9 @@ import { ContentProvider, getContextualContentProviderFetcher } from '../../../c
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { getTeamMemberPortrait, getTeamMemberPortraitSlugs } from '../../../api/team';
 import { MemberPortraitPageComponent } from '../../../components/pages/MemberPortrait';
+import { Breadcrumb } from '../../../components/Breadcrumb';
+import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
+import { StaticRoutes } from '../../../utils/routes';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = `${params?.slug}`;
@@ -49,6 +52,11 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
+					<Breadcrumb>
+						<BreadcrumbItem href={StaticRoutes.PORTRAIT}>Über uns</BreadcrumbItem>
+						<BreadcrumbItem href={StaticRoutes.PORTRAIT}>Portrait</BreadcrumbItem>
+						<BreadcrumbItem isCurrent>{pageData.fullName}</BreadcrumbItem>
+					</Breadcrumb>
 					<MemberPortraitPageComponent
 						image={pageData.image}
 						links={pageData.links}

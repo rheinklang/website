@@ -1,0 +1,61 @@
+query FestivalYearsQuery {
+	festivalsCollection {
+		year
+	}
+}
+
+query FestivalOverviewQuery {
+	festivalsCollection {
+		year
+		title
+		previewImage {
+			path
+		}
+	}
+}
+
+query FestivalDetailQuery($filter: JsonType, $sort: JsonType) {
+	festivalsCollection(filter: $filter, sort: $sort) {
+		isCanceled
+		year
+		title
+		introduction
+		text
+		date
+		endDate
+		location {
+			address
+			link
+			lat
+			lng
+			name
+			country
+			city
+		}
+		timetable {
+			title
+			description
+			slug_slug
+			slots {
+				value
+			}
+		}
+		sponsors {
+			title
+			type
+			level
+			homepage
+			backgroundFillColor
+			logo {
+				title
+				path
+			}
+		}
+		impressions {
+			date
+			assets {
+				value
+			}
+		}
+	}
+}

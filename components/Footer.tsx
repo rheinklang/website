@@ -9,13 +9,22 @@ import { RawLink } from './Link';
 import { CorporateLogo } from './static/CorporateLogo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faSoundcloud } from '@fortawesome/free-brands-svg-icons';
+import classNames from 'classnames';
 
-export const Footer: FC = () => {
+interface FooterProps {
+	isDarkOnly?: boolean;
+}
+
+export const Footer: FC<FooterProps> = ({ isDarkOnly }) => {
 	const translate = useTranslation();
 
 	return (
 		<footer className="z-30">
-			<div className="md:py-10 bg-black text-white">
+			<div
+				className={classNames('md:py-10 bg-black text-white', {
+					'border-t border-gray-900': isDarkOnly,
+				})}
+			>
 				<ContentConstraint tag="section">
 					<div className="flex flex-col xl:flex-row align-top justify-center xl:justify-between">
 						<div className="w-full grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:gap-12 2xl:gap-20 lg:grid-cols-4">

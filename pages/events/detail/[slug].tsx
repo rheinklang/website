@@ -19,6 +19,9 @@ import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, TicketIcon } from '@heroicons/
 import { ButtonGroup } from '../../../components/ButtonGroup';
 import { Button } from '../../../components/Button';
 import { Map } from '../../../components/maps/Map';
+import { Breadcrumb } from '../../../components/Breadcrumb';
+import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -55,6 +58,7 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 	contentProviderProps,
 }) => {
 	const router = useRouter();
+	const translate = useTranslation(contentProviderProps.translations);
 
 	const date = useMemo(() => {
 		if (event.date && event.endDate) {
@@ -79,6 +83,15 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
+					<Breadcrumb>
+						<BreadcrumbItem href={`${StaticRoutes.EVENTS}`}>Events</BreadcrumbItem>
+						<BreadcrumbItem href={`${StaticRoutes.EVENT_CATEGORY}/${event.type}`}>
+							{translate(`event.type.${event.type}`)}
+						</BreadcrumbItem>
+						<BreadcrumbItem isCurrent href="#">
+							{event.title}
+						</BreadcrumbItem>
+					</Breadcrumb>
 					<ContentConstraint tag="article" className="py-12 md:py-16 lg:py-20 lg:max-w-7xl">
 						<Link
 							className="text-sea-green-400"
