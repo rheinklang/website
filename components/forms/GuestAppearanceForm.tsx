@@ -1,10 +1,4 @@
-import {
-	LinkIcon,
-	MailIcon,
-	LocationMarkerIcon,
-	ExclamationCircleIcon,
-	ExclamationIcon,
-} from '@heroicons/react/24/outline';
+import { LinkIcon, EnvelopeIcon, MapPinIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';
@@ -62,7 +56,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 		return (
 			<div className="my-8 p-16 bg-gray-50 rounded-xl text-center">
 				<div className="mb-2 flex justify-center">
-					<ExclamationIcon className="text-gray-500 h-8" />
+					<ExclamationCircleIcon className="text-gray-500 h-8" />
 				</div>
 				<Heading level="3" className="text-gray-500">
 					{translate('forms.guestAppearanceSubmission.notAvailableTitle')}
@@ -95,7 +89,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" placeholder="E-Mail" icon={MailIcon} {...field} hookState={fieldState} />
+					<Input type="email" placeholder="E-Mail" icon={EnvelopeIcon} {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller
@@ -103,7 +97,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 				rules={{ required: true }}
 				name="location"
 				render={({ field, fieldState }) => (
-					<Input placeholder="Von wo bist du?" icon={LocationMarkerIcon} {...field} hookState={fieldState} />
+					<Input placeholder="Von wo bist du?" icon={MapPinIcon} {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller

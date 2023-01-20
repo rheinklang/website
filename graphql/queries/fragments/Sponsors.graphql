@@ -1,0 +1,14 @@
+query ActiveSponsorsList {
+	partnersCollection(filter: { type: "sponsor", isActive: true }) {
+		title
+		logo {
+			path
+		}
+		level
+		isActive
+		role
+		homepage
+		since
+		backgroundFillColor
+	}
+}

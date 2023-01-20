@@ -69,7 +69,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 									.filter((member) => member.isActive === true)
 									.map((member) => (
 										<div
-											className="basis-full mb-8 sm:p-4 lg:basis-1/2 lg:py-6 xl:basis-1/2 xl:py-8"
+											className="basis-full mb-14 lg:mb-8 sm:p-4 lg:basis-1/2 lg:py-6 xl:basis-1/2 xl:py-8"
 											key={member.fullName}
 										>
 											<PersonTeaser

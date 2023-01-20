@@ -34,10 +34,11 @@ export const MainNavigationItemExpansion: FC<MainNavigationItemExpansionProps> =
 			<ul
 				className={classNames(
 					'transition-all ease-in-out overflow-hidden py-2 shadow-md text-white',
-					'lg:absolute lg:rounded-lg lg:opacity-0 lg:max-h-0 lg:shadow-md lg:bg-white lg:text-black',
+					'lg:absolute lg:rounded-lg lg:max-h-0 lg:shadow-md lg:bg-white lg:text-black',
 					className,
 					{
 						'lg:visible lg:opacity-100 lg:max-h-screen': isVisible,
+						'lg:hidden lg:opacity-0': !isVisible,
 					}
 				)}
 			>

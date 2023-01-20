@@ -28,6 +28,7 @@ type Query {
 	seoCollection(filter: JsonType, limit: Int, skip: Int): [Seo]!
 	partnersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Partner]!
 	guestAppearanceEventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [GuestAppearanceEvent]!
+	festivalsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Festival]!
 }
 
 # Cockpit CMS
@@ -231,6 +232,60 @@ type Event implements CockpitField {
 	facebookEventUrl: String
 	image: CockpitAsset
 	isCanceled: Boolean
+}
+
+type TimetableSlot {
+	artist: String!
+	labels: String!
+	playtime: String
+}
+
+type TimetableSlots {
+	value: JsonType
+}
+
+type Timetable implements CockpitField {
+	_id: String!
+	_created: Int!
+	_modified: Int!
+	title: String!
+	slug_slug: String
+	description: String
+	slots: [TimetableSlots]
+}
+
+type ImpressionAsset {
+	value: JsonType
+}
+
+type Impression implements CockpitField {
+	_id: String!
+	_created: Int!
+	_modified: Int!
+	date: String!
+	assets: [ImpressionAsset]
+}
+
+type Festival implements CockpitField {
+	_id: String!
+	_created: Int!
+	_modified: Int!
+	title: String!
+	year: String!
+	slug: String!
+	introduction: String!
+	text: String!
+	date: String!
+	timetable: Timetable
+	endDate: String
+	location: Location
+	ticketingUrl: String
+	facebookEventUrl: String
+	image: CockpitAsset
+	sponsors: [Partner]
+	isCanceled: Boolean
+	previewImage: CockpitAsset!
+	impressions: Impression
 }
 
 # Event Overview

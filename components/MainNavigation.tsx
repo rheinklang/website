@@ -26,13 +26,17 @@ import { EventType } from '../graphql';
 
 const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
 	{
+		title: 'Festival',
+		href: `${StaticRoutes.FESTIVAL}`,
+	},
+	{
 		title: translate('navigation.events.title'),
 		href: StaticRoutes.EVENTS,
 		expansion: {
 			items: [
 				{
 					title: translate('navigation.events.festivals'),
-					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Festival}`,
+					href: `${StaticRoutes.FESTIVAL}`,
 					icon: FlagIcon,
 				},
 				{
@@ -155,10 +159,10 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 					'transition-all transform-gpu absolute left-0 top-24 overscroll-auto',
 					'bg-black border-gray-500 border-t',
 					'transition-all overflow-y-scroll h-[calc(100vh-theme(height.24))]',
-					'lg:w-full lg:opacity-100 lg:overflow-y-visible lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
+					'lg:h-auto lg:w-full lg:opacity-100 lg:overflow-y-visible lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
-						'w-0 opacity-0': !isExpanded,
-						'w-full opacity-100': isExpanded,
+						'w-0 xs:opacity-0 sm:opacity-0': !isExpanded,
+						'w-full xs:opacity-100 sm:opacity-100': isExpanded,
 					}
 				)}
 			>

@@ -14,6 +14,8 @@ import { RecommendedContentHero } from '../../../components/RecommendedContentHe
 import { parseCockpitDate } from '../../../utils/date';
 import { EventTeaser } from '../../../components/EventTeaser';
 import { ContentHeader } from '../../../components/ContentHeader';
+import { Breadcrumb } from '../../../components/Breadcrumb';
+import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const category = params && params.category ? params.category : undefined;
@@ -81,6 +83,10 @@ const EventsCategoryPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
+					<Breadcrumb>
+						<BreadcrumbItem href={`${StaticRoutes.EVENTS}`}>Events</BreadcrumbItem>
+						<BreadcrumbItem isCurrent>{translate(`event.type.${category}`)}</BreadcrumbItem>
+					</Breadcrumb>
 					<ContentHeader title={translate(`event.type.${category}`)} />
 					{nextRelevantEvent && (
 						<RecommendedContentHero

@@ -6,6 +6,9 @@ import { ContentProvider, getContextualContentProviderFetcher } from '../../../c
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { getAllArticleSlugs, getArticleBySlug } from '../../../api/articles';
 import { BlogArticle } from '../../../components/pages/BlogArticle';
+import { Breadcrumb } from '../../../components/Breadcrumb';
+import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
+import { StaticRoutes } from '../../../utils/routes';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -54,6 +57,13 @@ const ArticleBySlugPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pr
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
 				>
+					<Breadcrumb>
+						<BreadcrumbItem href={`${StaticRoutes.BLOG_PAGE}/1`}>Blog</BreadcrumbItem>
+						<BreadcrumbItem>Artikel</BreadcrumbItem>
+						<BreadcrumbItem isCurrent href="#">
+							{article.title}
+						</BreadcrumbItem>
+					</Breadcrumb>
 					<BlogArticle article={article} />
 				</PageLayout>
 			</ContentProvider>
