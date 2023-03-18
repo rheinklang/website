@@ -115,7 +115,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							<h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase text-center mt-10">
 								{festival.title}
 							</h1>
-							<p className="text-center text-xl bg-white text-black font-bold my-4">
+							<p className="text-center text-xl bg-white text-black font-bold my-4 rounded-sm">
 								{festival.endDate
 									? formatDateRange(festival.date, festival.endDate)
 									: formatDate(festival.date)}

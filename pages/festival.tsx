@@ -61,7 +61,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 							{festivals.map((festival) => (
 								<RawLink key={festival.year} href={`${StaticRoutes.FESTIVAL_YEAR}/${festival.year}`}>
 									<div className="aspect-2 w-full h-64 md:h-72 lg:h-96 rounded-lg shadow-md relative">
-										<div className="absolute left-0 right-0 top-0 bottom-0 bg-black/60 items-center justify-center flex rounded-lg">
+										<div className="absolute left-0 right-0 top-0 bottom-0 bg-black/60 hover:bg-black/40 transition-colors items-center justify-center flex rounded-lg">
 											<h2 className="text-7xl md:text-8xl lg:text-9xl font-sans font-black text-white z-10 absolute">
 												{festival.year}
 											</h2>
