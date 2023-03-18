@@ -27,11 +27,12 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	// data aggregation
 	const allFestivalYears = await getFestivalYears();
 	const festival = await getFestivalByYear(year!);
-	const lineup = festival.timetable?.slots?.map((slot) => slot?.value) as Array<{
-		artist: string;
-		labels: string;
-		playtime: string;
-	}>;
+	const lineup =
+		(festival.timetable?.slots?.map((slot) => slot?.value) as Array<{
+			artist: string;
+			labels: string;
+			playtime: string;
+		}>) || [];
 	const artistsSeoString = lineup.map((entry) => `${entry.artist} (${entry.labels})`).join(', ');
 
 	const nextEvents = await getUpcomingEvents(3, {});
@@ -133,7 +134,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							)}
 
 							{/* Timetable */}
-							{lineup && (
+							{lineup && lineup.length > 0 && (
 								<>
 									<Heading level="2">Lineup</Heading>
 									<p className="mb-6">Running Order</p>
