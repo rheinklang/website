@@ -75,7 +75,15 @@ export const Footer: FC<FooterProps> = ({ isDarkOnly }) => {
 										href: StaticRoutes.DATA_PROTECTION,
 										children: translate('navigation.privacy.title'),
 									},
-									// TODO: { href: '/about-us/impressions', children: 'Impressionen' },
+									{
+										href: 'https://drive.google.com/drive/folders/1g6eVXA2cW9PGQEPNkGtpA8MInt0e7olq?usp=sharing',
+										children: 'Presskit',
+										isStandalone: true,
+										icon: (
+											<ArrowRightIcon className="inline transition-all align-text-top ml-2 h-4 group-hover:ml-3" />
+										),
+									},
+									// { href: '/about-us/impressions', children: 'Impressionen' },
 									// { href: StaticRoutes.FAQ, children: translate('navigation.about.faq') },
 								]}
 							/>
