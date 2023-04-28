@@ -43,6 +43,7 @@ const EventsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> 
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<div className="bg-black text-white border-t border-b border-gray-800">
 						<ContentConstraint useCustomYSpace className="py-12 lg:pt-24 lg:pb-12">

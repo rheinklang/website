@@ -21,7 +21,8 @@ export const ScrollTop: FC<ScrollTopProps> = ({ threshold = 500 }) => {
 		<button
 			type="button"
 			className={classNames(
-				'bg-slightly-rose-500 text-white rounded-full w-7 h-7 fixed right-5 bottom-5 shadow-2xl',
+				'bg-slightly-rose-500 text-white rounded-full w-11 h-11 fixed right-5 bottom-5 shadow-2xl',
+				'md:w-8 md:h-8',
 				'transition-all duration-500',
 				'hover:bg-slightly-rose-400',
 				{

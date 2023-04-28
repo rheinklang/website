@@ -1,0 +1,11 @@
+query DiscordPage {
+	discordPageSingleton {
+		title
+		description
+		content
+		widgetEmbedUrl
+		serverJoinUrl
+		isJoinEnabled
+		isWidgetEnabled
+	}
+}

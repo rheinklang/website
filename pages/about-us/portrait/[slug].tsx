@@ -51,6 +51,7 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<Breadcrumb>
 						<BreadcrumbItem href={StaticRoutes.PORTRAIT}>Über uns</BreadcrumbItem>

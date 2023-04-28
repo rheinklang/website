@@ -1,4 +1,4 @@
-import { MailIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';
@@ -58,7 +58,7 @@ export const SupportForm: FC = () => {
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" placeholder="E-Mail" icon={MailIcon} {...field} hookState={fieldState} />
+					<Input type="email" placeholder="E-Mail" icon={EnvelopeIcon} {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller

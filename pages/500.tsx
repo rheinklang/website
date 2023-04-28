@@ -20,6 +20,7 @@ const Error500: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 			isDarkOnly
 			marketingBanner={contentProviderProps.marketingBanner}
 			cta={contentProviderProps.headerConfiguration.cta}
+			festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 		>
 			<ErrorPage
 				isRetryable

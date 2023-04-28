@@ -82,6 +82,7 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<Breadcrumb>
 						<BreadcrumbItem href={`${StaticRoutes.EVENTS}`}>Events</BreadcrumbItem>

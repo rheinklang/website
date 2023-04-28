@@ -1,0 +1,127 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+  repository_dispatch:
+    types:
+      - webhook
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build (Node ${{ matrix.node }})
+
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+
+    strategy:
+      matrix:
+        node: ["18"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        env:
+          cache-name: next-build-cache
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/build/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate GraphQL hooks
+        run: npm run graphql:generate
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: true
+          NEXT_PUBLIC_CMS_GRAPHQL_API_URL: ${{ secrets.CMS_GRAPHQL_API_URL }}
+          NEXT_PUBLIC_CMS_REST_API_URL: ${{ secrets.CMS_REST_API_URL }}
+          NEXT_PUBLIC_CMS_API_TOKEN: ${{ secrets.CMS_API_TOKEN }}
+          NEXT_PUBLIC_MATOMO_URL: ${{ secrets.MATOMO_URL }}
+          NEXT_PUBLIC_MATOMO_CONTAINER_ID: ${{ secrets.MATOMO_CONTAINER_ID }}
+          NEXT_PUBLIC_DISCORD_REPORTING_WEBHOOK_URL: ${{ secrets.DSICORD_REPORTING_WEBHOOK_URL }}
+          NEXT_PUBLIC_DISCORD_CONTACT_WEBHOOK_URL: ${{ secrets.DISCORD_CONTACT_WEBHOOK_URL }}
+          NEXT_PUBLIC_SLACK_CONTACT_WEBHOOK_URL: ${{ secrets.SLACK_CONTACT_WEBHOOK_URL }}
+          NEXT_PUBLIC_SLACK_REPORTING_WEBHOOK_URL: ${{ secrets.SLACK_REPORTING_WEBHOOK_URL }}
+          NEXT_PUBLIC_MAPBOX_API_KEY: ${{ secrets.MAPBOX_API_KEY }}
+          WORKBOX_APP_ID: ${{ secrets.WORKBOX_APP_ID }}
+          WORKBOX_APP_VERSION: ${{ secrets.WORKBOX_APP_VERSION }}
+          BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+
+      - name: Deploy Website
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: website/staging/
+          exclude: |
+            **/.DS_Store
+            **/.vscode
+            **/.git*
+            **/.git*/**
+            **/.github/**
+
+      - name: Generate Styleguide
+        run: npm run tailwind:export
+
+      - name: Deploy Styleguide
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./styleguide/
+          server-dir: styleguide/corporate/
+          exclude: |
+            **/.DS_Store
+            **/.vscode
+            **/.git*
+            **/.git*/**
+            **/.github/**
+
+      - name: Report issue to Discord
+        if: failure() && github.ref == 'refs/heads/main'
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
+          DISCORD_USERNAME: "Deployment Robot"
+        with:
+          args: "Deployment of {{ EVENT_PAYLOAD.repository.full_name }} failed."
+
+  notify:
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    name: Notify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Report to Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_DEPLOYMENT_WEBHOOK_URL }}
+          DISCORD_USERNAME: "Deployment Robot"
+        with:
+          args: "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed."

@@ -39,6 +39,7 @@ const AssociationPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader title="Der Verein" text="Wissenswertes rund um den Verein Rheinklang" />
 					<div className="py-12 lg:py-24">

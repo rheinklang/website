@@ -85,7 +85,7 @@ export const ContentProvider: FC<ContentProviderProps> = ({
 			<Head>
 				{seo.title && (
 					<>
-						<title>Rheinklang - {seo.title}</title>
+						<title>{`Rheinklang - ${seo.title}`}</title>
 						<meta key="seo-og-title" property="og:title" content={seo.title} />
 						<meta key="seo-twitter-title" property="twitter:title" content={seo.title} />
 					</>

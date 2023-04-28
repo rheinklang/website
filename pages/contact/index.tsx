@@ -32,6 +32,7 @@ const ContactLandingPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentConstraint className="lg:max-w-4xl lg:py-24">
 						<div className="text-gray-600 body-font flex flex-wrap md:flex-row ">

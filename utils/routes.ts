@@ -18,6 +18,7 @@ export enum StaticRoutes {
 	MEMBER_PORTRAIT = '/about-us/portrait',
 	PARTNERS = '/about-us/partners-and-sponsors',
 	CONTACT = '/contact',
+	DISCORD = '/contact/discord',
 	EVENT_INQUIRY = '/contact/forms/event-booking',
 	PRESS_INQUIRY = '/contact/forms/press-inquiry',
 	SPONSOR_INQUIRY = '/contact/forms/sponsor',

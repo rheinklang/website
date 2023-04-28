@@ -55,7 +55,7 @@ export const Hero: FC<HeroProps> = ({
 					</ButtonGroup>
 				</div>
 				{image && (
-					<div className="lg:max-w-xl lg:w-full max-w-lg md:pb-0 md:w-1/2 w-full pb-8">
+					<div className="lg:max-w-xl lg:w-full max-w-lg md:pb-0 md:w-1/2 w-full mb-8 shadow-lg rounded-xl">
 						<Image isObjectFitCover src={image} alt={`${title}`} className="rounded-xl" />
 					</div>
 				)}
