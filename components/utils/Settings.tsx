@@ -1,6 +1,5 @@
 import { useApolloClient } from '@apollo/client';
 import { FC } from 'react';
-import { sendReport } from '../../api/slack';
 import { tagManagerPush } from '../../utils/matomo';
 import { Button } from '../Button';
 import { ConsentConfiguration } from '../ConsentConfiguration';

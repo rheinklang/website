@@ -2,6 +2,7 @@ import axios from 'axios';
 import { client, EventsForGuestSubmissionDocument, EventsForGuestSubmissionQuery } from '../graphql';
 import { nonNullish } from '../utils/filter';
 import { tagManagerPush } from '../utils/matomo';
+import { sendDiscordContactSubmission, sendDiscordReportSubmission } from './discord';
 import { sendContactSubmission, sendReport } from './slack';
 
 export type FormId =
@@ -39,15 +40,17 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 		try {
 			if (formId === 'logs') {
 				// we don't want log notifications
-			  	return;
+				return;
 			}
-			
+
 			await sendContactSubmission(formId, data);
+			await sendDiscordContactSubmission(formId, data);
 		} catch (error) {
 			if (process.env.NODE_ENV === 'development') {
 				console.error(error);
 			} else {
 				await sendReport(error, `${formId}`);
+				await sendDiscordReportSubmission(error, `${formId}`);
 			}
 		}
 	} catch (error) {

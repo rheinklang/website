@@ -103,7 +103,7 @@ const getStaticMetaEmbed = (): DiscordWebhookEmbed => ({
 	],
 });
 
-export const sendContactSubmission = async (
+export const sendDiscordContactSubmission = async (
 	formIdentifier: string,
 	fields: Record<string, number | string | boolean>
 ) => {
@@ -131,7 +131,7 @@ export const sendContactSubmission = async (
 	});
 };
 
-export const sendReportSubmission = async (err?: any, scope = 'unknown') => {
+export const sendDiscordReportSubmission = async (err?: any, scope = 'unknown') => {
 	const report = err instanceof Error ? err.message : `${err}`;
 	const now = new Date();
 	const payload: DiscordWebhookPayload = {
