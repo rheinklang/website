@@ -1,4 +1,4 @@
-import { CashIcon, LocationMarkerIcon, MailIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon, MapPinIcon, EnvelopeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { EventType } from '../../graphql';
@@ -62,7 +62,7 @@ export const EventBookingForm: FC = () => {
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" icon={MailIcon} placeholder="E-Mail" {...field} hookState={fieldState} />
+					<Input type="email" icon={EnvelopeIcon} placeholder="E-Mail" {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller
@@ -88,12 +88,7 @@ export const EventBookingForm: FC = () => {
 				rules={{ required: true }}
 				name="location"
 				render={({ field, fieldState }) => (
-					<Input
-						icon={LocationMarkerIcon}
-						placeholder="Ort der Veranstaltung"
-						{...field}
-						hookState={fieldState}
-					/>
+					<Input icon={MapPinIcon} placeholder="Ort der Veranstaltung" {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller
@@ -121,7 +116,7 @@ export const EventBookingForm: FC = () => {
 					<Input
 						type="number"
 						placeholder="Durchschnittlicher Eintrittspreis in CHF"
-						icon={CashIcon}
+						icon={BanknotesIcon}
 						{...field}
 						value={`${field.value || ''}`}
 						hookState={fieldState}

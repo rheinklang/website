@@ -19,6 +19,7 @@ type Query {
 	portraitPageSingleton: PortraitPage!
 	partnerPageSingleton: PartnerPage!
 	privacyPageSingleton: PrivacyPage!
+	discordPageSingleton: DiscordPage!
 	# Collections
 	teamMembersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [TeamMember]!
 	articlesCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Article]!
@@ -90,6 +91,7 @@ type HeaderConfigurationCta {
 
 type HeaderConfiguration @cacheControl(maxAge: 320) {
 	cta: HeaderConfigurationCta
+	festivalRedirect: String
 }
 
 type MatomoConfiguration @cacheControl(maxAge: 2400) {
@@ -110,6 +112,16 @@ type HomePage {
 	heroImage: CockpitAsset
 	heroPrimaryCta: HomePageHeroCTA
 	heroSecondaryCta: HomePageHeroCTA
+}
+
+type DiscordPage {
+	title: String!
+	description: String!
+	content: String!
+	serverJoinUrl: String!
+	widgetEmbedUrl: String!
+	isWidgetEnabled: Boolean
+	isJoinEnabled: Boolean
 }
 
 type BlogPage {

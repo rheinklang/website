@@ -23,6 +23,11 @@ query FestivalDetailQuery($filter: JsonType, $sort: JsonType) {
 		text
 		date
 		endDate
+		ticketingUrl
+		facebookEventUrl
+		previewImage {
+			path
+		}
 		location {
 			address
 			link

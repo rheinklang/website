@@ -2,7 +2,11 @@ import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { PartnerType } from '../../graphql';
 import { PageLayout } from '../../components/layouts/PageLayout';
-import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
+import {
+	ContentProvider,
+	ContentProviderStaticSEOVariables,
+	getContextualContentProviderFetcher,
+} from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { getUpcomingEvents } from '../../api/events';
 import { ContentConstraint } from '../../components/ContentConstraint';
@@ -20,6 +24,8 @@ import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { StaticRoutes } from '../../utils/routes';
 import { formatDate, formatDateRange } from '../../utils/date';
+import { ButtonGroup } from '../../components/ButtonGroup';
+import { TicketIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const year = params && params.year ? `${params.year}` : undefined;
@@ -33,7 +39,9 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 			labels: string;
 			playtime: string;
 		}>) || [];
-	const artistsSeoString = lineup.map((entry) => `${entry.artist} (${entry.labels})`).join(', ');
+	const artistsSeoString = lineup
+		.map((entry) => `${entry.artist} ${entry.labels ? `(${entry.labels})` : ''}`)
+		.join(', ');
 
 	const nextEvents = await getUpcomingEvents(3, {});
 
@@ -41,6 +49,8 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const getContentProviderProps = getContextualContentProviderFetcher('festival', {
 		year,
 		artists: artistsSeoString,
+		excerpt: festival.introduction,
+		[ContentProviderStaticSEOVariables.OG_IMAGE]: festival.previewImage.path,
 	});
 	const contentProviderProps = await getContentProviderProps();
 
@@ -105,13 +115,14 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 					className="bg-black text-white"
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<Breadcrumb theme="black">
 						<BreadcrumbItem href={StaticRoutes.FESTIVAL}>Festival</BreadcrumbItem>
 						<BreadcrumbItem isCurrent>{year}</BreadcrumbItem>
 					</Breadcrumb>
 					<ContentConstraint>
-						<div className="max-w-3xl px-10 mx-auto">
+						<div className="max-w-3xl px-4 md:px-10 mx-auto">
 							<h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase text-center mt-10">
 								{festival.title}
 							</h1>
@@ -124,12 +135,46 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							{/* Intro Block */}
 							<h2 className="text-lg md:text-xl font-bold text-center my-8">{festival.introduction}</h2>
 
+							{/* Preview image block */}
+							<Image
+								src={festival.previewImage.path}
+								alt={festival.title}
+								className="block w-full my-8 rounded-sm"
+							/>
+
 							{festival.text && (
 								<div className="mb-10">
 									<Richtext
 										content={festival.text}
 										className="prose-headings:text-white prose-p:text-white prose-a:text-sea-green-300 prose-strong:text-white prose-ul:text-white prose-ol:text-white prose-table:text-white"
 									/>
+								</div>
+							)}
+
+							{(festival.ticketingUrl || festival.facebookEventUrl) && (
+								<div className="mb-10">
+									<ButtonGroup>
+										{festival.ticketingUrl && (
+											<Button
+												type="primary"
+												link={{
+													href: festival.ticketingUrl,
+													children: 'Tickets jetzt kaufen',
+													icon: <TicketIcon className="inline-block w-5 ml-2" />,
+												}}
+											/>
+										)}
+										{festival.facebookEventUrl && (
+											<Button
+												type="secondary"
+												link={{
+													href: festival.facebookEventUrl,
+													children: 'Facebook Event',
+													icon: <UserGroupIcon className="inline-block w-5 ml-2" />,
+												}}
+											/>
+										)}
+									</ButtonGroup>
 								</div>
 							)}
 
@@ -162,7 +207,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 					</ContentConstraint>
 
 					<ContentConstraint>
-						<div className="max-w-5xl px-10 mx-auto">
+						<div className="max-w-5xl px-4 md:px-10 mx-auto">
 							<Heading level="2" className="text-center">
 								Sponsoren
 							</Heading>

@@ -11,6 +11,7 @@
     "build:export": "next export",
     "start": "next start",
     "prepare": "husky install",
+    "prettier": "prettier -w \"./**/*.{ts,tsx,js,jsx,scss,yaml,yml}\"",
     "tailwind:config-viewer": "npx -y tailwind-config-viewer",
     "tailwind:export": "npx -y tailwind-config-viewer export ./styleguide",
     "graphql:watch": "graphql-codegen --watch",

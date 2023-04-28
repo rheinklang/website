@@ -34,6 +34,7 @@ const ContactEventBookingPage: NextPage<Awaited<ReturnType<typeof getStaticProps
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader
 						title={translate('forms.eventBooking.title')}

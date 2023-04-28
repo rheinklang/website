@@ -36,6 +36,7 @@ const PrivacyPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']>
 				isDarkOnly
 				cta={contentProviderProps.headerConfiguration.cta}
 				marketingBanner={contentProviderProps.marketingBanner}
+				festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 			>
 				<ContentHeader
 					constraintClassName="lg:max-w-7xl"

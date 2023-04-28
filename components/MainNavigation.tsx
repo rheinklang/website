@@ -15,6 +15,7 @@ import {
 	UsersIcon,
 	VideoCameraIcon,
 	XMarkIcon,
+	ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { Button } from './Button';
@@ -24,10 +25,13 @@ import type { ContentProviderProps } from './utils/ContentProvider';
 import { StaticRoutes } from '../utils/routes';
 import { EventType } from '../graphql';
 
-const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): MainNavigationItemProps[] => [
+const getMainNavigationTree = (
+	translate: ReturnType<typeof useTranslation>,
+	festivalRedirect?: ContentProviderProps['headerConfiguration']['festivalRedirect']
+): MainNavigationItemProps[] => [
 	{
 		title: 'Festival',
-		href: `${StaticRoutes.FESTIVAL}`,
+		href: festivalRedirect ? `${StaticRoutes.FESTIVAL}/${festivalRedirect}` : `${StaticRoutes.FESTIVAL}`,
 	},
 	{
 		title: translate('navigation.events.title'),
@@ -125,19 +129,25 @@ const getMainNavigationTree = (translate: ReturnType<typeof useTranslation>): Ma
 					href: StaticRoutes.SUPPORT_INQUIRY,
 					icon: LifebuoyIcon,
 				},
+				{
+					title: /* TODO: Translate */ 'Discord Community',
+					href: StaticRoutes.DISCORD,
+					icon: ChatBubbleLeftRightIcon,
+				},
 			],
 		},
 	},
 ];
 
 export interface MainNavigationProps {
+	festivalRedirect?: ContentProviderProps['headerConfiguration']['festivalRedirect'];
 	cta?: ContentProviderProps['headerConfiguration']['cta'];
 }
 
-export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
+export const MainNavigation: FC<MainNavigationProps> = ({ cta, festivalRedirect }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const translate = useTranslation();
-	const items = getMainNavigationTree(translate);
+	const items = getMainNavigationTree(translate, festivalRedirect);
 
 	const handleClose = useCallback(() => {
 		setIsExpanded(false);
@@ -202,10 +212,13 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta }) => {
 				</div>
 			)}
 			<div
-				className={classNames('cursor-pointer transition-colors px-2 ml-4 rounded-xl border lg:hidden', {
-					'bg-black text-white border-gray-500': !isExpanded,
-					'bg-white text-black border-white': isExpanded,
-				})}
+				className={classNames(
+					'cursor-pointer transition-colors px-2 ml-4 rounded-xl border outline-hidden lg:hidden',
+					{
+						'bg-black text-white border-gray-500': !isExpanded,
+						'bg-white text-black border-white': isExpanded,
+					}
+				)}
 				onClick={() => {
 					setIsExpanded(!isExpanded);
 				}}

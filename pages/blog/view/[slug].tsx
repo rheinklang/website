@@ -56,6 +56,7 @@ const ArticleBySlugPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pr
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<Breadcrumb>
 						<BreadcrumbItem href={`${StaticRoutes.BLOG_PAGE}/1`}>Blog</BreadcrumbItem>

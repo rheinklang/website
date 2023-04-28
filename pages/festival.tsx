@@ -51,10 +51,11 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentConstraint>
 						<Heading level="1">Das Rheinklang Festival</Heading>
-						<p>Some text maybe?</p>
+						{/* <p>Some text maybe?</p> */}
 					</ContentConstraint>
 					<ContentConstraint>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-10">

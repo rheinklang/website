@@ -1,4 +1,4 @@
-import { ArrowRightIcon, MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { storage } from '../utils/localstorage';
@@ -8,13 +8,13 @@ import { Link } from './Link';
 
 export interface MarketingBannerProps {
 	id?: string;
-	text?: string | null;
 	link?: string | null;
+	message?: string | null;
 }
 
 const MARKETING_BANNER_STORAGE_KEY = 'marketingBannerState' as const;
 
-export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) => {
+export const MarketingBanner: FC<MarketingBannerProps> = ({ id, message, link }) => {
 	const translate = useTranslation();
 	const [isInitialized, setIsInitialized] = useState(false);
 	const [isDismissed, setIsDismissed] = useState(false);
@@ -39,7 +39,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 		return null;
 	}
 
-	if (!id || !text) {
+	if (!id || !message) {
 		// No valid content available, skip rendering
 		return null;
 	}
@@ -51,7 +51,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 					<MegaphoneIcon className="text-slightly-rose-600 h-4" />
 				</div>
 				<p className="my-2 mr-2 lg:mr-auto text-sm">
-					{text}
+					{message}
 					{link && (
 						<span
 							onClick={() => {
@@ -62,7 +62,7 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, text, link }) =>
 							}}
 						>
 							&nbsp;–&nbsp;
-							<Link className="w-auto underline text-sm" href={link} title={text}>
+							<Link className="w-auto underline text-sm" href={link} title={message}>
 								{translate('common.action.learnMore')}
 							</Link>
 						</span>

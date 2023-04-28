@@ -57,6 +57,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
 					{/* border-t border-b border-gray-800 */}

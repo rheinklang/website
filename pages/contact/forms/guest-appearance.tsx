@@ -38,6 +38,7 @@ const ContactGuestAppearancePage: NextPage<Awaited<ReturnType<typeof getStaticPr
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader
 						title={translate('forms.guestAppearanceSubmission.title')}

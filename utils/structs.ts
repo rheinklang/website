@@ -1,4 +1,4 @@
-export const keys = <T>(obj: T): Array<keyof T> => Object.keys(obj) as Array<keyof T>;
+export const keys = <T extends Record<string, any>>(obj: T): Array<keyof T> => Object.keys(obj) as Array<keyof T>;
 
 export const getPaginationArray = <T>(entries: T[], entiresPerPage: number) => {
 	if (entries.length <= entiresPerPage) {

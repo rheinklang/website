@@ -44,10 +44,10 @@ export const PersonTeaser: FC<PersonTeaserProps> = ({
 			<div className="flex-grow sm:pl-8">
 				<h2 className="title-font font-medium text-lg text-gray-900">{name}</h2>
 				<h3 className="text-gray-300 mb-3">{role}</h3>
-				<p className="mb-4">DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+				{/* TODO: <p className="mb-4">DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
 				<Button className="cursor-pointer" link={{ href: `${StaticRoutes.MEMBER_PORTRAIT}/${slug}` }}>
 					Details
-				</Button>
+				</Button> */}
 			</div>
 		</div>
 	);

@@ -25,11 +25,11 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 				aria-haspopup={!!expansion}
 				aria-expanded={isExpanded}
 				className={classNames(
-					'transition flex items-center h-12 w-full px-6 rounded-lg text-lg hover:bg-white hover:text-black lg:w-auto',
+					'transition flex items-center h-12 w-full px-4 sm:px-2 xl:px-6 rounded-lg text-lg lg:w-auto',
+					'hover:border-white hover:ring-2',
 					'outline-none ring-white focus:ring-2',
 					{
-						'bg-white text-black': isActive,
-						'cursor-default': isActive,
+						'bg-white ring-2 text-black cursor-default hover:cursor-default': isActive,
 					}
 				)}
 			>

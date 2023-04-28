@@ -51,6 +51,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					{pageData.heroTitle && pageData.heroText && (
 						<Hero

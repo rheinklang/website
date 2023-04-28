@@ -34,6 +34,7 @@ const ContactSupportPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}
 					cta={contentProviderProps.headerConfiguration.cta}
+					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader
 						title={translate('forms.support.title')}

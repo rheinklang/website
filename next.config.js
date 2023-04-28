@@ -23,6 +23,9 @@ const nextConfig = {
 	// build settings
 	compress: true,
 	distDir: 'build',
+	experimental: {
+		largePageDataBytes: 256 * 100000, // 256kb
+	},
 	generateBuildId: async () => {
 		return v5(`${Date.now()}`, BUILD_ID_NAMESPACE);
 	},

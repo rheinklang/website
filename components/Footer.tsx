@@ -116,6 +116,7 @@ export const Footer: FC<FooterProps> = ({ isDarkOnly }) => {
 							<FooterNavigation
 								title={translate('footer.navigationSection.externalPlatforms')}
 								items={[
+									{ href: StaticRoutes.DISCORD, children: 'Discord' },
 									{
 										href: StaticExternalUrls.FACEBOOK,
 										children: 'Facebook',

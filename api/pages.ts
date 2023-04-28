@@ -8,6 +8,8 @@ import {
 	PartnerPageQuery,
 	PortraitPageDocument,
 	PortraitPageQuery,
+	DiscordPageQuery,
+	DiscordPageDocument,
 } from '../graphql';
 
 export const getHomePage = async () => {
@@ -40,4 +42,12 @@ export const getPartnerPage = async () => {
 	});
 
 	return result.data.partnerPageSingleton;
+};
+
+export const getDiscordPage = async () => {
+	const result = await client.query<DiscordPageQuery>({
+		query: DiscordPageDocument,
+	});
+
+	return result.data.discordPageSingleton;
 };
