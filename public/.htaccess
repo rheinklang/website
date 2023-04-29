@@ -67,6 +67,10 @@ Options -Indexes
     	Header set Cache-Control "public, max-age=0, must-revalidate"
     </FilesMatch>
 
+    <FilesMatch "app.webmanifest">
+    	Header set Content-Type "application/manifest+json"
+    </FilesMatch>
+
     # disable caching for html
     <FilesMatch "\.(html|htm|xml|txt|xsl)$">
     	Header set Cache-Control "public, max-age=0, must-revalidate"

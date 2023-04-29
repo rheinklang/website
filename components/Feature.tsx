@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { FC, ComponentProps } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { IconComponentLike } from '../utils/types';
 import { Heading } from './Heading';
 import { Link } from './Link';
 
@@ -8,7 +9,7 @@ export interface FeatureProps {
 	title: string;
 	text: string;
 	href: string;
-	icon: (props: ComponentProps<'svg'>) => JSX.Element;
+	icon: IconComponentLike;
 }
 
 export const Feature: FC<FeatureProps> = ({ text, title, icon, href }) => {

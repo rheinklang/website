@@ -44,7 +44,7 @@ export function createApolloClient() {
 	const connectionLink = new HttpLink({
 		uri: process.env.NEXT_PUBLIC_CMS_GRAPHQL_API_URL,
 		headers: {
-			'Cockpit-Token': process.env.NEXT_PUBLIC_CMS_API_TOKEN,
+			'Cockpit-Token': `${process.env.NEXT_PUBLIC_CMS_API_TOKEN}`,
 		},
 	});
 

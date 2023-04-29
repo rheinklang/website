@@ -102,12 +102,13 @@ jobs:
 
       - name: Report issue to Discord
         if: failure() && github.ref == 'refs/heads/main'
-        uses: Ilshidur/action-discord@master
+        uses: Ilshidur/action-discord@0.3.2
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
-          DISCORD_USERNAME: "Deployment Robot"
+          DISCORD_USERNAME: "GitHub Actions"
+          DISCORD_EMBEDS: "{}"
         with:
-          args: "Deployment of {{ EVENT_PAYLOAD.repository.full_name }} failed."
+          args: ":warning: Website deployment on `{{ EVENT_PAYLOAD.ref }}` failed."
 
   notify:
     needs: [build]
@@ -117,9 +118,9 @@ jobs:
 
     steps:
       - name: Report to Discord
-        uses: Ilshidur/action-discord@master
+        uses: Ilshidur/action-discord@0.3.2
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_DEPLOYMENT_WEBHOOK_URL }}
-          DISCORD_USERNAME: "Deployment Robot"
+          DISCORD_USERNAME: "GitHub Actions"
         with:
-          args: "The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed."
+          args: ":white_check_mark: The website has been deployed successfully."

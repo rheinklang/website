@@ -1,10 +1,11 @@
-import classNames from 'classnames';
+import type { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ComponentProps, FC } from 'react';
+import classNames from 'classnames';
+import { IconComponentLike } from '../utils/types';
 
 export interface MainNavigationItemExpansionItemProps {
-	icon?: (props: ComponentProps<'svg'>) => JSX.Element;
+	icon?: IconComponentLike;
 	title: string;
 	description?: string;
 	href: string;

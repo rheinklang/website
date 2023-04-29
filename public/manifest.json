@@ -1,0 +1,166 @@
+{
+  "name": "Rheinklang",
+  "short_name": "Rheinklang",
+  "description": "Rheinklang in deiner Hosentasche",
+  "categories": ["lifestyle", "social", "utilities", "news", "entertainment"],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "scope": "https://rheinklang.events/",
+  "shortcuts": [
+    {
+      "name": "Festival",
+      "short_name": "Festival",
+      "description": "Unser Rheinklang Festival",
+      "url": "/festival/2023"
+    },
+    {
+      "name": "DayDance Events",
+      "short_name": "DayDance",
+      "description": "DayDance Veranstaltungen",
+      "url": "/events/category/daydance"
+    },
+    {
+      "name": "Kooperationen",
+      "short_name": "Kooperationen",
+      "description": "Veranstaltungen in Kooperation",
+      "url": "/events/category/cooperation"
+    },
+    {
+      "name": "Hilfe",
+      "short_name": "Hilfe",
+      "description": "Du brauchst Hilfe von uns?",
+      "url": "/contact/forms/support"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/assets/pwa/android/android-launchericon-512-512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/assets/pwa/android/android-launchericon-192-192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/pwa/android/android-launchericon-144-144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/assets/pwa/android/android-launchericon-96-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/pwa/android/android-launchericon-72-72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/assets/pwa/android/android-launchericon-48-48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/pwa/ios/16.png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/assets/pwa/ios/20.png",
+      "sizes": "20x20"
+    },
+    {
+      "src": "/assets/pwa/ios/29.png",
+      "sizes": "29x29"
+    },
+    {
+      "src": "/assets/pwa/ios/32.png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/assets/pwa/ios/40.png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "/assets/pwa/ios/50.png",
+      "sizes": "50x50"
+    },
+    {
+      "src": "/assets/pwa/ios/57.png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "/assets/pwa/ios/58.png",
+      "sizes": "58x58"
+    },
+    {
+      "src": "/assets/pwa/ios/60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "/assets/pwa/ios/64.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/assets/pwa/ios/72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/assets/pwa/ios/76.png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "/assets/pwa/ios/80.png",
+      "sizes": "80x80"
+    },
+    {
+      "src": "/assets/pwa/ios/87.png",
+      "sizes": "87x87"
+    },
+    {
+      "src": "/assets/pwa/ios/100.png",
+      "sizes": "100x100"
+    },
+    {
+      "src": "/assets/pwa/ios/114.png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "/assets/pwa/ios/120.png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "/assets/pwa/ios/128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/assets/pwa/ios/144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/assets/pwa/ios/152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/assets/pwa/ios/167.png",
+      "sizes": "167x167"
+    },
+    {
+      "src": "/assets/pwa/ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/assets/pwa/ios/192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/pwa/ios/256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/assets/pwa/ios/512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/assets/pwa/ios/1024.png",
+      "sizes": "1024x1024"
+    }
+  ]
+}

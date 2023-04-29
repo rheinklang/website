@@ -5,6 +5,8 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../styles/fonts.css';
 import '../styles/globals.css';
+import { appleDeviceSpecsForLaunchImages } from '../utils/pwa-asset-generator-specs';
+import { Fragment } from 'react';
 
 // See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false;
@@ -22,15 +24,39 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 					name="description"
 					content="Rheinklang, Events für elektronische Musik im St. Galler Rheintal"
 				/>
-				<link rel="icon" type="image/png" href="/favicon-corporate.png" />
+				<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+				<link rel="icon" type="image/png" href="/favicon.png" />
+				<link rel="manifest" href="/manifest.json" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="theme-color" content="#000000" />
-				<meta name="apple-mobile-web-app-title" content="Rheinklang" />
-				<meta name="apple-mobile-web-app-capable" content="yes" />
+				{/* OG Defaults */}
 				<meta property="og:type" content="website" />
 				<meta property="og:locale" content="de_CH" />
 				<meta property="og:site_name" content="Rheinklang" />
 				<meta name="twitter:card" content="summary_large_image" />
+				{/* PWA Contents */}
+				<meta name="theme-color" content="#000000" />
+				<meta name="apple-mobile-web-app-title" content="Rheinklang" />
+				<meta name="apple-mobile-web-app-capable" content="yes" />
+				{appleDeviceSpecsForLaunchImages.map((spec) => (
+					<Fragment key={`${spec.portrait.width}-${spec.portrait.height}`}>
+						<link
+							key={`apple-splash-${spec.portrait.width}-${spec.portrait.height}`}
+							rel="apple-touch-startup-image"
+							href={`/assets/pwa/splash/apple-splash-${spec.portrait.width}-${spec.portrait.height}.png`}
+							media={`(device-width: ${spec.portrait.width / spec.scaleFactor}px) and (device-height: ${
+								spec.portrait.height / spec.scaleFactor
+							}px) and (-webkit-device-pixel-ratio: ${spec.scaleFactor}) and (orientation: portrait)`}
+						/>
+						<link
+							key={`apple-splash-${spec.portrait.width}-${spec.portrait.height}`}
+							rel="apple-touch-startup-image"
+							href={`/assets/pwa/splash/apple-splash-${spec.portrait.width}-${spec.portrait.height}.png`}
+							media={`(device-width: ${spec.portrait.height / spec.scaleFactor}px) and (device-height: ${
+								spec.portrait.width / spec.scaleFactor
+							}px) and (-webkit-device-pixel-ratio: ${spec.scaleFactor}) and (orientation: landscape)`}
+						/>
+					</Fragment>
+				))}
 			</Head>
 			<div className="bg-white ">
 				<Component {...pageProps} />

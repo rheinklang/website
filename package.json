@@ -16,7 +16,8 @@
     "tailwind:export": "npx -y tailwind-config-viewer export ./styleguide",
     "graphql:watch": "graphql-codegen --watch",
     "graphql:generate": "graphql-codegen",
-    "graphql:introspect": "node ./bin/introspect-graphql-schema.js"
+    "graphql:introspect": "node ./bin/introspect-graphql-schema.js",
+    "pwa:generate": "node pwa-asset-generator.js"
   },
   "dependencies": {
     "@apollo/client": "3.7.13",
@@ -76,7 +77,8 @@
     "next-sitemap": "3.1.44",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.23",
-    "prettier": "2.8.8",
+    "prettier": "^2.8.8",
+    "pwa-asset-generator": "^6.2.1",
     "tailwindcss": "3.0.24",
     "typescript": "4.9.4",
     "uuid": "9.0.0"

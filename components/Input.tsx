@@ -1,7 +1,8 @@
+import { forwardRef, HTMLInputTypeAttribute } from 'react';
 import classNames from 'classnames';
-import { ComponentProps, forwardRef, HTMLInputTypeAttribute } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
+import { IconComponentLike } from '../utils/types';
 
 export interface InputProps {
 	value?: string;
@@ -11,7 +12,7 @@ export interface InputProps {
 	className?: string;
 	hookState?: ControllerFieldState;
 	onChange: (value: string) => void;
-	icon?: (props: ComponentProps<'svg'>) => JSX.Element;
+	icon?: IconComponentLike;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
