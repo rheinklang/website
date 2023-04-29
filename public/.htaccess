@@ -4,7 +4,7 @@ ErrorDocument 500 /500.html
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)/$ /$1 [L,R]
+RewriteRule ^(.\*)/$ /$1 [L,R]
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 DirectorySlash Off
@@ -16,70 +16,72 @@ Options -Indexes
 	# do not emit the referrer information
 	Header set Referrer-Policy: no-referrer
 
-	# blocks content sniffing that could transform non-executable MIME types into executable MIME types
-	Header set X-Content-Type-Options nosniff
+    # blocks content sniffing that could transform non-executable MIME types into executable MIME types
+    Header set X-Content-Type-Options nosniff
 
-	# help protecting against clickjacking
-	Header always set X-Frame-Options DENY
+    # help protecting against clickjacking
+    Header always set X-Frame-Options DENY
 
-	# prevent against XSS
-	Header set X-XSS-Protection "1; mode=block"
+    # prevent against XSS
+    Header set X-XSS-Protection "1; mode=block"
 
-	# informs browsers that the site should only be accessed using HTTPS - max age is 1 year
-	Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    # informs browsers that the site should only be accessed using HTTPS - max age is 1 year
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
-	# we always allow our own domains as well as twitch for iframes
-	Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; connect-src 'self' https://rheinklang.events https://cms.rheinklang-festival.ch https://cms.rheinklang.events https://analytics.rheinklang-festival.ch https://analytics.rheinklang.events https://player.twitch.tv https://hooks.slack.com https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com; style-src-elem 'self' 'unsafe-inline' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' 'unsafe-inline' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv facebook.com; script-src 'self' 'unsafe-inline' rheinklang-festival.ch *.rheinklang-festival.ch rheinklang.events *.rheinklang.events facebook.net *.facebook.net; worker-src blob: https://*.rheinklang.events https://rheinklang.events ; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data: blob: https: ; child-src blob: ;"
+    # we always allow our own domains as well as twitch for iframes
+    Header set Content-Security-Policy "default-src 'self' rheinklang.events *.rheinklang-festival.ch *.rheinklang.events; connect-src 'self' https://rheinklang.events https://cms.rheinklang-festival.ch https://cms.rheinklang.events https://analytics.rheinklang-festival.ch https://analytics.rheinklang.events https://player.twitch.tv https://hooks.slack.com https://discord.com https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com; style-src-elem 'self' 'unsafe-inline' *.rheinklang-festival.ch rheinklang.events *.rheinklang.events; style-src 'self' 'unsafe-inline' *.rheinklang-festival.ch *.rheinklang.events; frame-src player.twitch.tv facebook.com; script-src 'self' 'unsafe-inline' rheinklang-festival.ch *.rheinklang-festival.ch rheinklang.events *.rheinklang.events facebook.net *.facebook.net; worker-src blob: https://*.rheinklang.events https://rheinklang.events ; img-src 'self' *.rheinklang-festival.ch *.rheinklang.events dummyimage.com data: blob: https: ; child-src blob: ;"
 
-	# disable all client-side features as long as we don't use it
-	Header set Feature-Policy: "fullscreen 'self' https://player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' https://player.twitch.tv; gyroscope 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
+    # disable all client-side features as long as we don't use it
+    Header set Feature-Policy: "fullscreen 'self' https://player.twitch.tv; geolocation 'none'; camera 'none'; autoplay 'self' https://player.twitch.tv; gyroscope 'none'; microphone 'none'; payment 'self'; usb 'none'; xr-spatial-tracking 'self'"
 
-	# cross-site scripting whitelisting
-	SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
+    # cross-site scripting whitelisting
+    SetEnvIf Origin "^http(s)?://(.+\.)?(rheinklang-festival\.ch|rheinklang\.events)$" origin_is=$0
     	Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
 
-	<FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js|css)$">
-		Header append Vary: Accept-Encoding
-	</FilesMatch>
+    <FilesMatch ".(js|css|xml|png|gz|html|woff2|min.js|css)$">
+    	Header append Vary: Accept-Encoding
+    </FilesMatch>
 
-	# caching set to 1 year for "static-ish" files
-	<FilesMatch "\.(ico|jpg|jpeg|gif|png|mp3|mp4|woff|woff2)$">
-		Header set Cache-Control "public, max-age=31536000, no-transform"
-	</FilesMatch>
+    # caching set to 1 year for "static-ish" files
+    <FilesMatch "\.(ico|jpg|jpeg|gif|png|mp3|mp4|woff|woff2)$">
+    	Header set Cache-Control "public, max-age=31536000, no-transform"
+    </FilesMatch>
 
-	# caching set to 6 months for compiled assets (which contain a content hash)
-	# <FilesMatch "\.(css|js)$">
-	# 	Header set Cache-Control "public, max-age=15552000, immutable"
-	# </FilesMatch>
+    # caching set to 6 months for compiled assets (which contain a content hash)
+    # <FilesMatch "\.(css|js)$">
+    # 	Header set Cache-Control "public, max-age=15552000, immutable"
+    # </FilesMatch>
 
-	# disable caching for the main workbox service-worker
-	<FilesMatch "sw.js">
-		Header set Cache-Control "public, max-age=0, must-revalidate"
-	</FilesMatch>
+    # disable caching for the main workbox service-worker
+    <FilesMatch "sw.js">
+    	Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
 
-	# disable caching for the workbox scripts
-	<FilesMatch "workbox-*.js">
-		Header set Cache-Control "public, max-age=0, must-revalidate"
-	</FilesMatch>
+    # disable caching for the workbox scripts
+    <FilesMatch "workbox-*.js">
+    	Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
 
-	# disable caching for generated json data
-	<FilesMatch "\.(json)$">
-		Header set Cache-Control "public, max-age=0, must-revalidate"
-	</FilesMatch>
+    # disable caching for generated json data
+    <FilesMatch "\.(json)$">
+    	Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
 
-	# disable caching for html
-	<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-		Header set Cache-Control "public, max-age=0, must-revalidate"
-	</FilesMatch>
+    # disable caching for html
+    <FilesMatch "\.(html|htm|xml|txt|xsl)$">
+    	Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
 
-	# no cache for the following files
-	<FilesMatch "\.pdf$">
-		Header set Cache-Control "no-store, max-age=0"
+    # no cache for the following files
+    <FilesMatch "\.pdf$">
+    	Header set Cache-Control "no-store, max-age=0"
+
   	</FilesMatch>
 
-	# no cache for certain service pages
-	<FilesMatch "services\/(twitch)">
-		Header set Cache-Control "no-cache, no-store"
+    # no cache for certain service pages
+    <FilesMatch "services\/(twitch)">
+    	Header set Cache-Control "no-cache, no-store"
+
   	</FilesMatch>
 
 </IfModule>
