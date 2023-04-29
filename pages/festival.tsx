@@ -8,7 +8,6 @@ import { PageLayout } from '../components/layouts/PageLayout';
 import { RawLink } from '../components/Link';
 import { getContextualContentProviderFetcher, ContentProvider } from '../components/utils/ContentProvider';
 import { ErrorBoundary } from '../components/utils/ErrorBoundary';
-import { useTranslation } from '../hooks/useTranslation';
 import { StaticRoutes } from '../utils/routes';
 
 export async function getStaticProps() {

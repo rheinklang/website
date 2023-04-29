@@ -1,7 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
-
 module.exports = {
-	sourceDir: 'build',
 	siteUrl: process.env.SITE_URL || 'https://rheinklang.events',
 	generateRobotsTxt: true,
 	generateIndexSitemap: false,
