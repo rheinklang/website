@@ -73,26 +73,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
+          local-dir: ./build/
           server-dir: website/staging/
-          exclude: |
-            **/.DS_Store
-            **/.vscode
-            **/.git*
-            **/.git*/**
-            **/.github/**
-
-      - name: Generate Styleguide
-        run: npm run tailwind:export
-
-      - name: Deploy Styleguide
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./styleguide/
-          server-dir: styleguide/corporate/
           exclude: |
             **/.DS_Store
             **/.vscode
@@ -109,6 +91,25 @@ jobs:
           DISCORD_EMBEDS: "{}"
         with:
           args: ":warning: Website deployment on `{{ EVENT_PAYLOAD.ref }}` failed."
+
+      - name: Generate Styleguide
+        run: npm run tailwind:export
+
+      - name: Deploy Styleguide
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        continue-on-error: true
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./styleguide/
+          server-dir: styleguide/corporate/
+          exclude: |
+            **/.DS_Store
+            **/.vscode
+            **/.git*
+            **/.git*/**
+            **/.github/**
 
   notify:
     needs: [build]

@@ -13,6 +13,7 @@ if (!validate(BUILD_ID_NAMESPACE)) {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	output: 'export',
 	// server related settings
 	poweredByHeader: false,
 	trailingSlash: false,

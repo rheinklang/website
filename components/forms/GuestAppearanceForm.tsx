@@ -171,7 +171,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 						isRequired
 						hookState={fieldState}
 						id="pickAvailabilityGuarantee"
-						title={translate('Du bist am Datum des Rheinklang Festivals verfügbar')}
+						title="Du bist am Datum des Rheinklang Festivals verfügbar"
 					/>
 				)}
 			/>
