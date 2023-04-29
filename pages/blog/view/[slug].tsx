@@ -9,6 +9,8 @@ import { BlogArticle } from '../../../components/pages/BlogArticle';
 import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { StaticRoutes } from '../../../utils/routes';
+import { JsonLd } from '../../../components/utils/JsonLd';
+import { parseCockpitDate } from '../../../utils/date';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -68,6 +70,17 @@ const ArticleBySlugPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pr
 					<BlogArticle article={article} />
 				</PageLayout>
 			</ContentProvider>
+			<JsonLd
+				schema={{
+					'@type': 'NewsArticle',
+					datePublished: new Date(article._created).toISOString(),
+					headline: article.title,
+					author: {
+						'@type': 'Person',
+						name: article.author?.fullName,
+					},
+				}}
+			/>
 		</ErrorBoundary>
 	);
 };

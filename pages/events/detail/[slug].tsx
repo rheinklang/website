@@ -22,6 +22,7 @@ import { Map } from '../../../components/maps/Map';
 import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { JsonLd } from '../../../components/utils/JsonLd';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -149,6 +150,30 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
+			<JsonLd
+				schema={{
+					'@type': 'Event',
+					name: event.title,
+					description: event.excerpt,
+					startDate: parseCockpitDate(event.date).toISOString(),
+					eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+					eventStatus: 'https://schema.org/EventScheduled',
+					organizer: {
+						'@type': 'Organization',
+						name: 'Rheinklang',
+						url: 'https://rheinklang.events',
+					},
+					location: {
+						'@type': 'Place',
+						name: event.location?.name,
+						geo: {
+							'@type': 'GeoCoordinates',
+							latitude: `${event.location?.lat}`,
+							longitude: `${event.location?.lng}`,
+						},
+					},
+				}}
+			/>
 		</ErrorBoundary>
 	);
 };

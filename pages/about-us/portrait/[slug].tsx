@@ -8,6 +8,7 @@ import { MemberPortraitPageComponent } from '../../../components/pages/MemberPor
 import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { StaticRoutes } from '../../../utils/routes';
+import { JsonLd } from '../../../components/utils/JsonLd';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = `${params?.slug}`;
@@ -71,6 +72,12 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 					/>
 				</PageLayout>
 			</ContentProvider>
+			<JsonLd
+				schema={{
+					'@type': 'Person',
+					name: pageData.fullName,
+				}}
+			/>
 		</ErrorBoundary>
 	);
 };

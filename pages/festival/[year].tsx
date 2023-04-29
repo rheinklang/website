@@ -23,9 +23,10 @@ import { Image } from '../../components/Image';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { StaticRoutes } from '../../utils/routes';
-import { formatDate, formatDateRange } from '../../utils/date';
+import { formatDate, formatDateRange, parseCockpitDate } from '../../utils/date';
 import { ButtonGroup } from '../../components/ButtonGroup';
 import { TicketIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { JsonLd } from '../../components/utils/JsonLd';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const year = params && params.year ? `${params.year}` : undefined;
@@ -273,6 +274,30 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 					</ContentConstraint>
 				</PageLayout>
 			</ContentProvider>
+			<JsonLd
+				schema={{
+					'@type': 'Event',
+					name: `Rheinklang Festival ${festival.year}`,
+					description: festival.introduction,
+					startDate: parseCockpitDate(festival.date).toISOString(),
+					eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+					eventStatus: 'https://schema.org/EventScheduled',
+					organizer: {
+						'@type': 'Organization',
+						name: 'Rheinklang',
+						url: 'https://rheinklang.events',
+					},
+					location: {
+						'@type': 'Place',
+						name: festival.location?.name || 'Rheinauen Park Widnau',
+						geo: {
+							'@type': 'GeoCoordinates',
+							latitude: `${festival.location?.lat}`,
+							longitude: `${festival.location?.lng}`,
+						},
+					},
+				}}
+			/>
 		</ErrorBoundary>
 	);
 };
