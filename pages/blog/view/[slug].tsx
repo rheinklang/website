@@ -2,7 +2,11 @@ import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { PageLayout } from '../../../components/layouts/PageLayout';
-import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
+import {
+	ContentProvider,
+	ContentProviderStaticSEOVariables,
+	getContextualContentProviderFetcher,
+} from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { getAllArticleSlugs, getArticleBySlug } from '../../../api/articles';
 import { BlogArticle } from '../../../components/pages/BlogArticle';
@@ -10,7 +14,6 @@ import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { StaticRoutes } from '../../../utils/routes';
 import { JsonLd } from '../../../components/utils/JsonLd';
-import { parseCockpitDate } from '../../../utils/date';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;
@@ -20,6 +23,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const contentProviderProps = await getContextualContentProviderFetcher('article', {
 		title: article.title,
 		excerpt: article.excerpt,
+		[ContentProviderStaticSEOVariables.OG_IMAGE]: article.image?.path,
 	})();
 
 	return {

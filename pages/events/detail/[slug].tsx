@@ -31,7 +31,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const contentProviderProps = await getContextualContentProviderFetcher('event', {
 		title: event.title,
 		excerpt: event.excerpt,
-		[ContentProviderStaticSEOVariables.OG_IMAGE]: event.image?.path || undefined,
+		[ContentProviderStaticSEOVariables.OG_IMAGE]: event.image?.path,
 	})();
 
 	return {
