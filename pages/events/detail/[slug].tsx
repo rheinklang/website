@@ -155,9 +155,12 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 					'@type': 'Event',
 					name: event.title,
 					description: event.excerpt,
-					startDate: parseCockpitDate(event.date).toISOString(),
+					startDate: event.date,
+					endDate: event.endDate || undefined,
 					eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-					eventStatus: 'https://schema.org/EventScheduled',
+					eventStatus: event.isCanceled
+						? 'https://schema.org/EventCancelled'
+						: 'https://schema.org/EventScheduled',
 					organizer: {
 						'@type': 'Organization',
 						name: 'Rheinklang',
@@ -171,6 +174,12 @@ const EVentDetailPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['prop
 							latitude: `${event.location?.lat}`,
 							longitude: `${event.location?.lng}`,
 						},
+					},
+					offers: {
+						'@type': 'Offer',
+						url: `${event.ticketingUrl || 'https://fyra.rheinklang.events'}`,
+						priceCurrency: 'CHF',
+						availability: 'https://schema.org/InStock',
 					},
 				}}
 			/>

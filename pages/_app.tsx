@@ -7,6 +7,7 @@ import '../styles/fonts.css';
 import '../styles/globals.css';
 import { appleDeviceSpecsForLaunchImages } from '../utils/pwa-asset-generator-specs';
 import { Fragment } from 'react';
+import { JsonLd } from '../components/utils/JsonLd';
 
 // See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false;
@@ -29,7 +30,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				<link rel="manifest" href="/manifest.json" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				{/* OG Defaults */}
-				<meta property="og:type" content="website" />
+				<meta key="og-type" property="og:type" content="website" />
 				<meta property="og:locale" content="de_CH" />
 				<meta property="og:site_name" content="Rheinklang" />
 				<meta name="twitter:card" content="summary_large_image" />
@@ -40,7 +41,6 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				{appleDeviceSpecsForLaunchImages.map((spec) => (
 					<Fragment key={`${spec.portrait.width}-${spec.portrait.height}`}>
 						<link
-							key={`apple-splash-${spec.portrait.width}-${spec.portrait.height}`}
 							rel="apple-touch-startup-image"
 							href={`/assets/pwa/splash/apple-splash-${spec.portrait.width}-${spec.portrait.height}.png`}
 							media={`(device-width: ${spec.portrait.width / spec.scaleFactor}px) and (device-height: ${
@@ -48,7 +48,6 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 							}px) and (-webkit-device-pixel-ratio: ${spec.scaleFactor}) and (orientation: portrait)`}
 						/>
 						<link
-							key={`apple-splash-${spec.portrait.width}-${spec.portrait.height}`}
 							rel="apple-touch-startup-image"
 							href={`/assets/pwa/splash/apple-splash-${spec.portrait.width}-${spec.portrait.height}.png`}
 							media={`(device-width: ${spec.portrait.height / spec.scaleFactor}px) and (device-height: ${
@@ -57,6 +56,21 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 						/>
 					</Fragment>
 				))}
+				{/* JSON+LD structured data */}
+				<JsonLd
+					schema={{
+						'@type': 'WebSite',
+						name: 'Rheinklang',
+						url: 'https://rheinklang.events/',
+					}}
+				/>
+				<JsonLd
+					schema={{
+						'@type': 'Organization',
+						url: 'https://rheinklang.events',
+						logo: 'https://rheinklang.events/assets/logos/logo.png',
+					}}
+				/>
 			</Head>
 			<div className="bg-white ">
 				<Component {...pageProps} />

@@ -1,7 +1,11 @@
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { PageLayout } from '../../../components/layouts/PageLayout';
-import { ContentProvider, getContextualContentProviderFetcher } from '../../../components/utils/ContentProvider';
+import {
+	ContentProvider,
+	ContentProviderStaticSEOVariables,
+	getContextualContentProviderFetcher,
+} from '../../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { getTeamMemberPortrait, getTeamMemberPortraitSlugs } from '../../../api/team';
 import { MemberPortraitPageComponent } from '../../../components/pages/MemberPortrait';
@@ -9,6 +13,7 @@ import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { StaticRoutes } from '../../../utils/routes';
 import { JsonLd } from '../../../components/utils/JsonLd';
+import Head from 'next/head';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = `${params?.slug}`;
@@ -18,6 +23,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const getContentProviderProps = getContextualContentProviderFetcher('memberPortrait', {
 		name: pageData.fullName,
 		bio: `${pageData.bio || ''}`,
+		[ContentProviderStaticSEOVariables.OG_IMAGE]: pageData.image?.path,
 	});
 	const contentProviderProps = await getContentProviderProps();
 
@@ -45,9 +51,15 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 	pageData,
 }) => {
 	const router = useRouter();
+	const [firstName, lastName] = pageData.fullName.split(' ');
 
 	return (
 		<ErrorBoundary route={router.asPath}>
+			<Head>
+				<meta key="og-type" property="og:type" content="profile" />
+				<meta property="profile:first_name" content={firstName} />
+				<meta property="profile:last_name" content={lastName} />
+			</Head>
 			<ContentProvider {...contentProviderProps}>
 				<PageLayout
 					marketingBanner={contentProviderProps.marketingBanner}

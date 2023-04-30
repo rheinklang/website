@@ -12,6 +12,7 @@ import { Link } from '../../components/Link';
 import { ProfileTeaser } from '../../components/ProfileTeaser';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
+import { JsonLd } from '../../components/utils/JsonLd';
 import { PartnerLevel, PartnerType } from '../../graphql';
 import { useTranslation } from '../../hooks/useTranslation';
 import { CURRENT_YEAR } from '../../utils/date';
@@ -111,6 +112,22 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 																	: true
 															}
 															href={partner.homepage}
+														/>
+														<JsonLd
+															schema={{
+																'@type': 'ImageObject',
+																contentUrl: partner.logo?.path,
+																copyrightHolder: {
+																	'@type': 'Organization',
+																	name: partner.title,
+																	url: partner.homepage,
+																},
+																creator: {
+																	'@type': 'Organization',
+																	name: partner.title,
+																	url: partner.homepage,
+																},
+															}}
 														/>
 													</article>
 												))}

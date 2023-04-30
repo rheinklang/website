@@ -95,7 +95,7 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 							/>
 						</div>
 					)}
-					<div className="bg-gray-100 md:py-16">
+					<div data-nosnippet className="bg-gray-100 md:py-16">
 						<ContentConstraint>
 							<Heading level="2" className="text-center mb-12">
 								{translate('common.heading.latestArticles')}

@@ -1,12 +1,28 @@
-import { FC, useMemo } from 'react';
-import type { Event, Person, Patient, Place, Article, NewsArticle, WithContext } from 'schema-dts';
+import type { FC } from 'react';
+import type {
+	Event,
+	Person,
+	Patient,
+	Place,
+	Article,
+	NewsArticle,
+	WithContext,
+	BreadcrumbList,
+	ImageObject,
+	WebSite,
+	Organization,
+} from 'schema-dts';
 
 type SupportSchemas =
 	| Event
 	| Exclude<Person, 'string' | Patient>
 	| Exclude<Place, 'string'>
 	| Exclude<Article, 'string'>
-	| Exclude<NewsArticle, 'string'>;
+	| Exclude<NewsArticle, 'string'>
+	| Exclude<BreadcrumbList, 'string'>
+	| Exclude<ImageObject, 'string'>
+	| Exclude<WebSite, 'string'>
+	| Exclude<Organization, 'string'>;
 
 export interface JsonLdProps {
 	schema: SupportSchemas;
@@ -22,16 +38,14 @@ function replacer(_key: string, value: any) {
 }
 
 export const JsonLd: FC<JsonLdProps> = ({ schema }) => {
-	const schemaWithContext: WithContext<SupportSchemas> = useMemo(() => {
-		if (typeof schema === 'string') {
-			throw new Error('Schema strings are not supported');
-		}
+	if (typeof schema === 'string') {
+		throw new Error('Schema strings are not supported');
+	}
 
-		return {
-			'@context': 'https://schema.org',
-			...schema,
-		};
-	}, [schema]);
+	const schemaWithContext: WithContext<SupportSchemas> = {
+		'@context': 'https://schema.org',
+		...schema,
+	};
 
 	return (
 		<script

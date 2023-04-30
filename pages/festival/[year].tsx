@@ -134,13 +134,31 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							</p>
 
 							{/* Intro Block */}
-							<h2 className="text-lg md:text-xl font-bold text-center my-8">{festival.introduction}</h2>
+							<h2 data-nosnippet className="text-lg md:text-xl font-bold text-center my-8">
+								{festival.introduction}
+							</h2>
 
 							{/* Preview image block */}
 							<Image
 								src={festival.previewImage.path}
 								alt={festival.title}
 								className="block w-full my-8 rounded-sm"
+							/>
+							<JsonLd
+								schema={{
+									'@type': 'ImageObject',
+									contentUrl: festival.previewImage.path,
+									copyrightHolder: {
+										'@type': 'Organization',
+										name: 'Rheinklang',
+										url: 'https://rheinklang.events',
+									},
+									creator: {
+										'@type': 'Organization',
+										name: 'Rheinklang',
+										url: 'https://rheinklang.events',
+									},
+								}}
 							/>
 
 							{festival.text && (
@@ -153,7 +171,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							)}
 
 							{(festival.ticketingUrl || festival.facebookEventUrl) && (
-								<div className="mb-10">
+								<div className="mb-10" data-nosnippet>
 									<ButtonGroup>
 										{festival.ticketingUrl && (
 											<Button
@@ -184,7 +202,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 								<>
 									<Heading level="2">Lineup</Heading>
 									<p className="mb-6">Running Order</p>
-									<ol className="flex flex-col flex-wrap gap-6">
+									<ol data-nosnippet className="flex flex-col flex-wrap gap-6">
 										{lineup.map((entry) => (
 											<li
 												key={entry.playtime}
@@ -295,6 +313,12 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							latitude: `${festival.location?.lat}`,
 							longitude: `${festival.location?.lng}`,
 						},
+					},
+					offers: {
+						'@type': 'Offer',
+						url: `${festival.ticketingUrl || 'https://fyra.rheinklang.events'}`,
+						priceCurrency: 'CHF',
+						availability: 'https://schema.org/InStock',
 					},
 				}}
 			/>

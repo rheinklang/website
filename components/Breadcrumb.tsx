@@ -1,6 +1,6 @@
+import { Children, FC, Fragment, PropsWithChildren } from 'react';
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
-import { Children, FC, Fragment, PropsWithChildren } from 'react';
 import { BreadcrumbItem } from './BreadcrumbItem';
 
 export interface BreadcrumbProps extends PropsWithChildren {
