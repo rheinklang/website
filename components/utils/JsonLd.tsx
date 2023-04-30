@@ -33,7 +33,12 @@ export const JsonLd: FC<JsonLdProps> = ({ schema }) => {
 		};
 	}, [schema]);
 
-	return <script type="application/ld+json">{JSON.stringify(schemaWithContext, null, 2)}</script>;
+	return (
+		<script
+			type="application/ld+json"
+			dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWithContext, null, 2) }}
+		/>
+	);
 };
 
 JsonLd.displayName = 'JSON+LD';
