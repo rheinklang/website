@@ -67,6 +67,30 @@ jobs:
           BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
 
+      - uses: actions/upload-artifact@v3
+        with:
+          path: build/
+
+      - name: Report issue to Discord
+        if: failure()
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
+          DISCORD_USERNAME: "GitHub Actions"
+          DISCORD_EMBEDS: "{}"
+        with:
+          args: "Website build on `{{ EVENT_PAYLOAD.ref }}` failed :bomb:"
+
+  deploy-staging:
+    name: Deploy - Staging
+    needs: [build]
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: Staging
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
       - name: Deploy Website
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -74,7 +98,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
-          server-dir: website/staging/
+          server-dir: ${{ vars.SERVER_DIR }}
           exclude: |
             **/.DS_Store
             **/.vscode
@@ -90,10 +114,58 @@ jobs:
           DISCORD_USERNAME: "GitHub Actions"
           DISCORD_EMBEDS: "{}"
         with:
-          args: ":warning: Website deployment on `{{ EVENT_PAYLOAD.ref }}` failed."
+          args: "Website deployment to **staging** failed :warning:"
 
-      - name: Generate Styleguide
-        run: npm run tailwind:export
+  deploy-production:
+    name: Deploy - Production
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: Production
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+      - name: Deploy Website
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/
+          server-dir: ${{ vars.SERVER_DIR }}
+          exclude: |
+            **/.DS_Store
+            **/.vscode
+            **/.git*
+            **/.git*/**
+            **/.github/**
+
+      - name: Report issue to Discord
+        if: failure() && github.ref == 'refs/heads/main'
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
+          DISCORD_USERNAME: "GitHub Actions"
+          DISCORD_EMBEDS: "{}"
+        with:
+          args: "Website deployment to **production** failed :rotating_light:"
+
+  deploy-styleguide:
+    name: Deploy - Styleguide
+    needs: [build]
+    environment: Styleguide
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+
+      - run: npm install
+      - run: npm run tailwind:export
 
       - name: Deploy Styleguide
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -103,7 +175,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./styleguide/
-          server-dir: styleguide/corporate/
+          server-dir: ${{ vars.SERVER_DIR }}
           exclude: |
             **/.DS_Store
             **/.vscode
@@ -112,9 +184,9 @@ jobs:
             **/.github/**
 
   notify:
-    needs: [build]
-    if: github.ref == 'refs/heads/main'
     name: Notify
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -124,4 +196,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_DEPLOYMENT_WEBHOOK_URL }}
           DISCORD_USERNAME: "GitHub Actions"
         with:
-          args: ":white_check_mark: The website has been deployed successfully."
+          args: "The website has been deployed to production successfully :white_check_mark:"
