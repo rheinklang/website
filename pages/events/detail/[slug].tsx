@@ -11,18 +11,25 @@ import { ErrorBoundary } from '../../../components/utils/ErrorBoundary';
 import { getAllEventSlugs, getEventBySlug } from '../../../api/events';
 import { Richtext } from '../../../components/Richtext';
 import { ContentConstraint } from '../../../components/ContentConstraint';
-import { formatDate, formatDateRange, parseCockpitDate } from '../../../utils/date';
+import { formatDate, formatDateRange } from '../../../utils/date';
 import { Heading } from '../../../components/Heading';
 import { Link } from '../../../components/Link';
 import { StaticRoutes } from '../../../utils/routes';
-import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, TicketIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, ArrowRightIcon, TicketIcon } from '@heroicons/react/24/outline';
 import { ButtonGroup } from '../../../components/ButtonGroup';
 import { Button } from '../../../components/Button';
-import { Map } from '../../../components/maps/Map';
 import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { JsonLd } from '../../../components/utils/JsonLd';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(
+	() => import(/* webpackChunkName: map-component" */ '../../../components/maps/Map').then((mod) => mod.Map),
+	{
+		ssr: false,
+	}
+);
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;

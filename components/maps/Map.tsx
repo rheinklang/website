@@ -1,3 +1,5 @@
+'use client';
+
 import { createRef, FC, memo, RefObject, useCallback, useEffect, useMemo, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { Logger } from '../../utils/logger';
