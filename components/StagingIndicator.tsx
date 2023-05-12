@@ -11,6 +11,7 @@ export const StagingIndicator: FC = () => {
 				<span className="font-bold">Staging:</span>{' '}
 				<a
 					target="_blank"
+					rel="noopener noreferrer"
 					href={`https://github.com/rheinklang/website/commit/${process.env.GITHUB_SHA}`}
 					className="underline"
 				>
@@ -19,6 +20,7 @@ export const StagingIndicator: FC = () => {
 				-{' '}
 				<a
 					target="_blank"
+					rel="noopener noreferrer"
 					href={`https://github.com/rheinklang/website/tree/${process.env.GITHUB_REF?.replace(
 						'refs/heads/',
 						''
@@ -30,6 +32,7 @@ export const StagingIndicator: FC = () => {
 				-{' '}
 				<a
 					target="_blank"
+					rel="noopener noreferrer"
 					href={`https://github.com/rheinklang/website/actions/runs/${process.env.GITHUB_RUN_ID}`}
 					className="underline"
 				>
