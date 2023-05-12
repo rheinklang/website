@@ -9,6 +9,10 @@ module.exports = {
 		}),
 	],
 	theme: {
+		configViewer: {
+			typographyExample: 'Rheinklang Festival 2000 at Rhema, über elektronische Musik!',
+			fonts: 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap',
+		},
 		fontFamily: {
 			sans: [
 				'Inter',
