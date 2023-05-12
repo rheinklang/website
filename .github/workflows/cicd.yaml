@@ -61,6 +61,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: build-output
           path: build/
 
       - name: Report issue to Discord
@@ -82,7 +83,12 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: build-output
+
       - name: Deploy Website
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -117,7 +123,12 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: build
+
       - name: Deploy Website
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -151,9 +162,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
-          node-version-file: .npmrc
+          node-version-file: .nvmrc
           cache: "npm"
 
       - run: npm install
