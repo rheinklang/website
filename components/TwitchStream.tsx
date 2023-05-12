@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useMemo } from 'react';
 import { useCurrentLiveStreamQuery } from '../graphql';
 import { useTranslation } from '../hooks/useTranslation';
@@ -28,7 +30,13 @@ export const TwitchStream: FC<TwitchStreamProps> = () => {
 	return (
 		<div className="bg-black text-white">
 			<ContentConstraint useCustomYSpace>
-				<div className="aspect-w-16 aspect-h-9">
+				<div
+					className={
+						!loading && url && data && data.livestreamConfigurationSingleton.isEnabled
+							? 'aspect-w-16 aspect-h-9'
+							: 'min-h-[50vh]'
+					}
+				>
 					{loading && (
 						<div className="w-full h-full flex text-white items-center justify-center">
 							<Spinner className="inline-block" />
