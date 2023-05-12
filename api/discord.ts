@@ -51,6 +51,27 @@ interface DiscordWebhookPayload {
 
 const FIELD_BLACKLIST = ['gotcha'];
 
+const getReadableFieldName = (fieldName: string): string => {
+	switch (fieldName) {
+		case 'email':
+			return 'E-Mail';
+		case 'name':
+			return 'Name';
+		case 'fullName':
+			return 'Full Name';
+		case 'message':
+			return 'Message';
+		case 'comment':
+			return 'Comment';
+		case 'attendees':
+			return 'Companions';
+		case 'contactAgreement':
+			return 'Contact Agreement';
+		default:
+			return fieldName;
+	}
+};
+
 const transformDataFieldsToDiscordFields = (
 	fields: Record<string, number | string | boolean | string[]>
 ): DiscordWebhookField[] => {
@@ -76,7 +97,7 @@ const transformDataFieldsToDiscordFields = (
 		}
 
 		processedFields.push({
-			name: field,
+			name: getReadableFieldName(field),
 			value: fieldValue,
 		});
 	}
@@ -110,7 +131,7 @@ export const sendDiscordContactSubmission = async (
 	const now = new Date();
 	const payload: DiscordWebhookPayload = {
 		username: 'Website Service',
-		content: `:envelope: Neue Formular-Einreichung via "${formIdentifier}"!`,
+		content: `Neue Formular-Einreichung via "${formIdentifier}" :envelope:!`,
 		allowed_mentions: {},
 		embeds: [
 			{
@@ -136,7 +157,7 @@ export const sendDiscordReportSubmission = async (err?: any, scope = 'unknown') 
 	const now = new Date();
 	const payload: DiscordWebhookPayload = {
 		username: 'Website Reporting Service',
-		content: `:warning: Received new error report`,
+		content: `Received new error report :warning:`,
 		embeds: [
 			{
 				title: 'Error',

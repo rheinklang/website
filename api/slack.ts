@@ -151,8 +151,6 @@ export async function sendContactSubmission(formIdentifier: string, fields: Reco
 		transformFieldValueType(value),
 	]);
 
-	console.log(readableFields);
-
 	const fieldSubmissions = readableFields
 		.filter(([key]) => typeof key === 'string')
 		.filter(([key]) => !FIELD_BLACKLIST.includes(key))

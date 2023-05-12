@@ -7,6 +7,7 @@ export interface RichtextProps {
 	content: string;
 	className?: string;
 	filter?: FilterXSS;
+	useCustomSizing?: boolean;
 }
 
 const defaultOptions: IFilterXSSOptions = {
@@ -63,13 +64,21 @@ export const richtextWithIdMarksXSSFilter = new FilterXSS({
 	},
 });
 
-export const Richtext: FC<RichtextProps> = ({ as = 'div', content, className, filter = richtextXSSFilter }) => {
+export const Richtext: FC<RichtextProps> = ({
+	as = 'div',
+	useCustomSizing = false,
+	content,
+	className,
+	filter = richtextXSSFilter,
+}) => {
 	const Tag = useMemo((): 'div' => as as 'div', [as]);
 	const sanitizedContent = useMemo(() => filter.process(content), [filter, content]);
 
 	return (
 		<Tag
-			className={classNames('prose prose-neutral lg:prose-lg xl:prose-xl', className)}
+			className={classNames('prose prose-neutral', className, {
+				'lg:prose-lg xl:prose-xl': useCustomSizing === true,
+			})}
 			dangerouslySetInnerHTML={{ __html: sanitizedContent.toString() }}
 		/>
 	);

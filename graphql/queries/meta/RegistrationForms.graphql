@@ -1,0 +1,5 @@
+query GetAllRegistrationFormSlugs {
+	registrationFormsCollection {
+		slug_slug
+	}
+}

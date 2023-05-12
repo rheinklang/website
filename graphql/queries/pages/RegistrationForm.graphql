@@ -1,0 +1,18 @@
+query GetRegistrationFormUnique($filter: JsonType) {
+	registrationFormsCollection(filter: $filter, limit: 1) {
+		_id
+		title
+		description
+		content
+		areCompanionsAllowed
+		companions
+		areSubmissionsAllowed
+		formCollectionId
+	}
+}
+
+query GetRegistrationFormVerificationCodeForId($filter: JsonType) {
+	registrationFormsCollection(filter: $filter, limit: 1) {
+		verificationCode
+	}
+}

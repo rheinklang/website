@@ -30,6 +30,7 @@ type Query {
 	partnersCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Partner]!
 	guestAppearanceEventsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [GuestAppearanceEvent]!
 	festivalsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [Festival]!
+	registrationFormsCollection(filter: JsonType, limit: Int, skip: Int, sort: JsonType): [RegistrationForm]!
 }
 
 # Cockpit CMS
@@ -226,6 +227,21 @@ enum EventType {
 	cooperation
 	daydance
 	showcase
+}
+
+type RegistrationForm implements CockpitField {
+	_id: String!
+	_created: Int!
+	_modified: Int!
+	slug_slug: String!
+	title: String!
+	description: String!
+	content: String
+	areCompanionsAllowed: Boolean
+	companions: Int
+	areSubmissionsAllowed: Boolean
+	verificationCode: String
+	formCollectionId: String!
 }
 
 type Event implements CockpitField {
