@@ -5,6 +5,8 @@ module.exports = {
 	generateIndexSitemap: false,
 	changefreq: 'weekly',
 	exclude: [
+		'/private/*',
+		'/private/registration-form/*',
 		'/services/livestream',
 		'/services/settings',
 		'/403',
