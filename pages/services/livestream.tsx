@@ -1,8 +1,15 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
 import { PageLayout } from '../../components/layouts/PageLayout';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
-import { TwitchStream } from '../../components/TwitchStream';
+
+const TwitchStream = dynamic(() =>
+	import(/* webpackChunkName: "twitch-stream-component" */ '../../components/TwitchStream').then(
+		(mod) => mod.TwitchStream
+	)
+);
 
 export async function getStaticProps() {
 	const getContentProviderProps = getContextualContentProviderFetcher('livestream');

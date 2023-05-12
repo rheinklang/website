@@ -7,12 +7,8 @@ import type { ContentProviderProps } from '../utils/ContentProvider';
 import type { ConsentProps } from '../Consent';
 import { ScrollTop } from '../ScrollTop';
 
-// TODO: Refactor to React.lazy once React 18 stable is released
-const Consent = dynamic<ConsentProps>(
-	() => import(/* webpackChunkName: "consent-component" */ '../Consent').then((m) => m.Consent),
-	{
-		loading: () => null,
-	}
+const Consent = dynamic<ConsentProps>(() =>
+	import(/* webpackChunkName: "consent-component" */ '../Consent').then((m) => m.Consent)
 );
 
 interface PageLayoutProps extends PropsWithChildren {
