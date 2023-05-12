@@ -49,25 +49,27 @@ export const Settings: FC = () => {
 					Cache löschen &amp; neu laden
 				</Button>
 			</ContentConstraint>
-			<ContentConstraint>
-				<Heading level="2" className="mb-8">
-					Metainformationen zur Fehlerbehebung
-				</Heading>
-				<div className="leading-6">
-					<p className="mb-3">
-						<strong className="font-bold inline-block w-40">Build ID:</strong>
-						<code className="text-sm align-middle bg-gray-400/10 p-1 border border-gray-400/20 text-gray-300 rounded-sm">
-							{process.env.CONFIG_BUILD_ID}
-						</code>
-					</p>
-					<p className="mb-3">
-						<strong className="font-bold inline-block w-40">Matomo ID:</strong>
-						<code className="text-sm align-middle bg-gray-400/10 p-1 border border-gray-400/20 text-gray-300 rounded-sm">
-							{process.env.NEXT_PUBLIC_MATOMO_CONTAINER_ID}
-						</code>
-					</p>
-				</div>
-			</ContentConstraint>
+			{process.env.ENABLE_STAGING_INDICATOR && (
+				<ContentConstraint>
+					<Heading level="2" className="mb-8">
+						Metainformationen zur Fehlerbehebung
+					</Heading>
+					<div className="leading-6">
+						<p className="mb-3">
+							<strong className="font-bold inline-block w-40">Build ID:</strong>
+							<code className="text-sm align-middle bg-gray-400/10 p-1 border border-gray-400/20 text-gray-300 rounded-sm">
+								{process.env.CONFIG_BUILD_ID}
+							</code>
+						</p>
+						<p className="mb-3">
+							<strong className="font-bold inline-block w-40">Matomo ID:</strong>
+							<code className="text-sm align-middle bg-gray-400/10 p-1 border border-gray-400/20 text-gray-300 rounded-sm">
+								{process.env.NEXT_PUBLIC_MATOMO_CONTAINER_ID}
+							</code>
+						</p>
+					</div>
+				</ContentConstraint>
+			)}
 		</div>
 	);
 };
