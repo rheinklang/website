@@ -1,7 +1,6 @@
 import { isBrowser } from './ssr';
 import StackTrace from 'stacktrace-js';
 import { submitForm } from '../api/forms';
-import { sendReport } from '../api/slack';
 import { sendDiscordReportSubmission } from '../api/discord';
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -76,7 +75,6 @@ export class Logger {
 			console.log(`[${payload.context}:${payload.env}] ${payload.message} [${payload.buildId}]`);
 		} else {
 			submitForm('logs', payload);
-			sendReport(payload.message, payload.context);
 			sendDiscordReportSubmission(payload.message, payload.context);
 		}
 	}

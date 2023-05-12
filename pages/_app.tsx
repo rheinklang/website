@@ -8,6 +8,7 @@ import '../styles/globals.css';
 import { appleDeviceSpecsForLaunchImages } from '../utils/pwa-asset-generator-specs';
 import { Fragment } from 'react';
 import { JsonLd } from '../components/utils/JsonLd';
+import { StagingIndicator } from '../components/StagingIndicator';
 
 // See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false;
@@ -75,6 +76,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 			<div className="bg-white ">
 				<Component {...pageProps} />
 			</div>
+			{process.env.ENABLE_STAGING_INDICATOR && <StagingIndicator />}
 		</>
 	);
 }

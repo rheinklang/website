@@ -24,6 +24,7 @@ module.exports = {
 				'sans-serif',
 			],
 			corporate: ['FV Almelo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+			mono: ['monospace'],
 		},
 		colors: {
 			transparent: 'transparent',
