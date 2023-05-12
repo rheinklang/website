@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Inter } from 'next/font/google';
 import { config } from '@fortawesome/fontawesome-svg-core';
 
 import { appleDeviceSpecsForLaunchImages } from '../utils/pwa-asset-generator-specs';
@@ -8,8 +9,13 @@ import { JsonLd } from '../components/utils/JsonLd';
 import { StagingIndicator } from '../components/StagingIndicator';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../styles/fonts.css';
 import '../styles/globals.css';
+
+export const interFont = Inter({
+	subsets: ['latin'],
+	display: 'swap',
+	variable: '--font-inter',
+});
 
 // See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false;
@@ -75,7 +81,7 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				/>
 			</Head>
 
-			<div className="bg-white ">
+			<div className={`${interFont.variable} ${interFont.className} bg-white`}>
 				<Component {...pageProps} />
 			</div>
 			{process.env.ENABLE_STAGING_INDICATOR && <StagingIndicator />}

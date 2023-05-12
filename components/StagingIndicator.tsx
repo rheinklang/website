@@ -8,7 +8,7 @@ export const StagingIndicator: FC = () => {
 	}
 
 	return (
-		<div className="p-4 bg-black text-white border-t border-gray-700">
+		<div className="font-mono p-3 md:p-4 bg-black text-white border-t border-gray-700">
 			<div className="uppercase block text-xs lg:text-xs text-center tracking-wider">
 				<span className="font-bold">Staging</span> -{' '}
 				<a

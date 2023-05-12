@@ -15,19 +15,16 @@ module.exports = {
 		},
 		fontFamily: {
 			sans: [
-				'Inter',
-				'ui-sans-serif',
-				'system-ui',
-				'-apple-system',
-				'BlinkMacSystemFont',
-				'Segoe UI',
+				'var(--font-inter)',
 				'Roboto',
 				'Helvetica Neue',
 				'Arial',
 				'Noto Sans',
+				'system-ui',
+				'ui-sans-serif',
+				'-apple-system',
 				'sans-serif',
 			],
-			corporate: ['FV Almelo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 			mono: ['monospace'],
 		},
 		colors: {
