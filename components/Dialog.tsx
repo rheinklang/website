@@ -1,10 +1,8 @@
+import { createRef, FC, PropsWithChildren, useEffect } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
-import { createRef, Dispatch, FC, PropsWithChildren, SetStateAction, useEffect } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import { Heading } from './Heading';
-import { createFocusTrap } from 'focus-trap';
-import { traceDeprecation } from 'process';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
 export interface DialogProps extends PropsWithChildren {
