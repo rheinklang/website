@@ -1,4 +1,4 @@
-[![CI](https://github.com/rheinklang/website/actions/workflows/ci.yaml/badge.svg)](https://github.com/rheinklang/website/actions/workflows/ci.yaml) [![CodeQL](https://github.com/rheinklang/website/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rheinklang/website/actions/workflows/codeql-analysis.yml) [![Renovate](https://img.shields.io/badge/Renovate-enabled-blue.svg)](https://renovatebot.com)
+[![CI](https://github.com/rheinklang/website/actions/workflows/ci.yaml/badge.svg)](https://github.com/rheinklang/website/actions/workflows/ci.yaml) [![CodeQL](https://github.com/rheinklang/website/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rheinklang/website/actions/workflows/codeql-analysis.yml) ![GitHub deployments](https://img.shields.io/github/deployments/rheinklang/website/production)
 
 ## Getting Started
 
