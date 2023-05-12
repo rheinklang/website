@@ -15,7 +15,7 @@ import { Input } from '../Input';
 import { Textarea } from '../Textarea';
 import { SubmissionNotification } from './SubmissionNotification';
 
-export interface InvitationFormState {
+interface InvitationFormState {
 	authority: string;
 	email: string;
 	name: string;
@@ -26,12 +26,21 @@ export interface InvitationFormState {
 	attendees: Array<{ name: string }>;
 }
 
-export const InvitationForm: FC<{
+export interface InvitationFormProps {
 	id: string;
 	areCompanionsAllowed?: boolean;
 	companionCount?: number | null | undefined;
 	formId: string;
-}> = ({ id, companionCount, areCompanionsAllowed, formId }) => {
+	title: string;
+}
+
+export const InvitationForm: FC<InvitationFormProps> = ({
+	id,
+	companionCount,
+	areCompanionsAllowed,
+	formId,
+	title,
+}) => {
 	const translate = useTranslation();
 	const [attendeeCount, setAttendeeCount] = useState('');
 	const { submit, error, isSubmitted, isSubmitting } = useFormSubmissionState();
@@ -88,7 +97,7 @@ export const InvitationForm: FC<{
 			// wrong verification code! this should be caught by the useForm hook itself, but better be safe than sorry ;)
 			alert(`Verifizierungscode ungültig, bitte versuchen Sie es erneut`);
 		} else {
-			submit(formId as `registrationForm${string}`, submittableFlatData);
+			submit(formId as `registrationForm${string}`, submittableFlatData, title);
 		}
 	};
 

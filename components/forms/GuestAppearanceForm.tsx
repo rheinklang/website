@@ -47,7 +47,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 	});
 
 	const onSubmit = (data: GuestAppearanceFormState) => {
-		submit('guestAppearanceInquiry', data);
+		submit('guestAppearanceInquiry', data, 'DJ Bewerbung');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);

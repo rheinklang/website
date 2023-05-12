@@ -12,10 +12,10 @@ export const useFormSubmissionState = () => {
 		setError(null);
 	};
 
-	const submit = async (formId: FormId, data: Record<string, any>) => {
+	const submit = async (formId: FormId, data: Record<string, any>, label?: string) => {
 		setIsSubmitting(true);
 		try {
-			await submitForm(formId, data);
+			await submitForm(formId, data, label);
 			setIsSubmitted(true);
 		} catch (error) {
 			setError(error as Error);
