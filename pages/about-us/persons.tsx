@@ -5,12 +5,11 @@ import { getPortraitPage } from '../../api/pages';
 import { ContentConstraint } from '../../components/ContentConstraint';
 import { ContentHeader } from '../../components/ContentHeader';
 import { PageLayout } from '../../components/layouts/PageLayout';
-import { ProfileTeaser } from '../../components/ProfileTeaser';
 import { ContentProvider, getContextualContentProviderFetcher } from '../../components/utils/ContentProvider';
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { useTranslation } from '../../hooks/useTranslation';
-import { Image } from '../../components/Image';
 import { PersonTeaser } from '../../components/PersonTeaser';
+import { Image } from '../../components/Image';
 
 export async function getStaticProps() {
 	const teamMembers = await getTeamMembersList();
@@ -45,8 +44,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
-					{/* TODO: Add back once we have the group image! */}
-					{/* <div className="bg-sea-green-300 py-12">
+					<div className="bg-sea-green-300 py-12">
 						<ContentConstraint>
 							<div className="mx-auto flex flex-row flex-wrap lg:flex-nowrap gap-12">
 								<div className="lg:w-3/4 xl:w-8/12">
@@ -62,7 +60,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								</div>
 							</div>
 						</ContentConstraint>
-					</div> */}
+					</div>
 					<div className="py-12 lg:py-24">
 						<ContentConstraint>
 							<div className="flex flex-row flex-wrap sm:justify-evenly">
