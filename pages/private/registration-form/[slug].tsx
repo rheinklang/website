@@ -83,6 +83,7 @@ const RegistrationFormPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>[
 						{data.areSubmissionsAllowed && (
 							<InvitationForm
 								id={data._id}
+								title={data.title}
 								formId={data.formCollectionId}
 								areCompanionsAllowed={
 									typeof data.areCompanionsAllowed === 'boolean' ? data.areCompanionsAllowed : false

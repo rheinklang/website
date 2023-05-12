@@ -38,7 +38,7 @@ export const EventBookingForm: FC = () => {
 	});
 
 	const onSubmit = (data: EventBookingFormState) => {
-		submit('eventBookingInquiry', data);
+		submit('eventBookingInquiry', data, 'Event-Booking');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);

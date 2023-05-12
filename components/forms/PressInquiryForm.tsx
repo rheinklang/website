@@ -38,7 +38,7 @@ export const PressInquiryForm: FC = () => {
 	});
 
 	const onSubmit = (data: PressInquiryFormState) => {
-		submit('pressInquiry', data);
+		submit('pressInquiry', data, 'Presse-Anfrage');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);

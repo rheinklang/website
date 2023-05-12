@@ -38,7 +38,7 @@ export const ConsultingForm: FC = () => {
 	const watchRequestType = watch('requestType', '');
 
 	const onSubmit = (data: ConsultingFormState) => {
-		submit('consultingInquiry', data);
+		submit('consultingInquiry', data, 'Consulting');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);
