@@ -30,6 +30,7 @@ export const MainNavigationItem: FC<MainNavigationItemProps> = ({ href, title, e
 					'outline-none ring-white focus:ring-2',
 					{
 						'bg-white ring-2 text-black cursor-default hover:cursor-default': isActive,
+						'ring-2': isExpanded,
 					}
 				)}
 			>
