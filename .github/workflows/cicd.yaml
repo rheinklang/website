@@ -166,15 +166,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'tailwind.config.js'
+              - 'postcss.config.js'
+              - 'package.json'
+
       - uses: actions/setup-node@v3
+        if: steps.changes.outputs.src == 'true'
         with:
           node-version-file: .nvmrc
           cache: "npm"
 
       - run: npm install
+        if: steps.changes.outputs.src == 'true'
+
       - run: npm run tailwind:export
+        if: steps.changes.outputs.src == 'true'
 
       - name: Deploy Styleguide
+        if: steps.changes.outputs.src == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         continue-on-error: true
         with:
