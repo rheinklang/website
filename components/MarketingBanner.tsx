@@ -1,3 +1,5 @@
+'use client';
+
 import { MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';

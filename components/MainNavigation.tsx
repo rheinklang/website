@@ -169,6 +169,7 @@ export const MainNavigation: FC<MainNavigationProps> = ({ cta, festivalRedirect 
 					'transition-all transform-gpu absolute left-0 top-24 overscroll-auto',
 					'bg-black border-gray-500 border-t',
 					'transition-all overflow-y-scroll h-[calc(100vh-theme(height.24))]',
+					'pb-32 lg:pb-0',
 					'lg:h-auto lg:w-full lg:opacity-100 lg:overflow-y-visible lg:relative lg:visible lg:inline-flex lg:border-t-0 lg:transforms-none lg:left-0 lg:right-0 lg:top-0 lg:bottom-0 lg:transform-none lg:bg-transparent',
 					{
 						'w-0 xs:opacity-0 sm:opacity-0': !isExpanded,
