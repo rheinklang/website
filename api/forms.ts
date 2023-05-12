@@ -36,7 +36,7 @@ export const submitForm = async (formId: FormId, data: Record<string, any>, labe
 			formData: data,
 		});
 
-		// send notification to slack
+		// send notification to discord
 		try {
 			if (formId === 'logs') {
 				// we don't want log notifications
