@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { LinkIcon, ArrowRightIcon, CheckBadgeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { LinkIcon, CheckBadgeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faApple,

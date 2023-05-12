@@ -1,6 +1,5 @@
 import { ArrowRightIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
-import { format } from 'date-fns';
 import { Location } from '../graphql';
 import { Badge } from './Badge';
 import { Button } from './Button';
