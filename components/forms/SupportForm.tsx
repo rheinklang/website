@@ -34,7 +34,7 @@ export const SupportForm: FC = () => {
 	});
 
 	const onSubmit = (data: SupportFormState) => {
-		submit('supportInquiry', data);
+		submit('supportInquiry', data, 'Support Anfrage');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);

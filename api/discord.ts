@@ -126,12 +126,13 @@ const getStaticMetaEmbed = (): DiscordWebhookEmbed => ({
 
 export const sendDiscordContactSubmission = async (
 	formIdentifier: string,
-	fields: Record<string, number | string | boolean>
+	fields: Record<string, number | string | boolean>,
+	label?: string
 ) => {
 	const now = new Date();
 	const payload: DiscordWebhookPayload = {
 		username: 'Website Service',
-		content: `Neue Formular-Einreichung via "${formIdentifier}" :envelope:!`,
+		content: `Neue Formular-Einreichung via "${label || formIdentifier}" :envelope:!`,
 		allowed_mentions: {},
 		embeds: [
 			{

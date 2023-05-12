@@ -3,7 +3,6 @@ import { client, EventsForGuestSubmissionDocument, EventsForGuestSubmissionQuery
 import { nonNullish } from '../utils/filter';
 import { tagManagerPush } from '../utils/matomo';
 import { sendDiscordContactSubmission, sendDiscordReportSubmission } from './discord';
-import { sendContactSubmission, sendReport } from './slack';
 
 export type FormId =
 	| 'logs'
@@ -16,7 +15,7 @@ export type FormId =
 	| `registrationForm${string}`
 	| 'guestAppearanceInquiry';
 
-export const submitForm = async (formId: FormId, data: Record<string, any>) => {
+export const submitForm = async (formId: FormId, data: Record<string, any>, label?: string) => {
 	try {
 		// post to the CMS
 		await axios.post(
@@ -44,19 +43,17 @@ export const submitForm = async (formId: FormId, data: Record<string, any>) => {
 				return;
 			}
 
-			await sendContactSubmission(formId, data);
-			await sendDiscordContactSubmission(formId, data);
+			await sendDiscordContactSubmission(formId, data, label);
 		} catch (error) {
 			if (process.env.NODE_ENV === 'development') {
 				console.error(error);
 			} else {
-				await sendReport(error, `${formId}`);
 				await sendDiscordReportSubmission(error, `${formId}`);
 			}
 		}
 	} catch (error) {
-		// send error report to slack as we can't send the log entry to the CMS
-		await sendReport(error, `${formId} submission`);
+		// send error report to discord as we can't send the log entry to the CMS
+		await sendDiscordReportSubmission(error, `${formId} submission`);
 	}
 };
 
