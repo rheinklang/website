@@ -8,7 +8,6 @@ export interface HeadingProps extends PropsWithChildren {
 	visualLevel?: HeadingLevel;
 	tag?: string;
 	className?: string;
-	useCorporateFont?: boolean;
 }
 
 const mapSizesToLevel: Record<HeadingLevel, string> = {
@@ -20,14 +19,7 @@ const mapSizesToLevel: Record<HeadingLevel, string> = {
 	6: 'text-sm sm:text-md',
 };
 
-export const Heading: FC<HeadingProps> = ({
-	children,
-	className,
-	tag,
-	useCorporateFont = false,
-	level = '3',
-	visualLevel,
-}) => {
+export const Heading: FC<HeadingProps> = ({ children, className, tag, level = '3', visualLevel }) => {
 	let Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 	if (tag) {
@@ -38,13 +30,5 @@ export const Heading: FC<HeadingProps> = ({
 		visualLevel = level;
 	}
 
-	return (
-		<Tag
-			className={classNames('font-bold', mapSizesToLevel[visualLevel], className, {
-				'font-corporate': useCorporateFont,
-			})}
-		>
-			{children}
-		</Tag>
-	);
+	return <Tag className={classNames('font-bold', mapSizesToLevel[visualLevel], className)}>{children}</Tag>;
 };
