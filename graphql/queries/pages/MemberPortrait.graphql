@@ -1,6 +1,6 @@
 query MemberPortraitSlugs {
 	teamMembersCollection(filter: { isActive: true }) {
-		slug
+		slug_slug
 	}
 }
 
@@ -18,6 +18,10 @@ query SingleMemberPortrait($filter: JsonType) {
 		bio
 		favoriteDrink
 		favoriteGenre
+		favoriteArtist
+		everyDayJob
+		age
+		dayOrNight
 		links {
 			value {
 				url

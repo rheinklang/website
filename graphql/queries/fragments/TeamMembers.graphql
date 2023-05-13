@@ -5,7 +5,7 @@ query FullTeamMembers {
 		role
 		isFounder
 		isActive
-		slug
+		slug_slug
 		image {
 			path
 		}

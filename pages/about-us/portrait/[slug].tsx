@@ -76,10 +76,14 @@ const TeamMemberPortraitPage: NextPage<Awaited<ReturnType<typeof getStaticProps>
 						links={pageData.links}
 						name={pageData.fullName}
 						bio={pageData.bio}
+						age={pageData.age}
 						entryDate={pageData.entryDate}
 						isFounder={pageData.isFounder}
 						favoriteDrink={pageData.favoriteDrink}
 						favoriteGenre={pageData.favoriteGenre}
+						favoriteArtist={pageData.favoriteArtist}
+						dayOrNight={pageData.dayOrNight}
+						everyDayJob={pageData.everyDayJob}
 						primaryActivityArea={pageData.primaryActivityArea}
 					/>
 				</PageLayout>

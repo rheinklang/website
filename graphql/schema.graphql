@@ -155,6 +155,11 @@ enum TeamMemberActivityArea {
 	communication
 }
 
+enum TeamMemberDayOrNight {
+	day
+	night
+}
+
 type TeamMemberLink {
 	url: String
 	label: String
@@ -179,7 +184,7 @@ type TeamMember implements CockpitField {
 	_modified: Int!
 	image: CockpitAsset
 	fullName: String!
-	slug: String!
+	slug_slug: String!
 	primaryActivityArea: TeamMemberActivityArea!
 	role: String
 	isFounder: Boolean!
@@ -189,6 +194,10 @@ type TeamMember implements CockpitField {
 	bio: String
 	favoriteDrink: String
 	favoriteGenre: String
+	favoriteArtist: String
+	everyDayJob: String
+	age: String
+	dayOrNight: TeamMemberDayOrNight
 	links: [TeamMemberLinkCollection]
 }
 

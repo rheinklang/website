@@ -20,6 +20,9 @@ query HomePage {
 			ticketingUrl
 			slug
 			date
+			image {
+				path
+			}
 		}
 	}
 }

@@ -5,14 +5,17 @@ module.exports = {
 	generateIndexSitemap: false,
 	changefreq: 'weekly',
 	exclude: [
-		'/private/*',
-		'/private/registration-form/*',
+		// meta pages which don't have sufficient content
 		'/services/livestream',
 		'/services/settings',
+		// error pages
 		'/403',
 		'/404',
 		'/500',
-		// TODO: Remove once implemented
-		'/about-us/portrait/*',
+		// private content
+		'/private/*',
+		'/private/registration-form/*',
+		// transition to new festival page
+		'/events/category/festival',
 	],
 };

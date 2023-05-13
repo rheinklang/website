@@ -39,11 +39,6 @@ const getMainNavigationTree = (
 		expansion: {
 			items: [
 				{
-					title: translate('navigation.events.festivals'),
-					href: `${StaticRoutes.FESTIVAL}`,
-					icon: FlagIcon,
-				},
-				{
 					title: translate('navigation.events.daydances'),
 					href: `${StaticRoutes.EVENT_CATEGORY}/${EventType.Daydance}`,
 					icon: SunIcon,

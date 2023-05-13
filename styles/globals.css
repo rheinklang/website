@@ -13,3 +13,12 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
+
+.ribbon {
+	position: fixed;
+	inset: 0 auto auto 0;
+	transform-origin: 100% 0;
+	transform: translate(-29.3%) rotate(-45deg);
+	box-shadow: 0 0 0 999px var(--tw-shadow-color);
+	clip-path: inset(0 -100%);
+}
