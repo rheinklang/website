@@ -22,14 +22,7 @@ import { Breadcrumb } from '../../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../../components/BreadcrumbItem';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { JsonLd } from '../../../components/utils/JsonLd';
-import dynamic from 'next/dynamic';
-
-const Map = dynamic(
-	() => import(/* webpackChunkName: map-component" */ '../../../components/maps/Map').then((mod) => mod.Map),
-	{
-		ssr: false,
-	}
-);
+import { Map } from '../../../components/maps/Map';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const slug = params && params.slug ? `${params.slug}` : undefined;

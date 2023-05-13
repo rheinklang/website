@@ -47,7 +47,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					<div className="bg-sea-green-300 py-12">
 						<ContentConstraint>
 							<div className="mx-auto flex flex-row flex-wrap lg:flex-nowrap gap-12">
-								<div className="lg:w-3/4 xl:w-8/12">
+								<div className="w-full lg:w-3/4 xl:w-8/12">
 									<Image
 										isObjectFitCover
 										src={pageData.teamImage.path}
@@ -75,7 +75,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 												key={member.fullName}
 												name={member.fullName}
 												role={member.role || ''}
-												slug={member.slug}
+												slug={member.slug_slug}
 												description={translate(`team.roles.${member.primaryActivityArea}`)}
 												image={member.image!.path}
 												isActive={member.isActive}

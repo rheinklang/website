@@ -5,7 +5,6 @@ import { Badge } from './Badge';
 import { CalendarIndicator } from './CalendarIndicator';
 import { ContentConstraint } from './ContentConstraint';
 import { Heading } from './Heading';
-import { Image } from './Image';
 import { Link } from './Link';
 
 export interface RecommendedContentHeroProps {
@@ -16,6 +15,9 @@ export interface RecommendedContentHeroProps {
 	date?: string;
 	className?: string;
 	isEmbeddedInSameColor?: boolean;
+	image?: {
+		path?: string | null;
+	} | null;
 }
 
 export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
@@ -25,6 +27,7 @@ export const RecommendedContentHero: FC<RecommendedContentHeroProps> = ({
 	className,
 	date,
 	link = '#',
+	image = {},
 	isEmbeddedInSameColor = false,
 }) => {
 	const translate = useTranslation();

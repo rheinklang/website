@@ -26,7 +26,7 @@ export const getTeamMemberPortraitSlugs = async () => {
 		query: MemberPortraitSlugsDocument,
 	});
 
-	return result.data.teamMembersCollection.filter(nonNullish).map((member) => member.slug);
+	return result.data.teamMembersCollection.filter(nonNullish).map((member) => member.slug_slug);
 };
 
 export const getTeamMemberPortrait = async (slug: string) => {
@@ -34,7 +34,7 @@ export const getTeamMemberPortrait = async (slug: string) => {
 		query: SingleMemberPortraitDocument,
 		variables: {
 			filter: {
-				slug,
+				slug_slug: slug,
 			},
 		},
 	});
