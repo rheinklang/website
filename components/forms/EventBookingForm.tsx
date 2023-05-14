@@ -10,6 +10,7 @@ import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
+import { Form } from '../Form';
 import { Input } from '../Input';
 import { SubmissionNotification } from './SubmissionNotification';
 
@@ -44,7 +45,7 @@ export const EventBookingForm: FC = () => {
 	const onError = (errors: any) => console.log('submit error', errors);
 
 	return (
-		<div className="grid grid-cols-1 gap-6 py-4">
+		<Form trackingId="event-booking" label="Event-Anfrage">
 			<Controller
 				control={control}
 				rules={{ required: true }}
@@ -151,7 +152,7 @@ export const EventBookingForm: FC = () => {
 					text="Wir melden uns in kürze bei dir"
 				/>
 			)}
-		</div>
+		</Form>
 	);
 };
 

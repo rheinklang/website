@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
+import { Form } from '../Form';
 import { Heading } from '../Heading';
 import { Input } from '../Input';
 import { SubmissionNotification } from './SubmissionNotification';
@@ -69,7 +70,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-6 py-4">
+		<Form trackingId="dj-request-submission" label="Anfrage Gastauftritt">
 			<Controller
 				control={control}
 				rules={{ required: true }}
@@ -192,7 +193,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 					text="Wir werden uns nach Ablauf der jeweiligen Frist bei dir melden"
 				/>
 			)}
-		</div>
+		</Form>
 	);
 };
 
