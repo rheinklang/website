@@ -121,6 +121,10 @@ const getStaticMetaEmbed = (): DiscordWebhookEmbed => ({
 			name: 'Build ID',
 			value: '`' + process.env.CONFIG_BUILD_ID + '`',
 		},
+		{
+			name: 'Code Revision',
+			value: '`' + process.env.NEXT_PUBLIC_GIT_SHA + '`',
+		},
 	],
 });
 
