@@ -136,8 +136,12 @@ export const sendDiscordContactSubmission = async (
 	const now = new Date();
 	const payload: DiscordWebhookPayload = {
 		username: 'Website Service',
-		content: `Neue Formular-Einreichung via "${label || formIdentifier}" :envelope:!`,
-		allowed_mentions: {},
+		content: `Neue Formular-Einreichung via "${label || formIdentifier}" :envelope:! (cc <@&${
+			process.env.NEXT_PUBLIC_DISCORD_ROLE_SERVICE_REQUESTS
+		}>)`,
+		allowed_mentions: {
+			roles: [`${process.env.NEXT_PUBLIC_DISCORD_ROLE_SERVICE_REQUESTS}`],
+		},
 		embeds: [
 			{
 				title: 'Information',

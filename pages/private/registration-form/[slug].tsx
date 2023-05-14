@@ -27,6 +27,7 @@ export const getStaticProps = async (context: GetStaticPropsContext<{ slug: stri
 
 	return {
 		props: {
+			slug: context.params!.slug,
 			contentProviderProps,
 			data,
 		},
@@ -44,6 +45,7 @@ export const getStaticPaths: GetStaticPaths<RegistrationFormQuery> = async () =>
 const RegistrationFormPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	data,
+	slug,
 }) => {
 	const router = useRouter();
 
@@ -83,6 +85,7 @@ const RegistrationFormPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>[
 						{data.areSubmissionsAllowed && (
 							<InvitationForm
 								id={data._id}
+								slug={slug}
 								title={data.title}
 								formId={data.formCollectionId}
 								areCompanionsAllowed={
