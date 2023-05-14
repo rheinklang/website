@@ -14,10 +14,12 @@ export interface PersonTeaserProps {
 	description?: string;
 	isActive?: boolean;
 	isFounder?: boolean;
+	bio?: string | null;
 }
 
 export const PersonTeaser: FC<PersonTeaserProps> = ({
 	className,
+	bio,
 	image,
 	name,
 	role,
@@ -29,11 +31,11 @@ export const PersonTeaser: FC<PersonTeaserProps> = ({
 }) => {
 	return (
 		<div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
-			<div className="relative">
+			<div className="flex-shrink-0 relative">
 				<Image
 					alt={name}
 					src={image}
-					className="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+					className="rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
 				/>
 				{isFounder && (
 					<span className="absolute left-0 top-0 bg-white rounded-br-md rounded-tl-md p-1">
@@ -44,7 +46,7 @@ export const PersonTeaser: FC<PersonTeaserProps> = ({
 			<div className="flex-grow sm:pl-8">
 				<h2 className="title-font font-medium text-lg text-gray-900">{name}</h2>
 				<h3 className="text-gray-300 mb-3">{role}</h3>
-				<p className="mb-4">DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+				<p className="mb-4">{bio}</p>
 				<Button className="cursor-pointer" link={{ href: `${StaticRoutes.MEMBER_PORTRAIT}/${slug}` }}>
 					Details
 				</Button>

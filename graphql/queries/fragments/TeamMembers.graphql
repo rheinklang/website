@@ -6,6 +6,7 @@ query FullTeamMembers {
 		isFounder
 		isActive
 		slug_slug
+		bio
 		image {
 			path
 		}

@@ -80,6 +80,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 												image={member.image!.path}
 												isActive={member.isActive}
 												isFounder={member.isFounder}
+												bio={member.bio}
 											/>
 										</div>
 									))}

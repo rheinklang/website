@@ -94,7 +94,7 @@ const FaqListEntry: FC<PropsWithChildren & { title: string; isVisible?: boolean 
 				<QuestionMarkCircleIcon className="text-sea-green-400 inline-block h-6 w-6 mr-2 mb-1 align-sub grow-0" />
 				<span>{title}</span>
 			</Heading>
-			<p className="mt-2 text-lg text-gray-600">{children}</p>
+			<span className="block mt-2 lg:text-lg text-gray-600">{children}</span>
 		</li>
 	) : null;
 
