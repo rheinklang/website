@@ -49,7 +49,7 @@ export const Settings: FC = () => {
 					Cache löschen &amp; neu laden
 				</Button>
 			</ContentConstraint>
-			{process.env.ENABLE_STAGING_INDICATOR && (
+			{process.env.NEXT_PUBLIC_ENABLE_STAGING_INDICATOR && (
 				<ContentConstraint>
 					<Heading level="2" className="mb-8">
 						Metainformationen zur Fehlerbehebung

@@ -3,7 +3,7 @@
 import { type FC } from 'react';
 
 export const StagingIndicator: FC = () => {
-	if (!process.env.ENABLE_STAGING_INDICATOR) {
+	if (!process.env.NEXT_PUBIC_ENABLE_STAGING_INDICATOR) {
 		return null;
 	}
 
@@ -21,7 +21,7 @@ export const StagingIndicator: FC = () => {
 						href={`https://github.com/rheinklang/website/commit/${process.env.GITHUB_SHA}`}
 						className="underline"
 					>
-						{`${process.env.GITHUB_SHA}`.substring(0, 8)}
+						{`${process.env.NEXT_PUBLIC_GITHUB_SHA}`.substring(0, 8)}
 					</a>{' '}
 					-{' '}
 					<a
@@ -30,7 +30,7 @@ export const StagingIndicator: FC = () => {
 						href={`https://github.com/rheinklang/website/actions/runs/${process.env.GITHUB_RUN_ID}`}
 						className="underline"
 					>
-						Run #{process.env.GITHUB_RUN_ID}
+						Run #{process.env.NEXT_PUBLIC_GITHUB_RUN_ID}
 					</a>{' '}
 					- {process.env.CONFIG_BUILD_ID}
 				</div>
