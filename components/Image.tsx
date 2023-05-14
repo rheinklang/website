@@ -93,6 +93,8 @@ const ImageSource: FC<ImageSourceProps> = ({ src, breakpoint, preset = 'teaser',
 			data-breakpoint={`${breakpoint}`}
 			data-base-size={`${size}`}
 			data-srcset={`${COCKPIT_IMAGER_URL}?${defaultParams.toString()} 1x, ${COCKPIT_IMAGER_URL}?${retinaParams.toString()} 2x`}
+			srcSet=""
+			sizes=""
 		/>
 	);
 };
