@@ -7,6 +7,7 @@ import { VALIDATE_EMAIL } from '../../utils/validation';
 import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
+import { Form } from '../Form';
 import { Input } from '../Input';
 import { Textarea } from '../Textarea';
 import { SubmissionNotification } from './SubmissionNotification';
@@ -40,7 +41,7 @@ export const SupportForm: FC = () => {
 	const onError = (errors: any) => console.log('submit error', errors);
 
 	return (
-		<div className="grid grid-cols-1 gap-6 py-4">
+		<Form trackingId="support" label="Genereller Support">
 			<Controller
 				control={control}
 				rules={{ required: true }}
@@ -107,7 +108,7 @@ export const SupportForm: FC = () => {
 					text="Wir werden uns in kürze bei dir melden"
 				/>
 			)}
-		</div>
+		</Form>
 	);
 };
 

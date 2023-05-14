@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown } from '../Dropdown';
+import { Form } from '../Form';
 import { Input } from '../Input';
 import { Textarea } from '../Textarea';
 import { SubmissionNotification } from './SubmissionNotification';
@@ -44,7 +45,7 @@ export const ConsultingForm: FC = () => {
 	const onError = (errors: any) => console.log('submit error', errors);
 
 	return (
-		<div className="grid grid-cols-1 gap-6 py-4">
+		<Form trackingId="consulting" label="Consulting Anfrage">
 			<Controller
 				control={control}
 				rules={{ required: true }}
@@ -139,7 +140,7 @@ export const ConsultingForm: FC = () => {
 					text="Wir melden uns in kürze bei dir"
 				/>
 			)}
-		</div>
+		</Form>
 	);
 };
 

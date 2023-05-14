@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/client';
 import { BuildingOffice2Icon, EnvelopeIcon, ShieldCheckIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { FC, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm, SubmitErrorHandler } from 'react-hook-form';
-import { sendDiscordReportSubmission } from '../../api/discord';
 import { useGetRegistrationFormVerificationCodeForIdQuery } from '../../graphql';
 import { useFormSubmissionState } from '../../hooks/useFormSubmissionState';
 import { useTranslation } from '../../hooks/useTranslation';
@@ -11,6 +9,7 @@ import { Button } from '../Button';
 import { ButtonGroup } from '../ButtonGroup';
 import { Checkbox } from '../Checkbox';
 import { Dropdown, DropdownOption } from '../Dropdown';
+import { Form } from '../Form';
 import { Input } from '../Input';
 import { Textarea } from '../Textarea';
 import { SubmissionNotification } from './SubmissionNotification';
@@ -28,6 +27,7 @@ interface InvitationFormState {
 
 export interface InvitationFormProps {
 	id: string;
+	slug: string;
 	areCompanionsAllowed?: boolean;
 	companionCount?: number | null | undefined;
 	formId: string;
@@ -36,6 +36,7 @@ export interface InvitationFormProps {
 
 export const InvitationForm: FC<InvitationFormProps> = ({
 	id,
+	slug,
 	companionCount,
 	areCompanionsAllowed,
 	formId,
@@ -119,7 +120,7 @@ export const InvitationForm: FC<InvitationFormProps> = ({
 	};
 
 	return (
-		<div className="grid grid-cols-1 gap-6 py-4">
+		<Form trackingId={`registration-${slug}`} label="Anmeldeformular">
 			<Controller
 				control={control}
 				rules={{ required: true }}
@@ -244,7 +245,7 @@ export const InvitationForm: FC<InvitationFormProps> = ({
 					text="Wir werden uns in kürze bei dir melden"
 				/>
 			)}
-		</div>
+		</Form>
 	);
 };
 
