@@ -44,7 +44,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 					festivalRedirect={contentProviderProps.headerConfiguration.festivalRedirect}
 				>
 					<ContentHeader title={pageData.title} text={pageData.description || undefined} />
-					<div className="bg-sea-green-300 py-12">
+					{/* <div className="bg-sea-green-300 py-12">
 						<ContentConstraint>
 							<div className="mx-auto flex flex-row flex-wrap lg:flex-nowrap gap-12">
 								<div className="w-full lg:w-3/4 xl:w-8/12">
@@ -60,7 +60,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 								</div>
 							</div>
 						</ContentConstraint>
-					</div>
+					</div> */}
 					<div className="py-12 lg:py-24">
 						<ContentConstraint>
 							<div className="flex flex-row flex-wrap sm:justify-evenly">
@@ -80,7 +80,7 @@ const AboutUsPersonsPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['p
 												image={member.image!.path}
 												isActive={member.isActive}
 												isFounder={member.isFounder}
-												bio={member.bio}
+												bio={member.excerpt}
 											/>
 										</div>
 									))}

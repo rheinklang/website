@@ -22,3 +22,7 @@ input::-webkit-inner-spin-button {
 	box-shadow: 0 0 0 999px var(--tw-shadow-color);
 	clip-path: inset(0 -100%);
 }
+
+.breadcrumb::-webkit-scrollbar {
+	display: none;
+}

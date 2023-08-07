@@ -20,6 +20,7 @@ import { ContentConstraint } from '../ContentConstraint';
 import { Heading } from '../Heading';
 import { Image } from '../Image';
 import { Link } from '../Link';
+import { Richtext } from '../Richtext';
 
 export interface MemberPortraitPageComponentProps {
 	image?: {
@@ -151,7 +152,8 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 					{bio && (
 						<div className="mt-8">
 							<Heading level="3">Über mich</Heading>
-							<p className="mt-2 text-lg md:w-5/6 text-gray-500">{bio}</p>
+							<Richtext content={bio} className="mt-2 text-lg md:w-5/6 text-gray-500" />
+							{/* <p className="mt-2 text-lg md:w-5/6 text-gray-500">{bio}</p> */}
 						</div>
 					)}
 					{/* <hr className="mt-8 h-px bg-gray-100 border-0" /> */}
