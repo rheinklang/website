@@ -24,7 +24,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ children, theme = 'default' })
 
 	return (
 		<div
-			className={classNames('text-sm overflow-x-scroll hidden md:visible md:block', {
+			className={classNames('breadcrumb text-sm overflow-x-scroll hidden md:visible md:block', {
 				'bg-gray-900 text-gray-200': theme === 'default',
 				'bg-black text-gray-300 border-t border-b border-gray-900': theme === 'black',
 			})}

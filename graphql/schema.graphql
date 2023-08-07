@@ -192,6 +192,7 @@ type TeamMember implements CockpitField {
 	entryDate: String!
 	exitDate: String
 	bio: String
+	excerpt: String
 	favoriteDrink: String
 	favoriteGenre: String
 	favoriteArtist: String
