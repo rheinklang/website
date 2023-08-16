@@ -199,7 +199,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 
 							{/* Timetable */}
 							{lineup && lineup.length > 0 && (
-								<>
+								<div className="mb-10" data-nosnippet>
 									<Heading level="2">Lineup</Heading>
 									<p className="mb-6">Running Order</p>
 									<ol data-nosnippet className="flex flex-col flex-wrap gap-6">
@@ -220,7 +220,19 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 											</li>
 										))}
 									</ol>
-								</>
+								</div>
+							)}
+
+							{/* Drinks */}
+							{festival.drinkMenuImage && festival.drinkMenuImage.path && (
+								<div data-nosnippet>
+									<Heading level="2">Getränkekarte</Heading>
+									<Image
+										src={festival.drinkMenuImage.path}
+										alt={`Drinks at ${festival.title}`}
+										className="block w-full my-8 rounded-sm"
+									/>
+								</div>
 							)}
 						</div>
 					</ContentConstraint>

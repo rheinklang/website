@@ -320,6 +320,7 @@ type Festival implements CockpitField {
 	ticketingUrl: String
 	facebookEventUrl: String
 	image: CockpitAsset
+	drinkMenuImage: CockpitAsset
 	sponsors: [Partner]
 	isCanceled: Boolean
 	previewImage: CockpitAsset!

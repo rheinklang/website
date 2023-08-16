@@ -188,23 +188,25 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 								title="Auf welchen Seiten findet man dich noch?"
 							>
 								<ul className="mt-2">
-									{links?.map((link) => (
-										<li key={link?.value?.url} className="my-1">
-											<Link
-												isStandalone
-												className="text-sea-green-500"
-												href={link?.value?.url || '#'}
-											>
-												<span className="inline-block w-5 mr-2">
-													{getGuessedLinkIcon({
-														url: link?.value?.url,
-														label: link?.value?.label,
-													})}
-												</span>
-												{link?.value?.label}
-											</Link>
-										</li>
-									))}
+									{links
+										?.filter((entry) => entry?.value && entry.value.label && entry.value.url)
+										.map((link) => (
+											<li key={link?.value?.url} className="my-1">
+												<Link
+													isStandalone
+													className="text-sea-green-500"
+													href={link?.value?.url || '#'}
+												>
+													<span className="inline-block w-5 mr-2">
+														{getGuessedLinkIcon({
+															url: link?.value?.url,
+															label: link?.value?.label,
+														})}
+													</span>
+													{link?.value?.label}
+												</Link>
+											</li>
+										))}
 								</ul>
 							</FaqListEntry>
 						</ul>
