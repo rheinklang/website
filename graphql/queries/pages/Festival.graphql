@@ -28,6 +28,9 @@ query FestivalDetailQuery($filter: JsonType, $sort: JsonType) {
 		previewImage {
 			path
 		}
+		drinkMenuImage {
+			path
+		}
 		location {
 			address
 			link
