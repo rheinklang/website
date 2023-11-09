@@ -134,7 +134,7 @@ export const MemberPortraitPageComponent: FC<MemberPortraitPageComponentProps> =
 						<div className="mt-8 md:mt-0 md:ml-8">
 							<p className="text-gray-600 mb-1">
 								<span>
-									{isFounder ? 'Migründer' : 'Teammitglied'}
+									{isFounder ? 'Mitgründer' : 'Vereinsmitglied'}
 									{!isFounder && (
 										<UserGroupIcon className="inline-block align-text-top text-sea-green-400 h-5 w-5 ml-1" />
 									)}
