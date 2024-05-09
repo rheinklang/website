@@ -4,9 +4,9 @@ import { MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { storage } from '../utils/localstorage';
-import { tagManagerPush } from '../utils/matomo';
 import { ContentConstraint } from './ContentConstraint';
 import { Link } from './Link';
+import posthog from 'posthog-js';
 
 export interface MarketingBannerProps {
 	id?: string;
@@ -25,9 +25,8 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, message, link })
 		storage.set(`${MARKETING_BANNER_STORAGE_KEY}.${id}`, true);
 		setIsDismissed(true);
 
-		tagManagerPush({
-			event: 'marketingBannerDismissed',
-			marketingBannerId: id,
+		posthog.capture('Marketing Banner Dismissed', {
+			id,
 		});
 	}, [id, setIsDismissed]);
 
@@ -48,31 +47,30 @@ export const MarketingBanner: FC<MarketingBannerProps> = ({ id, message, link })
 
 	return (
 		<article role="banner" className="bg-slightly-rose-400 text-slightly-rose-900">
-			<ContentConstraint useCustomYSpace className="flex flex-row flex-nowrap justify-between py-4 px-2 lg:py-2">
-				<div className="bg-white bg-opacity-20 rounded-lg flex flex-col justify-center items-center p-2 mr-2 flex-grow-0">
-					<MegaphoneIcon className="text-slightly-rose-600 h-4" />
+			<ContentConstraint useCustomYSpace className="flex flex-row justify-between px-2 py-4 flex-nowrap lg:py-2">
+				<div className="flex flex-col items-center justify-center flex-grow-0 p-2 mr-2 bg-white rounded-lg bg-opacity-20">
+					<MegaphoneIcon className="h-4 text-slightly-rose-600" />
 				</div>
-				<p className="my-2 mr-2 lg:mr-auto text-sm">
+				<p className="my-2 mr-2 text-sm lg:mr-auto">
 					{message}
 					{link && (
 						<span
 							onClick={() => {
-								tagManagerPush({
-									event: 'marketingBannerLinkClicked',
+								posthog.capture('Marketing Banner Clicked', {
 									id,
 								});
 							}}
 						>
 							&nbsp;–&nbsp;
-							<Link className="w-auto underline text-sm" href={link} title={message}>
+							<Link className="w-auto text-sm underline" href={link} title={message}>
 								{translate('common.action.learnMore')}
 							</Link>
 						</span>
 					)}
 				</p>
 
-				<div className="w-6 flex flex-col flex-grow-0 justify-center items-center">
-					<XMarkIcon className="cursor-pointer h-4" onClick={handleDismiss} />
+				<div className="flex flex-col items-center justify-center flex-grow-0 w-6">
+					<XMarkIcon className="h-4 cursor-pointer" onClick={handleDismiss} />
 				</div>
 			</ContentConstraint>
 		</article>

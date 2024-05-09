@@ -138,7 +138,9 @@ export const InvitationForm: FC<InvitationFormProps> = ({
 				control={control}
 				rules={{ required: true }}
 				name="name"
-				render={({ field, fieldState }) => <Input placeholder="Ihr Name *" {...field} hookState={fieldState} />}
+				render={({ field, fieldState }) => (
+					<Input className="ph-no-capture" placeholder="Ihr Name *" {...field} hookState={fieldState} />
+				)}
 			/>
 			<Controller
 				control={control}
@@ -151,7 +153,14 @@ export const InvitationForm: FC<InvitationFormProps> = ({
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" placeholder="E-Mail *" icon={EnvelopeIcon} {...field} hookState={fieldState} />
+					<Input
+						className="ph-no-capture"
+						type="email"
+						placeholder="E-Mail *"
+						icon={EnvelopeIcon}
+						{...field}
+						hookState={fieldState}
+					/>
 				)}
 			/>
 			{areCompanionsAllowed && companionCount && (

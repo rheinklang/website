@@ -3,9 +3,7 @@ name: "CI/CD"
 on:
   push:
     branches: [main]
-
   workflow_dispatch:
-
   repository_dispatch:
     types:
       - webhook
@@ -20,13 +18,16 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
+
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: "npm"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/.npm
@@ -47,12 +48,12 @@ jobs:
           NEXT_PUBLIC_CMS_GRAPHQL_API_URL: ${{ secrets.CMS_GRAPHQL_API_URL }}
           NEXT_PUBLIC_CMS_REST_API_URL: ${{ secrets.CMS_REST_API_URL }}
           NEXT_PUBLIC_CMS_API_TOKEN: ${{ secrets.CMS_API_TOKEN }}
-          NEXT_PUBLIC_MATOMO_URL: ${{ secrets.MATOMO_URL }}
-          NEXT_PUBLIC_MATOMO_CONTAINER_ID: ${{ secrets.MATOMO_CONTAINER_ID }}
           NEXT_PUBLIC_DISCORD_REPORTING_WEBHOOK_URL: ${{ secrets.DSICORD_REPORTING_WEBHOOK_URL }}
           NEXT_PUBLIC_DISCORD_CONTACT_WEBHOOK_URL: ${{ secrets.DISCORD_CONTACT_WEBHOOK_URL }}
           NEXT_PUBLIC_DISCORD_ROLE_SERVICE_REQUESTS: ${{ secrets.DISCORD_ROLE_SERVICE_REQUESTS }}
           NEXT_PUBLIC_MAPBOX_API_KEY: ${{ secrets.MAPBOX_API_KEY }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
           WORKBOX_APP_ID: ${{ secrets.WORKBOX_APP_ID }}
           WORKBOX_APP_VERSION: ${{ secrets.WORKBOX_APP_VERSION }}
           BUILD_ID_NAMESPACE: ${{ secrets.BUILD_ID_NAMESPACE }}
@@ -62,7 +63,7 @@ jobs:
           NEXT_PUBLIC_GITHUB_REF: ${{ github.ref }}
           NEXT_PUBLIC_GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: build/
@@ -85,21 +86,23 @@ jobs:
     environment: Staging
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build-output
           path: build
 
       - name: Deploy Website
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
-          server-dir: ${{ vars.SERVER_DIR }}
+          #   server-dir: ${{ vars.SERVER_DIR }}
           exclude: |
             **/.DS_Store
             **/.vscode
@@ -126,21 +129,23 @@ jobs:
     environment: Production
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          show-progress: false
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build-output
           path: build
 
       - name: Deploy Website
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
-          server-dir: ${{ vars.SERVER_DIR }}
+          #   server-dir: ${{ vars.SERVER_DIR }}
           exclude: |
             **/.DS_Store
             **/.vscode
@@ -158,52 +163,52 @@ jobs:
         with:
           args: "Website deployment to **production** failed :rotating_light:"
 
-  deploy-styleguide:
-    name: Deploy - Styleguide
-    needs: [build]
-    environment: Styleguide
-    runs-on: ubuntu-latest
+  #   deploy-styleguide:
+  #     name: Deploy - Styleguide
+  #     needs: [build]
+  #     environment: Styleguide
+  #     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+  #     steps:
+  #       - uses: actions/checkout@v4
 
-      - uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            src:
-              - 'tailwind.config.js'
-              - 'postcss.config.js'
-              - 'package.json'
+  #       - uses: dorny/paths-filter@v2
+  #         id: changes
+  #         with:
+  #           filters: |
+  #             src:
+  #               - 'tailwind.config.js'
+  #               - 'postcss.config.js'
+  #               - 'package.json'
 
-      - uses: actions/setup-node@v3
-        if: steps.changes.outputs.src == 'true'
-        with:
-          node-version-file: .nvmrc
-          cache: "npm"
+  #       - uses: actions/setup-node@v3
+  #         if: steps.changes.outputs.src == 'true'
+  #         with:
+  #           node-version-file: .nvmrc
+  #           cache: "npm"
 
-      - run: npm install
-        if: steps.changes.outputs.src == 'true'
+  #       - run: npm install
+  #         if: steps.changes.outputs.src == 'true'
 
-      - run: npm run tailwind:export
-        if: steps.changes.outputs.src == 'true'
+  #       - run: npm run tailwind:export
+  #         if: steps.changes.outputs.src == 'true'
 
-      - name: Deploy Styleguide
-        if: steps.changes.outputs.src == 'true'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        continue-on-error: true
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./styleguide/
-          server-dir: ${{ vars.SERVER_DIR }}
-          exclude: |
-            **/.DS_Store
-            **/.vscode
-            **/.git*
-            **/.git*/**
-            **/.github/**
+  #       - name: Deploy Styleguide
+  #         if: steps.changes.outputs.src == 'true'
+  #         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+  #         continue-on-error: true
+  #         with:
+  #           server: ${{ secrets.FTP_SERVER }}
+  #           username: ${{ secrets.FTP_USER }}
+  #           password: ${{ secrets.FTP_PASSWORD }}
+  #           local-dir: ./styleguide/
+  #           server-dir: ${{ vars.SERVER_DIR }}
+  #           exclude: |
+  #             **/.DS_Store
+  #             **/.vscode
+  #             **/.git*
+  #             **/.git*/**
+  #             **/.github/**
 
   notify:
     name: Notify

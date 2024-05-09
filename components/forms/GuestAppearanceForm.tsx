@@ -12,6 +12,7 @@ import { Form } from '../Form';
 import { Heading } from '../Heading';
 import { Input } from '../Input';
 import { SubmissionNotification } from './SubmissionNotification';
+import { Textarea } from '../Textarea';
 
 export interface GuestAppearanceFormState {
 	email: string;
@@ -22,6 +23,7 @@ export interface GuestAppearanceFormState {
 	genre: string;
 	gotcha: string;
 	contactAgreement: boolean;
+	message: string;
 	pickAvailabilityGuarantee: boolean;
 }
 
@@ -42,27 +44,28 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 			genre: '',
 			gotcha: '',
 			event: '',
+			message: '',
 			contactAgreement: true,
 			pickAvailabilityGuarantee: true,
 		},
 	});
 
 	const onSubmit = (data: GuestAppearanceFormState) => {
-		submit('guestAppearanceInquiry', data, 'DJ Bewerbung');
+		submit('guestAppearanceInquiry', data, 'Gastauftritt');
 	};
 
 	const onError = (errors: any) => console.log('submit error', errors);
 
 	if (!options || options.length === 0) {
 		return (
-			<div className="my-8 p-16 bg-gray-50 rounded-xl text-center">
-				<div className="mb-2 flex justify-center">
-					<ExclamationCircleIcon className="text-gray-500 h-8" />
+			<div className="p-16 my-8 text-center bg-gray-50 rounded-xl">
+				<div className="flex justify-center mb-2">
+					<ExclamationCircleIcon className="h-8 text-gray-500" />
 				</div>
 				<Heading level="3" className="text-gray-500">
 					{translate('forms.guestAppearanceSubmission.notAvailableTitle')}
 				</Heading>
-				<p className="mt-2 text-gray-300 text-lg">
+				<p className="mt-2 text-lg text-gray-300">
 					{translate('forms.guestAppearanceSubmission.notAvailableText')}
 				</p>
 			</div>
@@ -90,7 +93,14 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" placeholder="E-Mail" icon={EnvelopeIcon} {...field} hookState={fieldState} />
+					<Input
+						className="ph-no-capture"
+						type="email"
+						placeholder="E-Mail"
+						icon={EnvelopeIcon}
+						{...field}
+						hookState={fieldState}
+					/>
 				)}
 			/>
 			<Controller
@@ -118,6 +128,14 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 							{ id: 'house', label: 'House' },
 							{ id: 'melodic-house-techno', label: 'Melodic House & Techno' },
 							{ id: 'indie-dance', label: 'Indie Dance' },
+							{ id: 'electronica', label: 'Electronica' },
+							{ id: 'dnb', label: 'Drum and Bass' },
+							{ id: 'pop', label: 'Pop' },
+							{ id: 'rock', label: 'Rock' },
+							{ id: 'alternative', label: 'Alternativ' },
+							{ id: 'country', label: 'Country' },
+							{ id: 'jazz', label: 'Jazz' },
+							{ id: 'blues', label: 'Blues' },
 							{ id: 'others', label: 'Anderes Genre ...' },
 						]}
 					/>
@@ -128,7 +146,7 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 				rules={{
 					required: true,
 					pattern: {
-						message: 'Invalid format',
+						message: 'Invalides format',
 						value: VALIDATE_WEB_URL,
 					},
 				}}
@@ -141,6 +159,13 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 						icon={LinkIcon}
 						hookState={fieldState}
 					/>
+				)}
+			/>
+			<Controller
+				control={control}
+				name="message"
+				render={({ field, fieldState }) => (
+					<Textarea placeholder="Was willst du uns noch mitteilen?" {...field} hookState={fieldState} />
 				)}
 			/>
 			<Controller
@@ -172,11 +197,11 @@ export const GuestAppearanceForm: FC<GuestAppearanceFormProps> = ({ options = []
 						isRequired
 						hookState={fieldState}
 						id="pickAvailabilityGuarantee"
-						title="Du bist am Datum des Rheinklang Festivals verfügbar"
+						title="Du bist am Datum des Events verfügbar"
 					/>
 				)}
 			/>
-			<p className="text-sm text-gray-400 mb-2 lg:w-3/4">
+			<p className="mb-2 text-sm text-gray-400 lg:w-3/4">
 				* Mit deiner Einsendung garantierst du uns dass du am Datum des gewählten Events frei bist und deinen
 				Slot bei gewinn antreten kannst. Dies ist ein verbindlicher Vertrag.
 			</p>

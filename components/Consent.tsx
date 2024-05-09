@@ -5,10 +5,10 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { useCookie } from '../hooks/useCookie';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
-import { tagManagerPush } from '../utils/matomo';
 import { Button } from './Button';
 import { ConsentConfigurationDialog } from './ConsentConfigurationDialog';
 import { Heading } from './Heading';
+import posthog from 'posthog-js';
 
 const quickAcceptConsents = () => {
 	for (const consentKey of Object.values(CookieConsents)) {
@@ -82,10 +82,8 @@ export const Consent: FC<ConsentProps> = ({ variant }) => {
 							onClick={() => {
 								quickAcceptConsents();
 								handleConsented();
-								tagManagerPush({
-									event: 'consented',
-									hasConsented: true,
-									mode: 'acceptAll',
+								posthog.capture('Consented', {
+									mode: 'all',
 								});
 							}}
 						>
@@ -96,11 +94,7 @@ export const Consent: FC<ConsentProps> = ({ variant }) => {
 							className="flex-grow"
 							onClick={() => {
 								handleConsented();
-								tagManagerPush({
-									event: 'consented',
-									hasConsented: true,
-									mode: 'reject',
-								});
+								posthog.capture('Consent Rejected');
 							}}
 						>
 							{translate('consents.action.reject')}

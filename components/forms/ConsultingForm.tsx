@@ -50,7 +50,9 @@ export const ConsultingForm: FC = () => {
 				control={control}
 				rules={{ required: true }}
 				name="name"
-				render={({ field, fieldState }) => <Input placeholder="Ihr Name" {...field} hookState={fieldState} />}
+				render={({ field, fieldState }) => (
+					<Input className="ph-no-capture" placeholder="Ihr Name" {...field} hookState={fieldState} />
+				)}
 			/>
 			<Controller
 				control={control}
@@ -63,7 +65,14 @@ export const ConsultingForm: FC = () => {
 				}}
 				name="email"
 				render={({ field, fieldState }) => (
-					<Input type="email" icon={EnvelopeIcon} placeholder="E-Mail" {...field} hookState={fieldState} />
+					<Input
+						className="ph-no-capture"
+						type="email"
+						icon={EnvelopeIcon}
+						placeholder="E-Mail"
+						{...field}
+						hookState={fieldState}
+					/>
 				)}
 			/>
 			<Controller

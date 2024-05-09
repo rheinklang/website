@@ -2,7 +2,6 @@ import { FC, PropsWithChildren } from 'react';
 import dynamic from 'next/dynamic';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
-import { Matomo } from '../utils/Matomo';
 import type { ContentProviderProps } from '../utils/ContentProvider';
 import type { ConsentProps } from '../Consent';
 import { ScrollTop } from '../ScrollTop';
@@ -34,7 +33,6 @@ export const PageLayout: FC<PageLayoutProps> = ({
 			<Footer isDarkOnly={isDarkOnly} />
 			<ScrollTop />
 			<Consent variant={isDarkOnly ? 'light' : 'dark'} />
-			<Matomo />
 		</>
 	);
 };

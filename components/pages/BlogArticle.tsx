@@ -36,25 +36,25 @@ export const BlogArticle: FC<BlogArticleProps> = ({ article }) => {
 				</Heading>
 				<p className="text-xl text-gray-500">{formatCreationDate(article._created)}</p>
 				{article.author && (
-					<div className="mt-4 flex flex-row flex-nowrap items-center">
+					<div className="inline-flex flex-row items-center py-2 pl-4 pr-8 mt-4 rounded-full flex-nowrap bg-gray-50">
 						{article.author.image && (
 							<Image
 								preset="thumbnail"
-								className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+								className="flex-shrink-0 object-cover object-center w-12 h-12 rounded-full"
 								src={article.author.image?.path}
 								alt={article.author.fullName}
 							/>
 						)}
 						<div>
-							<p className="text-sm ml-2 text-gray-400">Publiziert von</p>
-							<p className="text-md ml-2">{article.author.fullName}</p>
+							<p className="ml-2 text-sm text-gray-400">Publiziert von</p>
+							<p className="ml-2 text-md">{article.author.fullName}</p>
 						</div>
 					</div>
 				)}
 			</header>
 			<Richtext as="section" content={`${article.content}`} />
 			<footer className="mt-8 md:mt-10 lg:mt-16">
-				<ButtonGroup className="md:w-fit mt-8 items-start">
+				<ButtonGroup className="items-start mt-8 md:w-fit">
 					<Button
 						link={{
 							href: `whatsapp://send?text=${article.title}%20https://rheinklang.events${router.asPath}`,

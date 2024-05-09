@@ -7,8 +7,7 @@ export interface FormProps extends PropsWithChildren {
 
 export const Form: FC<FormProps> = ({ trackingId, children, label }) => (
 	<div
-		data-matomo-form
-		data-matomo-name={trackingId}
+		data-ph-capture-attribute-form-tracking-id={trackingId}
 		role="form"
 		aria-label={label}
 		id={`${trackingId}-form`}

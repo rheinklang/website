@@ -1,8 +1,8 @@
 import { AriaAttributes, FC, HTMLAttributes, PropsWithChildren, useMemo } from 'react';
 import NextLink from 'next/link';
 import classNames from 'classnames';
-import { tagManagerPush } from '../utils/matomo';
 import { DEFAULT_EXTERNAL_CAMPAIGNER_PARAMS } from '../utils/campaigner';
+import posthog from 'posthog-js';
 
 export type LinkProps = PropsWithChildren<{
 	href: string;
@@ -29,10 +29,9 @@ export interface RawLinkProps extends HTMLAttributes<HTMLAnchorElement> {
 }
 
 const trackExternalLinkLeap = (url: string, title: string) => {
-	tagManagerPush({
+	posthog.capture('Externa Link Leap', {
 		url,
 		title,
-		event: 'externalLinkLeap',
 		source: window.location.href,
 	});
 };

@@ -1,11 +1,15 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { Inter } from 'next/font/google';
+
 import { config } from '@fortawesome/fontawesome-svg-core';
+import posthog from 'posthog-js';
+import { PostHogProvider } from 'posthog-js/react';
 
 import { appleDeviceSpecsForLaunchImages } from '../utils/pwa-asset-generator-specs';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { JsonLd } from '../components/utils/JsonLd';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -23,10 +27,33 @@ const StagingIndicator = dynamic(() =>
 	)
 );
 
+// Check that PostHog is client-side (used to handle Next.js SSR)
+if (typeof window !== 'undefined') {
+	posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+		api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+		// Enable debug mode in development
+		loaded: (posthog) => {
+			if (process.env.NODE_ENV === 'development') posthog.debug();
+		},
+	});
+}
+
 // See https://fontawesome.com/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false;
 
 function RheinklangApp({ Component, pageProps }: AppProps) {
+	const router = useRouter();
+
+	useEffect(() => {
+		const handleRouteChange = () => posthog?.capture('$pageview');
+		router.events.on('routeChangeComplete', handleRouteChange);
+
+		return () => {
+			router.events.off('routeChangeComplete', handleRouteChange);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<>
 			<Head>
@@ -87,7 +114,9 @@ function RheinklangApp({ Component, pageProps }: AppProps) {
 				/>
 			</Head>
 			<div className={`${interFont.variable} ${interFont.className} bg-white`}>
-				<Component {...pageProps} />
+				<PostHogProvider client={posthog}>
+					<Component {...pageProps} />
+				</PostHogProvider>
 			</div>
 			{process.env.NEXT_PUBLIC_ENABLE_STAGING_INDICATOR && <StagingIndicator />}
 		</>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { client, EventsForGuestSubmissionDocument, EventsForGuestSubmissionQuery } from '../graphql';
 import { nonNullish } from '../utils/filter';
-import { tagManagerPush } from '../utils/matomo';
 import { sendDiscordContactSubmission, sendDiscordReportSubmission } from './discord';
+import posthog from 'posthog-js';
 
 export type FormId =
 	| 'logs'
@@ -30,10 +30,8 @@ export const submitForm = async (formId: FormId, data: Record<string, any>, labe
 			}
 		);
 
-		tagManagerPush({
-			event: 'formSubmission',
-			formId,
-			formData: data,
+		posthog.capture('Submit Form', {
+			id: formId,
 		});
 
 		// send notification to discord

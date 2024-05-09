@@ -1,6 +1,6 @@
 import { Component, ErrorInfo, PropsWithChildren } from 'react';
 import { Logger } from '../../utils/logger';
-import { tagManagerPush } from '../../utils/matomo';
+import posthog from 'posthog-js';
 
 export interface ErrorBoundaryProps extends PropsWithChildren {
 	route?: string;
@@ -35,8 +35,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 			route: this.props.route,
 		});
 
-		tagManagerPush({
-			event: 'errorBoundaryCaught',
+		posthog.capture('Error', {
 			error: error.message,
 			errorStack: errorInfo.componentStack || '',
 			route: this.props.route,

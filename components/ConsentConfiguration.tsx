@@ -4,12 +4,12 @@ import { FC } from 'react';
 import { Controller, FormState, useForm } from 'react-hook-form';
 import { useTranslation } from '../hooks/useTranslation';
 import { CookieConsents, CookieValues } from '../utils/cookies';
-import { tagManagerPush } from '../utils/matomo';
 import { StaticRoutes } from '../utils/routes';
 import { keys } from '../utils/structs';
 import { Button } from './Button';
 import { Checkbox } from './Checkbox';
 import { Link } from './Link';
+import posthog from 'posthog-js';
 
 export type ConsentConfigurationForm = Record<CookieConsents, boolean>;
 
@@ -77,10 +77,9 @@ export const ConsentConfiguration: FC<ConsentConfigurationProps> = ({ handleCons
 			sameSite: 'strict',
 		});
 
-		tagManagerPush({
-			event: 'consented',
-			hasConsented: true,
-			mode: 'custom',
+		posthog.capture('Consented', {
+			mode: 'selection',
+			values,
 		});
 
 		handleConsented(getValues(), formState);

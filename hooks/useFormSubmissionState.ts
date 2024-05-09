@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { FormId, submitForm } from '../api/forms';
-import { tagManagerPush } from '../utils/matomo';
 
 export const useFormSubmissionState = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,9 +16,6 @@ export const useFormSubmissionState = () => {
 		setIsSubmitting(true);
 		try {
 			await submitForm(formId, data, label);
-			tagManagerPush({
-				event: 'mtm.SubmitForm',
-			});
 			setIsSubmitted(true);
 		} catch (error) {
 			setError(error as Error);
