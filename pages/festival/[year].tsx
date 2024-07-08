@@ -10,7 +10,6 @@ import {
 import { ErrorBoundary } from '../../components/utils/ErrorBoundary';
 import { getUpcomingEvents } from '../../api/events';
 import { ContentConstraint } from '../../components/ContentConstraint';
-// import { useTranslation } from '../../hooks/useTranslation';
 import { Heading } from '../../components/Heading';
 import { Breadcrumb } from '../../components/Breadcrumb';
 import { BreadcrumbItem } from '../../components/BreadcrumbItem';
@@ -27,6 +26,7 @@ import { formatDate, formatDateRange, parseCockpitDate } from '../../utils/date'
 import { ButtonGroup } from '../../components/ButtonGroup';
 import { TicketIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { JsonLd } from '../../components/utils/JsonLd';
+import { useTranslation } from '../../hooks/useTranslation';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const year = params && params.year ? `${params.year}` : undefined;
@@ -106,7 +106,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 	allFestivalYears,
 }) => {
 	const router = useRouter();
-	// const translate = useTranslation(contentProviderProps.translations);
+	const translate = useTranslation(contentProviderProps.translations);
 
 	return (
 		<ErrorBoundary route={router.asPath}>
@@ -248,7 +248,7 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 										key={sponsor.title}
 										image={sponsor.logo?.path!}
 										name={sponsor.title}
-										role={sponsor.type === PartnerType.Mainsponsor ? 'Hauptsponsor' : 'Sponsor'}
+										role={translate(`partner.type.${sponsor.type}`)}
 										href={sponsor.homepage}
 										imageBackgroundColor={sponsor.backgroundFillColor || undefined}
 										starred={sponsor.type === PartnerType.Mainsponsor}
