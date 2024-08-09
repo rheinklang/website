@@ -129,32 +129,34 @@ const HomePage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = 
 							</ButtonGroup>
 						</ContentConstraint>
 					</div>
-					<div className="bg-sea-green-400 md:py-16">
-						<ContentConstraint>
-							<div
-								className={classNames([
-									`grid grid-cols-1 gap-12 md:gap-16`,
-									// workaround for tailwinds' CSS purging with dynamic class names
-									{
-										'lg:grid-cols-3': nextEvents.length >= 3,
-										'lg:grid-cols-2': nextEvents.length === 2,
-									},
-								])}
-							>
-								{nextEvents.map((event) => (
-									<EventExcerpt
-										key={event.slug}
-										date={event.date}
-										category={event.type || 'unknown'}
-										location={event.location}
-										description={event.excerpt}
-										slug={event.slug}
-										title={event.title}
-									/>
-								))}
-							</div>
-						</ContentConstraint>
-					</div>
+					{nextEvents.length > 0 && (
+						<div className="bg-sea-green-400 md:py-16">
+							<ContentConstraint>
+								<div
+									className={classNames([
+										`grid grid-cols-1 gap-12 md:gap-16`,
+										// workaround for tailwinds' CSS purging with dynamic class names
+										{
+											'lg:grid-cols-3': nextEvents.length >= 3,
+											'lg:grid-cols-2': nextEvents.length === 2,
+										},
+									])}
+								>
+									{nextEvents.map((event) => (
+										<EventExcerpt
+											key={event.slug}
+											date={event.date}
+											category={event.type || 'unknown'}
+											location={event.location}
+											description={event.excerpt}
+											slug={event.slug}
+											title={event.title}
+										/>
+									))}
+								</div>
+							</ContentConstraint>
+						</div>
+					)}
 				</PageLayout>
 			</ContentProvider>
 		</ErrorBoundary>

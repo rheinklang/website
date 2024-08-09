@@ -17,5 +17,6 @@ module.exports = {
 		'/private/registration-form/*',
 		// transition to new festival page
 		'/events/category/festival',
+		'/events/detail/rheinklang-festival-2023',
 	],
 };
