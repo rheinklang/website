@@ -315,6 +315,7 @@ type Festival implements CockpitField {
 	text: String!
 	date: String!
 	timetable: Timetable
+	timetableDay2: Timetable
 	endDate: String
 	location: Location
 	ticketingUrl: String
