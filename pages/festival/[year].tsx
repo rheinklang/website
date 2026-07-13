@@ -107,9 +107,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const LineupList: FC<{ entries: LineupEntry[] }> = ({ entries }) => (
-	<ol data-nosnippet className="flex flex-col flex-wrap gap-6">
+	<ol data-nosnippet className="flex flex-col flex-wrap gap-3">
 		{entries.map((entry) => (
-			<li key={entry.playtime} className="flex flex-row gap-4 align-center items-center">
+			<li key={entry.playtime} className="flex flex-row gap-2 align-center items-center">
 				<p className="grow-0 w-[80px] md:w-[120px]">{entry.playtime}</p>
 				<Heading level="4" className="text-lg flex-grow">
 					{entry.artist}{' '}
@@ -226,29 +226,26 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							{/* Timetable */}
 							{(lineup.length > 0 || lineupDay2.length > 0) && (
 								<div className="mb-10" data-nosnippet>
-									<Heading level="2">Lineup</Heading>
-									{lineupDay2.length > 0 ? (
+									<Heading level="2" className="mb-8">
+										Timetable
+									</Heading>
+									{lineup.length > 0 && lineupDay2.length > 0 ? (
 										<>
-											{lineup.length > 0 && (
-												<section className="mb-10">
-													<Heading level="3" className="mb-6">
-														{festival.timetable?.title || 'Tag 1'}
-													</Heading>
-													<LineupList entries={lineup} />
-												</section>
-											)}
+											<section className="mb-10">
+												<Heading level="3" visualLevel="4" className="mb-6">
+													Freitag
+												</Heading>
+												<LineupList entries={lineup} />
+											</section>
 											<section>
-												<Heading level="3" className="mb-6">
-													{festival.timetableDay2?.title || 'Tag 2'}
+												<Heading level="3" visualLevel="4" className="mb-6">
+													Samstag
 												</Heading>
 												<LineupList entries={lineupDay2} />
 											</section>
 										</>
 									) : (
-										<>
-											<p className="mb-6">Running Order</p>
-											<LineupList entries={lineup} />
-										</>
+										<LineupList entries={lineup} />
 									)}
 								</div>
 							)}
