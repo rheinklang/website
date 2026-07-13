@@ -48,6 +48,14 @@ query FestivalDetailQuery($filter: JsonType, $sort: JsonType) {
 				value
 			}
 		}
+		timetableDay2 {
+			title
+			description
+			slug_slug
+			slots {
+				value
+			}
+		}
 		sponsors {
 			title
 			type

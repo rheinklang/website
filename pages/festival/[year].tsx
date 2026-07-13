@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { NextPage, GetStaticPaths, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { PartnerType } from '../../graphql';
@@ -28,19 +29,26 @@ import { TicketIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { JsonLd } from '../../components/utils/JsonLd';
 import { useTranslation } from '../../hooks/useTranslation';
 
+interface LineupEntry {
+	artist: string;
+	labels: string;
+	playtime: string;
+}
+
+type FestivalDetail = Awaited<ReturnType<typeof getFestivalByYear>>;
+
+const getLineup = (timetable: FestivalDetail['timetable']): LineupEntry[] =>
+	(timetable?.slots?.map((slot) => slot?.value) as LineupEntry[]) || [];
+
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 	const year = params && params.year ? `${params.year}` : undefined;
 
 	// data aggregation
 	const allFestivalYears = await getFestivalYears();
 	const festival = await getFestivalByYear(year!);
-	const lineup =
-		(festival.timetable?.slots?.map((slot) => slot?.value) as Array<{
-			artist: string;
-			labels: string;
-			playtime: string;
-		}>) || [];
-	const artistsSeoString = lineup
+	const lineup = getLineup(festival.timetable);
+	const lineupDay2 = getLineup(festival.timetableDay2);
+	const artistsSeoString = [...lineup, ...lineupDay2]
 		.map((entry) => `${entry.artist} ${entry.labels ? `(${entry.labels})` : ''}`)
 		.join(', ');
 
@@ -74,6 +82,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 		props: {
 			year,
 			lineup,
+			lineupDay2,
 			sponsors,
 			// events,
 			// pastEvents,
@@ -97,11 +106,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	};
 };
 
+const LineupList: FC<{ entries: LineupEntry[] }> = ({ entries }) => (
+	<ol data-nosnippet className="flex flex-col flex-wrap gap-6">
+		{entries.map((entry) => (
+			<li key={entry.playtime} className="flex flex-row gap-4 align-center items-center">
+				<p className="grow-0 w-[80px] md:w-[120px]">{entry.playtime}</p>
+				<Heading level="4" className="text-lg flex-grow">
+					{entry.artist}{' '}
+					{entry.labels && <small className="font-normal block md:inline">({entry.labels})</small>}
+				</Heading>
+			</li>
+		))}
+	</ol>
+);
+
+LineupList.displayName = 'LineupList';
+
 const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
 	contentProviderProps,
 	year,
 	festival,
 	lineup,
+	lineupDay2,
 	sponsors,
 	allFestivalYears,
 }) => {
@@ -198,28 +224,32 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 							)}
 
 							{/* Timetable */}
-							{lineup && lineup.length > 0 && (
+							{(lineup.length > 0 || lineupDay2.length > 0) && (
 								<div className="mb-10" data-nosnippet>
 									<Heading level="2">Lineup</Heading>
-									<p className="mb-6">Running Order</p>
-									<ol data-nosnippet className="flex flex-col flex-wrap gap-6">
-										{lineup.map((entry) => (
-											<li
-												key={entry.playtime}
-												className="flex flex-row gap-4 align-center items-center"
-											>
-												<p className="grow-0 w-[80px] md:w-[120px]">{entry.playtime}</p>
-												<Heading level="4" className="text-lg flex-grow">
-													{entry.artist}{' '}
-													{entry.labels && (
-														<small className="font-normal block md:inline">
-															({entry.labels})
-														</small>
-													)}
+									{lineupDay2.length > 0 ? (
+										<>
+											{lineup.length > 0 && (
+												<section className="mb-10">
+													<Heading level="3" className="mb-6">
+														Tag 1 – {formatDate(festival.date)}
+													</Heading>
+													<LineupList entries={lineup} />
+												</section>
+											)}
+											<section>
+												<Heading level="3" className="mb-6">
+													Tag 2{festival.endDate && ` – ${formatDate(festival.endDate)}`}
 												</Heading>
-											</li>
-										))}
-									</ol>
+												<LineupList entries={lineupDay2} />
+											</section>
+										</>
+									) : (
+										<>
+											<p className="mb-6">Running Order</p>
+											<LineupList entries={lineup} />
+										</>
+									)}
 								</div>
 							)}
 
