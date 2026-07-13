@@ -232,14 +232,14 @@ const FestivalYearPage: NextPage<Awaited<ReturnType<typeof getStaticProps>>['pro
 											{lineup.length > 0 && (
 												<section className="mb-10">
 													<Heading level="3" className="mb-6">
-														Tag 1 – {formatDate(festival.date)}
+														{festival.timetable?.title || 'Tag 1'}
 													</Heading>
 													<LineupList entries={lineup} />
 												</section>
 											)}
 											<section>
 												<Heading level="3" className="mb-6">
-													Tag 2{festival.endDate && ` – ${formatDate(festival.endDate)}`}
+													{festival.timetableDay2?.title || 'Tag 2'}
 												</Heading>
 												<LineupList entries={lineupDay2} />
 											</section>
