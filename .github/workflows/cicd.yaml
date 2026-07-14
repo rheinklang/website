@@ -18,16 +18,16 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           show-progress: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: "npm"
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.npm
@@ -63,14 +63,14 @@ jobs:
           NEXT_PUBLIC_GITHUB_REF: ${{ github.ref }}
           NEXT_PUBLIC_GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: build-output
           path: build/
 
       - name: Report issue to Discord
         if: failure()
-        uses: Ilshidur/action-discord@0.3.2
+        uses: Ilshidur/action-discord@0.4.0
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
           DISCORD_USERNAME: "GitHub Actions"
@@ -86,17 +86,17 @@ jobs:
     environment: Staging
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           show-progress: false
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: build-output
           path: build
 
       - name: Deploy Website
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
@@ -113,7 +113,7 @@ jobs:
 
       - name: Report issue to Discord
         if: failure() && github.ref == 'refs/heads/main'
-        uses: Ilshidur/action-discord@0.3.2
+        uses: Ilshidur/action-discord@0.4.0
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
           DISCORD_USERNAME: "GitHub Actions"
@@ -129,17 +129,17 @@ jobs:
     environment: Production
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           show-progress: false
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: build-output
           path: build
 
       - name: Deploy Website
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
@@ -155,60 +155,13 @@ jobs:
 
       - name: Report issue to Discord
         if: failure() && github.ref == 'refs/heads/main'
-        uses: Ilshidur/action-discord@0.3.2
+        uses: Ilshidur/action-discord@0.4.0
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_INTEGRATION_REPORTER_WEBHOOK_URL }}
           DISCORD_USERNAME: "GitHub Actions"
           DISCORD_EMBEDS: "{}"
         with:
           args: "Website deployment to **production** failed :rotating_light:"
-
-  #   deploy-styleguide:
-  #     name: Deploy - Styleguide
-  #     needs: [build]
-  #     environment: Styleguide
-  #     runs-on: ubuntu-latest
-
-  #     steps:
-  #       - uses: actions/checkout@v4
-
-  #       - uses: dorny/paths-filter@v2
-  #         id: changes
-  #         with:
-  #           filters: |
-  #             src:
-  #               - 'tailwind.config.js'
-  #               - 'postcss.config.js'
-  #               - 'package.json'
-
-  #       - uses: actions/setup-node@v3
-  #         if: steps.changes.outputs.src == 'true'
-  #         with:
-  #           node-version-file: .nvmrc
-  #           cache: "npm"
-
-  #       - run: npm install
-  #         if: steps.changes.outputs.src == 'true'
-
-  #       - run: npm run tailwind:export
-  #         if: steps.changes.outputs.src == 'true'
-
-  #       - name: Deploy Styleguide
-  #         if: steps.changes.outputs.src == 'true'
-  #         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-  #         continue-on-error: true
-  #         with:
-  #           server: ${{ secrets.FTP_SERVER }}
-  #           username: ${{ secrets.FTP_USER }}
-  #           password: ${{ secrets.FTP_PASSWORD }}
-  #           local-dir: ./styleguide/
-  #           server-dir: ${{ vars.SERVER_DIR }}
-  #           exclude: |
-  #             **/.DS_Store
-  #             **/.vscode
-  #             **/.git*
-  #             **/.git*/**
-  #             **/.github/**
 
   notify:
     name: Notify
