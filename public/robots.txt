@@ -5,5 +5,20 @@ Allow: /
 # Host
 Host: https://rheinklang.events
 
+# Insufficient content here
+Disallow: /services/livestream$
+Disallow: /services/settings$
+
+# Error pages
+Disallow: /403$
+Disallow: /404$
+Disallow: /500$
+
+# Private content
+Disallow: /private/
+
+# Transition to new festival page
+Disallow: /events/category/festival
+
 # Sitemaps
 Sitemap: https://rheinklang.events/sitemap.xml
