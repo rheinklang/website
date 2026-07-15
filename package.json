@@ -30,7 +30,7 @@
     "axios": "0.26.1",
     "classnames": "2.3.2",
     "date-fns": "2.29.3",
-    "dompurify": "3.0.2",
+    "dompurify": "3.4.11",
     "focus-trap": "7.4.0",
     "graphql": "16.6.0",
     "js-cookie": "3.0.5",
